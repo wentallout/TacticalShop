@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace TacticalShop.Backend.Models
 {
-    public class Brand
+    public class Category
     {
-        public int BrandId { get; set; }
-
-        public string BrandName { get; set; }
-
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public List<Product> Products { get; set; }
     }
 }
