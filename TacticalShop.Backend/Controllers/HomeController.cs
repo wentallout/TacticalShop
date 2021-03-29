@@ -11,6 +11,7 @@ using TacticalShop.Backend.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

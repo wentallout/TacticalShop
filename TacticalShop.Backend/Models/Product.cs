@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace TacticalShop.Backend.Models
 {
     public class Product
@@ -16,6 +17,12 @@ namespace TacticalShop.Backend.Models
         public string ProductDescription { get; set; }
 
         public string ProductImageName { get; set; }
+
+        public int ProductQuantity { get; set; }
+
+
+        
+
 
         public int BrandId { get; set; }
 
