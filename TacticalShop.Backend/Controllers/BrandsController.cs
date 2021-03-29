@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
+using TacticalShop.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TacticalShop.Backend.Controllers
 {
@@ -23,14 +23,17 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Brands
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrand()
         {
-            return await _context.Brands.ToListAsync();
+            return await _context.Brands
+                .Select(x => new BrandVm {BrandId = x.BrandId, BrandName = x.BrandName})
+                .ToListAsync();
         }
 
         // GET: api/Brands/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetBrand(int id)
+        [AllowAnonymous]
+        public async Task<ActionResult<BrandVm>> GetBrand(int id)
         {
             var brand = await _context.Brands.FindAsync(id);
 
@@ -39,20 +42,28 @@ namespace TacticalShop.Backend.Controllers
                 return NotFound();
             }
 
-            return brand;
-        }
+            var brandVm = new BrandVm
+            {
+                BrandId  = brand.BrandId,
+                BrandName = brand.BrandName
+            };
 
-        // PUT: api/Brands/5
+            return brandVm;
+        }
+    
+
+    // PUT: api/Brands/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> PutBrand(int id, BrandVm brandVm)
         {
-            if (id != brand.BrandId)
+            if (id != brandVm.BrandId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(brand).State = EntityState.Modified;
+            _context.Entry(brandVm).State = EntityState.Modified;
 
             try
             {
@@ -76,25 +87,32 @@ namespace TacticalShop.Backend.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {
+            var brand = new Brand
+            {
+                BrandName = brandCreateRequest.Name
+            };
+
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, brand);
+            return CreatedAtAction("GetBrand", new { BrandId = brand.BrandId }, new BrandVm { BrandId = brand.BrandId, BrandName  = brand.BrandName });
         }
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            var brand = await _context.Brands.FindAsync(id);
-            if (brand == null)
+            var brandVm = await _context.Brands.FindAsync(id);
+            if (brandVm == null)
             {
                 return NotFound();
             }
 
-            _context.Brands.Remove(brand);
+            _context.Brands.Remove(brandVm);
             await _context.SaveChangesAsync();
 
             return NoContent();
