@@ -55,7 +55,7 @@ namespace TacticalShop.Backend.Controllers
     // PUT: api/Brands/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> PutBrand(int id, BrandVm brandVm)
         {
             if (id != brandVm.BrandId)
@@ -87,12 +87,12 @@ namespace TacticalShop.Backend.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {
             var brand = new Brand
             {
-                BrandName = brandCreateRequest.Name
+                BrandName = brandCreateRequest.BrandName
             };
 
             _context.Brands.Add(brand);
@@ -103,7 +103,7 @@ namespace TacticalShop.Backend.Controllers
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brandVm = await _context.Brands.FindAsync(id);
