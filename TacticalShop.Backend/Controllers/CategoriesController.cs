@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
+using TacticalShop.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize("Bearer")]
     public class CategoriesController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -25,14 +23,17 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories
+                .Select(x => new CategoryVm {CategoryId = x.CategoryId, CategoryName = x.CategoryName})
+                .ToListAsync();
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        [AllowAnonymous]
+        public async Task<ActionResult<CategoryVm>> GetCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
 
@@ -41,20 +42,27 @@ namespace TacticalShop.Backend.Controllers
                 return NotFound();
             }
 
-            return category;
-        }
+            var categoryVm = new CategoryVm
+            {
+                CategoryId  = category.CategoryId,
+                CategoryName = category.CategoryName
+            };
 
-        // PUT: api/Categories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+            return categoryVm;
+        }
+    
+
+      
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> PutCategory(int id, CategoryVm categoryVm)
         {
-            if (id != category.CategoryId)
+            if (id != categoryVm.CategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(categoryVm).State = EntityState.Modified;
 
             try
             {
@@ -75,28 +83,34 @@ namespace TacticalShop.Backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        [Authorize(Roles = "ADMIN")]
+        public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
         {
+            var category = new Category
+            {
+                CategoryName = categoryCreateRequest.CategoryName
+            };
+
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
+            return CreatedAtAction("GetCategory", new { CategoryId = category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName  = category.CategoryName });
         }
 
-        // DELETE: api/Categories/5
+       
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var categoryVm = await _context.Categories.FindAsync(id);
+            if (categoryVm == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(category);
+            _context.Categories.Remove(categoryVm);
             await _context.SaveChangesAsync();
 
             return NoContent();
