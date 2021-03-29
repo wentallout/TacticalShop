@@ -14,5 +14,8 @@ namespace TacticalShop.Backend.Models
 
         [PersonalData]
         public string FullName { get; set; }
+
+        [PersonalData]
+        public string UserAddress { get; set; }
     }
 }
