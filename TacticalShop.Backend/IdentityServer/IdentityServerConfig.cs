@@ -16,7 +16,7 @@ namespace TacticalShop.Backend.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
              new ApiScope[]
              {
-                  new ApiScope("TacticalShop.api", "Tactical Shop API")
+                  new ApiScope("tacticalshop.api", "Tactical Shop API")
              };
 
         public static IEnumerable<Client> Clients =>
@@ -30,7 +30,7 @@ namespace TacticalShop.Backend.IdentityServer
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     // scopes that client has access to
-                    AllowedScopes = { "TacticalShop.api" }
+                    AllowedScopes = { "tacticalshop.api" }
                 },
 
                 // interactive ASP.NET Core MVC client
@@ -49,7 +49,7 @@ namespace TacticalShop.Backend.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "TacticalShop.api"
+                        "tacticalshop.api"
                     }
                 },
 
@@ -62,15 +62,15 @@ namespace TacticalShop.Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44341" },
+                    RedirectUris =           { $"https://localhost:44387/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"https://localhost:44387/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"https://localhost:44387" },
 
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "TacticalShop.api"
+                        "tacticalshop.api"
                     }
                 },
             };
