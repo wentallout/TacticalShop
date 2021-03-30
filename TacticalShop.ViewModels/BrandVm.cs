@@ -13,6 +13,7 @@ namespace TacticalShop.ViewModels
         public int BrandId { get; set; }
         
         [StringLength(30)]
+        [Required]
         public string BrandName { get; set; }
     }
 }

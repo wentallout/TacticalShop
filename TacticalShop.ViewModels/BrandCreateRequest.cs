@@ -11,6 +11,6 @@ namespace TacticalShop.ViewModels
     {
         [Required]
         [StringLength(30)]
-        public string Name { get; set; }
+        public string BrandName { get; set; }
     }
 }
