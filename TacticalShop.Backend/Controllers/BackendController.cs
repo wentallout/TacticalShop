@@ -12,16 +12,16 @@ using TacticalShop.Backend.ViewModels;
 namespace TacticalShop.Backend.Controllers
 {
 
-    public class HomeController : Controller
+    public class BackendController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<BackendController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public BackendController(ILogger<BackendController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult IndexBackend()
+        public IActionResult Index()
         {
             return View();
         }

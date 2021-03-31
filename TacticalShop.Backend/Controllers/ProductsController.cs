@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
+using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -25,66 +25,76 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Select(x => new ProductVm {ProductId = x.ProductId,BrandId=x.BrandId,CategoryId = x.CategoryId,ProductName=x.ProductName,ProductDescription=x.ProductDescription,ProductImage=x.ProductImage,ProductPrice=x.ProductPrice,ProductQuantity=x.ProductQuantity})
+                .ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        [AllowAnonymous]
+        public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-           
-           
+
             if (product == null)
             {
                 return NotFound();
             }
 
-            return product;
+            var productVm = new ProductVm
+            {
+                ProductId = product.ProductId,BrandId=product.BrandId,CategoryId = product.CategoryId,ProductName=product.ProductName,ProductDescription=product.ProductDescription,ProductImage=product.ProductImage,ProductPrice=product.ProductPrice,ProductQuantity=product.ProductQuantity
+            };
+
+            return productVm;
         }
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
-            if (id != product.ProductId)
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            product.ProductName = productCreateRequest.ProductName;
+            product.ProductImage = productCreateRequest.ProductImage;
+            product.ProductPrice = productCreateRequest.ProductPrice;
+            product.ProductDescription = productCreateRequest.ProductDescription;
+            product.ProductQuantity = productCreateRequest.ProductQuantity;
+            product.BrandId = productCreateRequest.BrandId;
+            product.CategoryId = productCreateRequest.CategoryId;
+         
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        // POST: api/Products
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+       
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        [Authorize(Roles = "ADMIN")]
+        public async Task<ActionResult<ProductVm>> PostProduct(ProductCreateRequest productCreateRequest)
         {
+            var product = new Product
+            {
+                ProductName = productCreateRequest.ProductName,
+                BrandId = productCreateRequest.BrandId,
+                CategoryId = productCreateRequest.CategoryId,
+
+            };
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return CreatedAtAction("GetProduct", new { ProductId = product.ProductId }, new ProductVm { ProductId  = product.ProductId, ProductName  = product.ProductName,BrandId=product.BrandId,CategoryId=product.CategoryId,ProductDescription=product.ProductDescription,ProductImage=product.ProductImage,ProductPrice=product.ProductPrice,ProductQuantity=product.ProductQuantity });
         }
 
         // DELETE: api/Products/5
