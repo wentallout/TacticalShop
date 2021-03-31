@@ -47,7 +47,15 @@ namespace TacticalShop.Backend.Controllers
 
             var productVm = new ProductVm
             {
-                ProductId = product.ProductId,BrandId=product.BrandId,CategoryId = product.CategoryId,ProductName=product.ProductName,ProductDescription=product.ProductDescription,ProductImage=product.ProductImage,ProductPrice=product.ProductPrice,ProductQuantity=product.ProductQuantity
+                ProductId = product.ProductId,
+                ProductName=product.ProductName,
+                ProductPrice=product.ProductPrice,
+                ProductDescription=product.ProductDescription,
+                ProductImage=product.ProductImage,
+                BrandId=product.BrandId,
+                CategoryId = product.CategoryId,
+                ProductQuantity=product.ProductQuantity
+
             };
 
             return productVm;
@@ -88,13 +96,36 @@ namespace TacticalShop.Backend.Controllers
                 ProductName = productCreateRequest.ProductName,
                 BrandId = productCreateRequest.BrandId,
                 CategoryId = productCreateRequest.CategoryId,
+                ProductImage = productCreateRequest.ProductImage,
+                ProductDescription = productCreateRequest.ProductDescription,
+                ProductQuantity = productCreateRequest.ProductQuantity,
+                ProductPrice = productCreateRequest.ProductPrice,
+                CreatedDate = productCreateRequest.CreatedDate,
+                UpdatedDate = productCreateRequest.UpdatedDate,
+
+
 
             };
 
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { ProductId = product.ProductId }, new ProductVm { ProductId  = product.ProductId, ProductName  = product.ProductName,BrandId=product.BrandId,CategoryId=product.CategoryId,ProductDescription=product.ProductDescription,ProductImage=product.ProductImage,ProductPrice=product.ProductPrice,ProductQuantity=product.ProductQuantity });
+            return CreatedAtAction("GetProduct",
+                new { ProductId = product.ProductId },
+                new ProductVm { ProductId  = product.ProductId,
+                    ProductName  = product.ProductName,
+                    ProductPrice=product.ProductPrice,
+                    ProductDescription=product.ProductDescription,
+                    ProductImage=product.ProductImage,
+                    BrandId=product.BrandId,
+                    CategoryId=product.CategoryId,
+                    ProductQuantity=product.ProductQuantity,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = product.UpdatedDate
+
+                    
+
+                });
         }
 
         // DELETE: api/Products/5
