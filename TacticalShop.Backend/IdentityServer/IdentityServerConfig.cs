@@ -62,9 +62,9 @@ namespace TacticalShop.Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44387/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44387/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44387" },
+                    RedirectUris =           { $"https://localhost:44341/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"https://localhost:44341/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"https://localhost:44341" },
 
                     AllowedScopes = new List<string>
                     {
