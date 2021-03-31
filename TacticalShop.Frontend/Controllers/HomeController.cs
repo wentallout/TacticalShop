@@ -6,27 +6,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TacticalShop.Frontend.Models;
+using TacticalShop.Frontend.Services;
 
 namespace TacticalShop.Frontend.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        // private readonly IProductClient _productClient;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBrandApiClient _brandClient;
+        public HomeController(ILogger<HomeController> logger,IBrandApiClient brandClient)
         {
             _logger = logger;
+            _brandClient = brandClient;
         }
 
-        public IActionResult Index()
+        
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var brands = await _brandClient.GetBrands();
+            return View(brands);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
