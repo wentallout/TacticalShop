@@ -16,6 +16,9 @@ namespace TacticalShop.Frontend.Controllers
             return SignOut(new AuthenticationProperties { RedirectUri = "/" }, "Cookies", "oidc");
         }
 
+       
+
+
         [Authorize]
         public ActionResult MyProfile()
         {
