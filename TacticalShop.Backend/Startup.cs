@@ -42,19 +42,19 @@ namespace TacticalShop.Backend
                 .AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-                options.EmitStaticAudienceClaim = true;
-            })
-               .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-               .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
-               .AddInMemoryClients(IdentityServerConfig.Clients)
-               .AddAspNetIdentity<User>()
-               .AddProfileService<CustomProfileService>()
-               .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                    options.EmitStaticAudienceClaim = true;
+                })
+                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddAspNetIdentity<User>()
+                .AddProfileService<CustomProfileService>()
+                .AddDeveloperSigningCredential(); 
 
             services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>
@@ -108,7 +108,7 @@ namespace TacticalShop.Backend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseMigrationsEndPoint();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -116,13 +116,19 @@ namespace TacticalShop.Backend
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
+
+            //before authen is cors, might work on it if free
+             // app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+
+          
+         
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -137,7 +143,7 @@ namespace TacticalShop.Backend
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=IndexBackend}/{id?}");
+                    pattern: "{controller=Backend}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
