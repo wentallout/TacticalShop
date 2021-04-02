@@ -15,7 +15,7 @@ namespace TacticalShop.ViewModels
 
         public string ProductDescription { get; set; }
 
-        public string ProductImage { get; set; }
+        public IFormFile ProductImage { get; set; }
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ProductQuantity { get; set; }
