@@ -24,12 +24,28 @@
                                 <li><a class="dropdown-item" href="#">Pound</a></li>
                             </ul>
                         </div>
-                        <div class="header-top-links">
-                            <a asp-controller="Account" asp-action="Login"> LOGIN</a>
-                        </div>
-                        <div class="header-top-links">
-                            <a asp-controller="Account" asp-action="Logout" > LOGOUT</a>
-                        </div>
+                        
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="header-top-links">
+                                    <a> Hello @User.Identity.Name </a>
+                                </div>
+                                <div class="header-top-links">
+                                    <a asp-controller="Account" asp-action="Logout"> LOGOUT</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="header-top-links">
+                                    <a asp-controller="Account" asp-action="Login"> LOGIN</a>
+                                </div>
+                                <div class="header-top-links">
+                                    <a href="https://localhost:44341/Identity/Account/Register"> REGISTER </a>
+                                </div>
+                            }
+
+                        }
                     </div>
                 </div>
 
