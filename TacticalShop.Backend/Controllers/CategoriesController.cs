@@ -23,6 +23,7 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Categories
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
             return await _context.Categories
