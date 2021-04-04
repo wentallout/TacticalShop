@@ -9,8 +9,7 @@ namespace TacticalShop.ViewModels
 {
     public class CategoryCreateRequest
     {
-        [Required]
-        [StringLength(30)]
+       
         public string CategoryName { get; set; }
     }
 }

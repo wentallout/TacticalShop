@@ -11,8 +11,7 @@ namespace TacticalShop.ViewModels
     {
         public int CategoryId { get; set; }
 
-        [Required]
-        [StringLength(30)]
+     
         public string CategoryName { get; set; }
     }
 }

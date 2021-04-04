@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 
             
             public IFormFile ProductImage { get; set; }
+            public string ProductImageName { get; set; }
             public int ProductQuantity { get; set; }
 
             public int CategoryId { get; set; }

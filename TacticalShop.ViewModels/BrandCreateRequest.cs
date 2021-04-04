@@ -9,8 +9,7 @@ namespace TacticalShop.ViewModels
 {
     public class BrandCreateRequest
     {
-        [Required]
-        [StringLength(30)]
+        
         public string BrandName { get; set; }
     }
 }
