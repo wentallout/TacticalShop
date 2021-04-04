@@ -6,13 +6,13 @@
 * Copyright (c) 2020 Animate.css
 */
 :root {
-	--animate-duration: 0.1s;
+	--animate-duration: 0;
 	--animate-delay: 0;
 	--animate-repeat: 0;
 }
 .animate__animated {
-	-webkit-animation-duration: 0.2s;
-	animation-duration: 1s;
+	-webkit-animation-duration: 0s;
+	animation-duration: 0.5s;
 	-webkit-animation-duration: var(--animate-duration);
 	animation-duration: var(--animate-duration);
 	-webkit-animation-fill-mode: both;

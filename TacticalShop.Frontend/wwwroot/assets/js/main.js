@@ -115,7 +115,7 @@
     var productCarousel = new Swiper('.product-carousel .swiper-container', {
 		loop: true,
 		slidesPerView: 3,
-		spaceBetween: 0,
+        spaceBetween: 0,
 		pagination: true,
 		navigation: true,
 		observer: true,
@@ -239,7 +239,7 @@
 		slidesPerView: 1,
 		spaceBetween: 0,
 		pagination: false,
-		navigation: true,
+        navigation: true,
 		observer: true,
 		observeParents: true,
 
