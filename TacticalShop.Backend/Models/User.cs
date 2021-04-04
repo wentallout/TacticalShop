@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace TacticalShop.Backend.Models
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
         public User() : base()
         {
@@ -12,10 +13,8 @@ namespace TacticalShop.Backend.Models
         {
         }
 
-        [PersonalData]
-        public string FullName { get; set; }
+        [PersonalData] [MaxLength(70)] public string FullName { get; set; }
 
-        [PersonalData]
-        public string UserAddress { get; set; }
+        [PersonalData] [MaxLength(100)] public string UserAddress { get; set; }
     }
 }

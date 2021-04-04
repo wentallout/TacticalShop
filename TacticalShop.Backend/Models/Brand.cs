@@ -10,9 +10,7 @@ namespace TacticalShop.Backend.Models
     {
         public int BrandId { get; set; }
 
-        [StringLength(30)]
-        public string BrandName { get; set; }
-
+        [MaxLength(30)] [Required] public string BrandName { get; set; }
         public List<Product> Products { get; set; }
     }
 }
