@@ -18,7 +18,7 @@ namespace TacticalShop.Backend.Models
         [Required(ErrorMessage = "Product Name is a required field.")]
         public string ProductName { get; set; }
 
-        [Column(TypeName = "decimal(9,0)")]
+        [Column(TypeName = "decimal(9,2)")]
         [Required(ErrorMessage = "Product Price is a required field.")]
         public decimal ProductPrice { get; set; }
 
@@ -30,7 +30,7 @@ namespace TacticalShop.Backend.Models
         [Column(TypeName = "varchar(50)")]
         public string ProductImageName { get; set; }
 
-        [MaxLength(20)]
+    
         [Column(TypeName = "varchar(20)")]
         public int ProductQuantity { get; set; }
 
