@@ -26,7 +26,7 @@ namespace TacticalShop.Frontend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
-       
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddTransient<IBrandApiClient, BrandApiClient>();
             services.AddTransient<IProductApiClient, ProductApiClient>();
             services.AddControllersWithViews();
@@ -70,6 +70,7 @@ namespace TacticalShop.Frontend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                 app.UseBrowserLink();
             }
             else
             {
