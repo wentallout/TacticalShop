@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using TacticalShop.ViewModels;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using TacticalShop.Frontend.Services;
 
 namespace TacticalShop.Frontend.Services
 {
@@ -18,10 +19,10 @@ namespace TacticalShop.Frontend.Services
 
         public async Task<IList<ProductVm>> GetProducts()
         {
-            var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44341/api/products");
+            var httpClient = _httpClientFactory.CreateClient("local");
+            var response = await httpClient.GetAsync("https://localhost:44341/api/products");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsAsync<IList<ProductVm>>();
+            return await response.Content.ReadFromJsonAsync<IList<ProductVm>>();
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
+﻿using TacticalShop.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.ViewModels;
 
 namespace TacticalShop.Frontend.Services
 {

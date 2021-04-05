@@ -26,8 +26,8 @@ namespace TacticalShop.Backend.Models
 
         [NotMapped] public IFormFile ProductImage { get; set; }
 
-        [MaxLength(50)]
-        [Column(TypeName = "varchar(50)")]
+        
+        [Column(TypeName = "varchar(300)")]
         public string ProductImageName { get; set; }
 
     

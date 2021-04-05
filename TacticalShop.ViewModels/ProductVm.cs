@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
     {
         public class ProductVm
         {
-            [Key]
+            
             public int ProductId { get; set; }
             public string ProductName { get; set; }
 
@@ -19,13 +19,17 @@ using Microsoft.AspNetCore.Http;
             public string ProductDescription { get; set; }
 
             
-            public IFormFile ProductImage { get; set; }
+          
             public string ProductImageName { get; set; }
             public int ProductQuantity { get; set; }
 
             public int CategoryId { get; set; }
 
-            public int BrandId { get; set; }
+            
+
+            public string CategoryName { get; set; }
+
+            public string BrandName { get; set; }
 
             public DateTime CreatedDate { get; set; }
 
