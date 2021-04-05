@@ -13,21 +13,21 @@ namespace TacticalShop.Frontend.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        // private readonly IProductClient _productClient;
-
-        private readonly IBrandApiClient _brandClient;
-        public HomeController(ILogger<HomeController> logger,IBrandApiClient brandClient)
+       
+        private readonly IProductApiClient _productApiClient;
+        public HomeController(ILogger<HomeController> logger,IProductApiClient productApiClient)
         {
             _logger = logger;
-            _brandClient = brandClient;
+            _productApiClient = productApiClient;
+
         }
 
         
 
         public async Task<IActionResult> Index()
         {
-            var brands = await _brandClient.GetBrands();
-            return View(brands);
+            var products = await _productApiClient.GetProducts();
+            return View(products);
         }
 
         

@@ -122,6 +122,8 @@ namespace TacticalShop.Backend.Controllers
             product.ProductQuantity = productCreateRequest.ProductQuantity;
             product.BrandId = productCreateRequest.BrandId;
             product.CategoryId = productCreateRequest.CategoryId;
+            product.UpdatedDate = DateTime.UtcNow;
+
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -165,8 +167,6 @@ namespace TacticalShop.Backend.Controllers
             //        ProductImageName = product.ProductImageName,
             //        BrandName = product.Brand.BrandName,
             //        CategoryName = product.Category.CategoryName,
-
-
             //    });
             return CreatedAtAction(nameof(GetProduct), new { ProductId = product.ProductId }, null);
         }

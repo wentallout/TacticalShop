@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using TacticalShop.Backend.Services;
 
 namespace TacticalShop.Backend
 {
@@ -28,13 +28,13 @@ namespace TacticalShop.Backend
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddTransient<IStorageService, FileStorageService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -72,7 +72,7 @@ namespace TacticalShop.Backend
             });
 
             services.AddControllersWithViews();
-
+        
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tactical Shop API", Version = "v1" });
@@ -122,14 +122,14 @@ namespace TacticalShop.Backend
             app.UseRouting();
 
 
-            //before authen is cors, might work on it if free
-             // app.UseAuthentication();
+        
+            
             app.UseIdentityServer();
             app.UseAuthorization();
 
-          
-         
 
+
+         
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
