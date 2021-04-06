@@ -69,7 +69,7 @@ namespace TacticalShop.Backend.Controllers
             return productvm;
         }
 
-        // GET: api/Products/5
+        
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
