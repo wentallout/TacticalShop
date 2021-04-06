@@ -49,7 +49,11 @@
                                     <a asp-controller="Account" asp-action="Login"> LOGIN</a>
                                 </div>
                                 <div class="header-top-links">
-                                    <a href="@backendurl/Identity/Account/Register"> REGISTER </a>
+                                    @*<a href="@backendurl/Identity/Account/Register"> REGISTER </a>*@
+
+                                    @*<a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>*@
+
+                                    <a href="@(backendurl)Identity/Account/Register">REGISTER</a>
                                 </div>
                             }
 
