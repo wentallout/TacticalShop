@@ -19,31 +19,34 @@ namespace TacticalShop.Backend.IdentityServer
                   new ApiScope("tacticalshop.api", "Tactical Shop API")
              };
 
-        public static IEnumerable<Client> Clients =>
-            new List<Client>
+        public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls) =>
+            //new List<Client>
+            new []
             {
                 // machine to machine client
                 new Client
                 {
-                    ClientId = "client",
+                    ClientId = "ro.client",
+                    ClientName = "Resource Owner Client",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = { new Secret("secret".Sha256()) },
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    // scopes that client has access to
+                    
                     AllowedScopes = { "tacticalshop.api" }
                 },
 
-                // interactive ASP.NET Core MVC client
+             
                 new Client
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = false,
+                    RequirePkce = true,
+                    AllowOfflineAccess = true,
 
-                    RedirectUris = { "https://localhost:44367/signin-oidc" },
-
-                    PostLogoutRedirectUris = { "https://localhost:44367/signout-callback-oidc" },
+                    RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -62,9 +65,9 @@ namespace TacticalShop.Backend.IdentityServer
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"https://localhost:44341/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"https://localhost:44341" },
+                    RedirectUris =           { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"{clientUrls["Swagger"]}" },
 
                     AllowedScopes = new List<string>
                     {
