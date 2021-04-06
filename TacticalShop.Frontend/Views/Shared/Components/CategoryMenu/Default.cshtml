@@ -1,0 +1,12 @@
+﻿
+@model IList<TacticalShop.ViewModels.CategoryVm> 
+
+
+
+
+<ul class="mb-n2">
+    @foreach (var category in Model)
+    {
+        <li><a>@category.CategoryName</a></li>
+    }
+</ul>
