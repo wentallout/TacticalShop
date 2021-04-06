@@ -1,30 +1,16 @@
-﻿@model IList<TacticalShop.ViewModels.ProductVm>
+﻿@using Microsoft.Extensions.Configuration
+
+@model IList<TacticalShop.ViewModels.ProductVm>
 
 @{
     ViewData["Title"] = "Home Page";
+    var backendurl = Configuration.GetServiceUri("backend");
 }
 
 
 
-
+@inject IConfiguration Configuration
 @*data-aos-delay="\d\d\d"*@
-
-@* *@
-@* @foreach (var product in Model) *@
-@* { *@
-@*     <div> *@
-@*         <h2>@product.ProductName</h2> *@
-@*         <h2>@product.ProductImageName</h2> *@
-@* *@
-@*         <img src="#" alt="Alternate Text" /> *@
-@*         <h2>@product.ProductPrice</h2> *@
-@* *@
-@* *@
-@*     </div> *@
-@* } *@
-
-
-@*starts here*@
 
 <div class="section">
     <div class="hero-slider">
@@ -541,8 +527,8 @@
 
                                             <div class="thumb">
                                                 <a class="image">
-                                                    <img style="width:100px;height:100px" class="first-image" src="https://localhost:44341/@product.ProductImageName" alt="Product" />
-                                                    <img style="width:100px;height:100px" class="second-image" src="https://localhost:44341/@product.ProductImageName" alt="Product" />
+                                                    <img style="width:100px;height:100px" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                    <img style="width:100px;height:100px" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
                                                 </a>
                                             </div>
                                             <div class="content">
@@ -563,7 +549,7 @@
                                     }
                                 }
 
-
+                                
                             </div>
                             <!-- Product List Wrapper End -->
 
