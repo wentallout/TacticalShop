@@ -1,4 +1,12 @@
-﻿<div class="header section">
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{
+    var backendurl = Configuration.GetServiceUri("backend");
+
+}
+
+<div class="header section">
 
     <!-- Header Top Start -->
     <div class="header-top bg-light">
@@ -13,7 +21,7 @@
                             <ul class="dropdown-menu dropdown-menu-right animate slideIndropdown">
                                 <li><a class="dropdown-item" href="#">Vietnamse</a></li>
                                 <li><a class="dropdown-item" href="#">Japanese</a></li>
-                                
+
                             </ul>
                         </div>
                         <div class="header-top-curr dropdown">
@@ -24,7 +32,7 @@
                                 <li><a class="dropdown-item" href="#">VND</a></li>
                             </ul>
                         </div>
-                        
+
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
@@ -41,7 +49,7 @@
                                     <a asp-controller="Account" asp-action="Login"> LOGIN</a>
                                 </div>
                                 <div class="header-top-links">
-                                    <a href="https://localhost:44341/Identity/Account/Register"> REGISTER </a>
+                                    <a href="@backendurl/Identity/Account/Register"> REGISTER </a>
                                 </div>
                             }
 
@@ -50,7 +58,6 @@
                 </div>
 
                 <!-- Header Top Language, Currency & Link End -->
-
                 <!-- Header Top Message Start -->
                 <div class="col">
                     <p class="header-top-message">Happy April Fools: ALL products are half price. <a href="shop-grid.html">Shop Now</a></p>
@@ -103,10 +110,10 @@
                                         <li class="col">
                                             <h4 class="mega-menu-title">BRANDS</h4>
                                             <ul class="mb-n2">
-                                                <li><a >5.11 Tactical</a></li>
-                                                <li><a >Direct Action</a></li>
-                                                <li><a >Helikon-Tex</a></li>
-                                                <li><a >Maxpedition</a></li>
+                                                <li><a>5.11 Tactical</a></li>
+                                                <li><a>Direct Action</a></li>
+                                                <li><a>Helikon-Tex</a></li>
+                                                <li><a>Maxpedition</a></li>
                                             </ul>
                                         </li>
                                         @* <li class="col"> *@
@@ -123,12 +130,12 @@
                                         <li class="col">
                                             <h4 class="mega-menu-title">Other Pages</h4>
                                             <ul class="mb-n2">
-                                                <li><a >My Account</a></li>
+                                                <li><a>My Account</a></li>
                                                 <li><a>Loging | Register</a></li>
-                                                <li><a >Wishlist</a></li>
-                                                <li><a >Cart</a></li>
-                                                <li><a >Checkout</a></li>
-                                                <li><a >Compare</a></li>
+                                                <li><a>Wishlist</a></li>
+                                                <li><a>Cart</a></li>
+                                                <li><a>Checkout</a></li>
+                                                <li><a>Compare</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -239,7 +246,6 @@
                     <li><i class="fa fa-clock-o"></i> <span>Monday - Friday 9.00 - 18.00</span> </li>
                 </ul>
                 <!-- Contact Links End -->
-
                 <!-- Social Widget Start -->
                 <div class="widget-social">
                     <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>

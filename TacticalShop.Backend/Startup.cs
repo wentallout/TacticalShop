@@ -1,8 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +11,6 @@ using Microsoft.OpenApi.Models;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.IdentityServer;
 using TacticalShop.Backend.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TacticalShop.Backend.Services;
 
 namespace TacticalShop.Backend
@@ -31,6 +27,14 @@ namespace TacticalShop.Backend
        
         public void ConfigureServices(IServiceCollection services)
         {
+            var clientUrls = new Dictionary<string, string>
+            {
+                ["Mvc"] = Configuration["ClientUrl:Mvc"],       
+                ["Swagger"] = Configuration["ClientUrl:Swagger"],            
+                //["React"] = Configuration["ClientUrl:React"]
+            };
+
+
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -51,7 +55,8 @@ namespace TacticalShop.Backend
                 })
                 .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
                 .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
-                .AddInMemoryClients(IdentityServerConfig.Clients)
+                //.AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
                 .AddAspNetIdentity<User>()
                 .AddProfileService<CustomProfileService>()
                 .AddDeveloperSigningCredential(); 
@@ -72,6 +77,7 @@ namespace TacticalShop.Backend
             });
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
         
             services.AddSwaggerGen(c =>
             {
@@ -99,6 +105,7 @@ namespace TacticalShop.Backend
                         new List<string>{ "tacticalshop.api" }
                     }
                 });
+                services.AddDatabaseDeveloperPageExceptionFilter();
             });
         }
 
@@ -113,24 +120,23 @@ namespace TacticalShop.Backend
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
+            app.UseSwagger();
 
-
-        
-            
             app.UseIdentityServer();
             app.UseAuthorization();
 
 
 
          
-            app.UseSwagger();
+            
             app.UseSwaggerUI(c =>
             {
                 c.OAuthClientId("swagger");

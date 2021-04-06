@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
-
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,15 +27,7 @@ namespace TacticalShop.Frontend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
-        
-            services.AddTransient<IProductApiClient, ProductApiClient>();
-            
-          
-            services.AddControllersWithViews();
-
-
-            services.AddAuthentication(options =>
+             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
@@ -45,7 +35,9 @@ namespace TacticalShop.Frontend
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://localhost:44341";
+                   
+
+                    options.Authority = Configuration.GetServiceUri("backend").ToString();
                     
                     options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -66,12 +58,34 @@ namespace TacticalShop.Frontend
                         RoleClaimType = "role"
                     };
                 });
-
-           
-
             
+            var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
+            {
+                var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+                var accessToken = await httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+
+                client.BaseAddress = Configuration.GetServiceUri("backend");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            });
+
+            //services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
+            //services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
+            //services.AddTransient<IProductApiClient, ProductApiClient>();
+            
+          
+            services.AddControllersWithViews();
+
+
            
-            //services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
+
+           
+
+           
+            
+            
+            
 
             
         }
