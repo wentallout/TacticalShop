@@ -71,6 +71,8 @@ namespace TacticalShop.Frontend
             //services.AddRazorPages().AddRazorRuntimeCompilation();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
+
+            services.AddHttpClient<ICategoryApiClient,CategoryApiClient>(configureClient);
             //services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
             //services.AddTransient<IProductApiClient, ProductApiClient>();
             
