@@ -1,28 +1,27 @@
-﻿using Microsoft.AspNetCore.Http;
-using TacticalShop.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using TacticalShop.Frontend.Services;
+using TacticalShop.ViewModels;
+
 
 namespace TacticalShop.Frontend.Services
 {
     public class ProductApiClient : IProductApiClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _client;
 
-        public ProductApiClient(IHttpClientFactory httpClientFactory)
+        public ProductApiClient(HttpClient client)
         {
-            _httpClientFactory = httpClientFactory;
+            _client = client;
         }
 
         public async Task<IList<ProductVm>> GetProducts()
         {
-            var httpClient = _httpClientFactory.CreateClient("local");
-            var response = await httpClient.GetAsync("https://localhost:44341/api/products");
+            var response = await _client.GetAsync("api/products");
+
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<IList<ProductVm>>();
+
+            return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
     }
 }
