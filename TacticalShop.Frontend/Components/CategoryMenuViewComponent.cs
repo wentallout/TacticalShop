@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Threading.Tasks;
 using TacticalShop.Frontend.Services;
 namespace TacticalShop.Frontend.Components
 {
-    public class CategoryMenuViewComponent:ViewComponent
+    public class CategoryMenuViewComponent : ViewComponent
     {
         private readonly ICategoryApiClient _categoryApiClient;
         public CategoryMenuViewComponent(ICategoryApiClient categoryApiClient)
