@@ -23,5 +23,14 @@ namespace TacticalShop.Frontend.Services
 
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
+
+        public async Task<ProductVm> GetProduct(int id)
+        {
+            var response = await _client.GetAsync("api/products/" + id.ToString());
+
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsAsync<ProductVm>();
+        }
     }
 }
