@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
-using TacticalShop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Data;
+using TacticalShop.Backend.Models;
+using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
 {
@@ -26,7 +26,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrand()
         {
             return await _context.Brands
-                .Select(x => new BrandVm {BrandId = x.BrandId, BrandName = x.BrandName})
+                .Select(x => new BrandVm { BrandId = x.BrandId, BrandName = x.BrandName })
                 .ToListAsync();
         }
 
@@ -44,18 +44,18 @@ namespace TacticalShop.Backend.Controllers
 
             var brandVm = new BrandVm
             {
-                BrandId  = brand.BrandId,
+                BrandId = brand.BrandId,
                 BrandName = brand.BrandName
             };
 
             return brandVm;
         }
-    
 
-    // PUT: api/Brands/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+        // PUT: api/Brands/5
+
         [HttpPut("{id}")]
-        [Authorize(Roles = "ADMIN")]
+
         public async Task<IActionResult> PutBrand(int id, BrandVm brandVm)
         {
             if (id != brandVm.BrandId)
@@ -87,7 +87,7 @@ namespace TacticalShop.Backend.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+
         public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {
             var brand = new Brand
@@ -98,12 +98,12 @@ namespace TacticalShop.Backend.Controllers
             _context.Brands.Add(brand);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBrand", new { BrandId = brand.BrandId }, new BrandVm { BrandId = brand.BrandId, BrandName  = brand.BrandName });
+            return CreatedAtAction("GetBrand", new { BrandId = brand.BrandId }, new BrandVm { BrandId = brand.BrandId, BrandName = brand.BrandName });
         }
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "ADMIN")]
+
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brandVm = await _context.Brands.FindAsync(id);

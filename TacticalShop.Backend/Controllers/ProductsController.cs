@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
@@ -18,7 +18,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize("Bearer")]
+
     public class ProductsController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -35,25 +35,30 @@ namespace TacticalShop.Backend.Controllers
         // GET: api/Products
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProduct()
+        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts()
         {
             var product = await _context.Products.Select(x => new
-                {
-                    x.ProductName,
-                    x.ProductPrice,
-                    x.ProductDescription,
-                    x.ProductQuantity,
-                    x.CreatedDate,
-                    x.UpdatedDate,
-                    x.Brand.BrandName,
-                    x.Category.CategoryName,
-                    x.ProductImageName,
-                })
+            {
+                x.ProductId,
+                x.CategoryId,
+                x.BrandId,
+                x.ProductName,
+                x.ProductPrice,
+                x.ProductDescription,
+                x.ProductQuantity,
+                x.CreatedDate,
+                x.UpdatedDate,
+                x.Brand.BrandName,
+                x.Category.CategoryName,
+                x.ProductImageName,
+            })
                 .ToListAsync();
 
-            var productvm = product.Select(x => new ProductVm
+            var productVm = product.Select(x => new ProductVm
             {
-
+                ProductId = x.ProductId,
+                CategoryId = x.CategoryId,
+                BrandId = x.BrandId,
                 ProductName = x.ProductName,
                 ProductPrice = x.ProductPrice,
                 ProductDescription = x.ProductDescription,
@@ -66,15 +71,15 @@ namespace TacticalShop.Backend.Controllers
 
             }).ToList();
 
-            return productvm;
+            return productVm;
         }
 
-        
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId.Equals(id));
 
             if (product == null)
             {
@@ -97,14 +102,14 @@ namespace TacticalShop.Backend.Controllers
             };
 
             productVm.ProductImageName = _storageService.GetFileUrl(product.ProductImageName);
-           
+
 
             return productVm;
         }
 
-        
+
         [HttpPut("{id}")]
-        [Authorize(Roles = "ADMIN")]
+
         public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
             var product = await _context.Products.FindAsync(id);
@@ -115,7 +120,7 @@ namespace TacticalShop.Backend.Controllers
             }
 
             product.ProductName = productCreateRequest.ProductName;
-           
+
             product.ProductImageName = product.ProductImageName;
             product.ProductPrice = productCreateRequest.ProductPrice;
             product.ProductDescription = productCreateRequest.ProductDescription;
@@ -130,22 +135,22 @@ namespace TacticalShop.Backend.Controllers
 
 
         [HttpPost]
-        //[Authorize(Roles = "ADMIN")]
-        public async Task<IActionResult> PostProduct([FromForm]ProductCreateRequest productCreateRequest)
+
+        public async Task<IActionResult> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
         {
             var product = new Product
             {
-                ProductName = productCreateRequest.ProductName,                         
+                ProductName = productCreateRequest.ProductName,
                 ProductDescription = productCreateRequest.ProductDescription,
                 ProductQuantity = productCreateRequest.ProductQuantity,
                 ProductPrice = productCreateRequest.ProductPrice,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
-                BrandId=productCreateRequest.BrandId,
-                CategoryId=productCreateRequest.CategoryId,
+                BrandId = productCreateRequest.BrandId,
+                CategoryId = productCreateRequest.CategoryId,
             };
 
-            if(productCreateRequest.ProductImage != null)
+            if (productCreateRequest.ProductImage != null)
             {
                 product.ProductImageName = await SaveFile(productCreateRequest.ProductImage);
             }
@@ -173,7 +178,7 @@ namespace TacticalShop.Backend.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "ADMIN")]
+
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -200,5 +205,68 @@ namespace TacticalShop.Backend.Controllers
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
         }
+
+
+
+
+        [HttpGet("{categoryId?}/{brandId?}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryId = null, int? brandId = null)
+        {
+
+            var queryable = _context.Products.AsQueryable();
+
+            if (categoryId != null)
+            {
+                queryable = _context.Products.Where(x => x.CategoryId == categoryId);
+            }
+
+            if (brandId != null)
+            {
+                queryable = _context.Products.Where(x => x.BrandId == brandId);
+            }
+
+            var product = await queryable.Select(x => new
+            {
+                x.ProductId,
+                x.ProductName,
+                x.ProductPrice,
+                x.ProductDescription,
+                x.ProductQuantity,
+                x.CreatedDate,
+                x.UpdatedDate,
+                x.BrandId,
+                x.CategoryId,
+                x.ProductImageName,
+                x.Category.CategoryName,
+                x.Brand.BrandName
+            }).ToListAsync();
+
+            var productVm = product.Select(x =>
+
+                new ProductVm
+                {
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPrice = x.ProductPrice,
+                    ProductDescription = x.ProductDescription,
+                    ProductImageName = x.ProductImageName,
+                    ProductQuantity = x.ProductQuantity,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.CategoryName,
+                    BrandId = x.BrandId,
+                    BrandName = x.BrandName,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedDate = x.UpdatedDate
+                }).ToList();
+
+
+
+            return productVm;
+
+        }
+
+
+
     }
 }
