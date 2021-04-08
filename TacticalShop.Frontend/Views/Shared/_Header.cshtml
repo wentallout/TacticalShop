@@ -1,10 +1,7 @@
 ﻿@using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 
-@{
-    var backendurl = Configuration.GetServiceUri("backend");
-
-}
+@{ var backendurl = Configuration.GetServiceUri("backend"); }
 
 <div class="header section">
 
@@ -33,29 +30,24 @@
                             </ul>
                         </div>
 
-                        @{
-                            if (User.Identity.IsAuthenticated)
+                        @{ if (User.Identity.IsAuthenticated)
                             {
-                                <div class="header-top-links">
-                                    <a> Hello @User.Identity.Name </a>
-                                </div>
+                <div class="header-top-links">
+                    <a> Hello @User.Identity.Name </a>
+                </div>
                                 <div class="header-top-links">
                                     <a asp-controller="Account" asp-action="Logout"> LOGOUT</a>
-                                </div>
-                            }
+                                </div> }
                             else
                             {
+                <div class="header-top-links">
+                    <a asp-controller="Account" asp-action="Login"> LOGIN</a>
+                </div>
                                 <div class="header-top-links">
-                                    <a asp-controller="Account" asp-action="Login"> LOGIN</a>
-                                </div>
-                                <div class="header-top-links">
-                                  
+
 
                                     <a href="@(backendurl)Identity/Account/Register">REGISTER</a>
-                                </div>
-                            }
-
-                        }
+                                </div> } }
                     </div>
                 </div>
 
@@ -89,18 +81,18 @@
                             <ul>
                                 <li>
                                     <a asp-controller="Home" asp-action="Index"><span>Home</span> </a>
-                                 
+
                                 </li>
                                 <li class="has-children position-static">
-                                    <a href="#"><span>Product</span> <i class="fa fa-angle-down"></i></a>
+                                    <a asp-controller="Product" asp-action="Index"><span>Product</span> <i class="fa fa-angle-down"></i></a>
                                     <ul class="mega-menu row-cols-3">
                                         <li class="col">
                                             <h4 class="mega-menu-title">CATEGORIES</h4>
-                                      
+                                            <ul class="mb-n2">
 
-                                            <vc:category-menu is-done="false"></vc:category-menu>
+                                                <vc:category-menu is-done="false"></vc:category-menu>
+                                            </ul>
 
-                                           
                                         </li>
                                         <li class="col">
                                             <h4 class="mega-menu-title">BRANDS</h4>
@@ -126,7 +118,7 @@
                                             <h4 class="mega-menu-title">Other Pages</h4>
                                             <ul class="mb-n2">
                                                 <li><a>My Account</a></li>
-                                            
+
                                                 <li><a>Wishlist</a></li>
                                                 <li><a>Cart</a></li>
                                                 <li><a>Checkout</a></li>
@@ -144,17 +136,17 @@
                                         <li><a href="404-error.html">404 Error</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-children">
-                                    <a href="#"><span>Blog</span> <i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html"> <span>Contact</span></a></li>
+                                @*<li class="has-children">
+                                        <a href="#"><span>Blog</span> <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                            <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
+                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
+                                        </ul>
+                                    </li>*@
+                                <li><a asp-controller="Home" asp-action="Contact"> <span>Contact</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -274,8 +266,6 @@
         </div>
     </div>
     <!-- Offcanvas Search End -->
-
-
     <!-- Cart Offcanvas Start -->
     <div class="cart-offcanvas-wrapper">
         <div class="offcanvas-overlay"></div>
