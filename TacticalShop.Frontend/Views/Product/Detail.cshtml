@@ -17,7 +17,7 @@
                 <h1 class="title">@Model.ProductName</h1>
                 <ul>
                     <li>
-                        <a href="index.html">Home </a>
+                        <a asp-controller="Home" asp-action="Index">Home </a>
                     </li>
                     <li class="active"> Product Detail</li>
                 </ul>
@@ -41,49 +41,35 @@
                     <!-- Single Product Image Start -->
                     <div class="single-product-img swiper-container gallery-top">
                         <div class="swiper-wrapper popup-gallery">
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/1.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/1.jpg" alt="Product">
+                            <a class="swiper-slide w-100">
+                                <img style="width: 470px; height: 470px;object-fit: contain" class="w-100" src="@backendurl/@Model.ProductImageName" alt="Product">
                             </a>
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/2.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/2.jpg" alt="Product">
-                            </a>
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/3.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/3.jpg" alt="Product">
-                            </a>
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/4.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/4.jpg" alt="Product">
-                            </a>
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/5.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/5.jpg" alt="Product">
-                            </a>
-                            <a class="swiper-slide w-100" href="assets/images/products/large-size/6.jpg">
-                                <img class="w-100" src="assets/images/products/large-size/6.jpg" alt="Product">
-                            </a>
+
                         </div>
                     </div>
                     <!-- Single Product Image End -->
                     <!-- Single Product Thumb Start -->
                     <div class="single-product-thumb swiper-container gallery-thumbs">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/1.jpg" alt="Product">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/2.jpg" alt="Product">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/3.jpg" alt="Product">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/4.jpg" alt="Product">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/5.jpg" alt="Product">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="~/assets/images/products/small-product/6.jpg" alt="Product">
-                            </div>
-                        </div>
+                        @*<div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/1.jpg" alt="Product">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/2.jpg" alt="Product">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/3.jpg" alt="Product">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/4.jpg" alt="Product">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/5.jpg" alt="Product">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/assets/images/products/small-product/6.jpg" alt="Product">
+                                </div>
+                            </div>*@
 
                         <!-- Next Previous Button Start -->
                         <div class="swiper-button-horizental-next  swiper-button-next"><i class="pe-7s-angle-right"></i></div>
@@ -92,6 +78,7 @@
 
                     </div>
                     <!-- Single Product Thumb End -->
+
 
                 </div>
                 <!-- Product Details Image End -->
@@ -110,7 +97,7 @@
                     <!-- Price Box Start -->
                     <div class="price-box mb-2">
                         <span class="regular-price">$@Model.ProductPrice</span>
-                        <span class="old-price"><del>$90.00</del></span>
+                        @*<span class="old-price"><del>$90.00</del></span>*@
                     </div>
                     <!-- Price Box End -->
                     <!-- Rating Start -->
@@ -122,47 +109,13 @@
                     </span>
                     <!-- Rating End -->
                     <!-- SKU Start -->
-                    @* <div class="sku mb-3">
-                            <span>SKU: 12345</span>
-                        </div>*@
+                    <div class="sku mb-3">
+                        <span>PRODUCT ID: @Model.ProductId</span>
+                    </div>
                     <!-- SKU End -->
                     <!-- Description Start -->
-                    <p class="desc-content mb-5">@Model.ProductDescription</p>
+                    <p class="desc-content mb-5"> <strong>CATEGORY:</strong> @Model.CategoryName <br /> <strong>BRAND:</strong> @Model.BrandName</p>
                     <!-- Description End -->
-                    <!-- Product Meta Start -->
-                    @*<div class="product-meta mb-3">
-                            <!-- Product Size Start -->
-                            <div class="product-size">
-                                <span>Size :</span>
-                                <a href=""><strong>S</strong></a>
-                                <a href=""><strong>M</strong></a>
-                                <a href=""><strong>L</strong></a>
-                                <a href=""><strong>XL</strong></a>
-                            </div>
-                            <!-- Product Size End -->
-                        </div>*@
-                    <!-- Product Meta End -->
-                    <!-- Product Color Variation Start -->
-                    <div class="product-color-variation mb-3">
-                        <button type="button" class="btn bg-danger"></button>
-                        <button type="button" class="btn bg-primary"></button>
-                        <button type="button" class="btn bg-dark"></button>
-                        <button type="button" class="btn bg-success"></button>
-                    </div>
-                    <!-- Product Color Variation End -->
-                    <!-- Product Meta Start -->
-                    <div class="product-meta mb-5">
-                        <!-- Product Metarial Start -->
-                        <!--<div class="product-metarial">
-                            <span>Metarial :</span>
-                            <a href=""><strong>Metal</strong></a>
-                            <a href=""><strong>Resin</strong></a>
-                            <a href=""><strong>Lather</strong></a>
-                            <a href=""><strong>Polymer</strong></a>
-                        </div>-->
-                        <!-- Product Metarial End -->
-                    </div>
-                    <!-- Product Meta End -->
                     <!-- Quantity Start -->
                     <div class="quantity mb-5">
                         <div class="cart-plus-minus">
@@ -182,20 +135,11 @@
                         </div>
                     </div>
                     <!-- Cart & Wishlist Button End -->
-                    <!-- Social Shear Start -->
-                    <div class="social-share">
-                        <span>Share :</span>
-                        <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>
-                        <a href="#"><i class="fa fa-twitter-square twitter-color"></i></a>
-                        <a href="#"><i class="fa fa-linkedin-square linkedin-color"></i></a>
-                        <a href="#"><i class="fa fa-pinterest-square pinterest-color"></i></a>
-                    </div>
-                    <!-- Social Shear End -->
                     <!-- Product Delivery Policy Start -->
                     <ul class="product-delivery-policy border-top pt-4 mt-4 border-bottom pb-4">
-                        <li> <i class="fa fa-check-square"></i> <span>Security Policy (Edit With Customer Reassurance Module)</span></li>
-                        <li><i class="fa fa-truck"></i><span>Delivery Policy (Edit With Customer Reassurance Module)</span></li>
-                        <li><i class="fa fa-refresh"></i><span>Return Policy (Edit With Customer Reassurance Module)</span></li>
+                        <li> <i class="fa fa-check-square"></i> <span>Security Policy </span></li>
+                        <li><i class="fa fa-truck"></i><span>Delivery Policy </span></li>
+                        <li><i class="fa fa-refresh"></i><span>Return Policy</span></li>
                     </ul>
                     <!-- Product Delivery Policy End -->
 
@@ -218,9 +162,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" id="contact-tab" data-bs-toggle="tab" href="#connect-3" role="tab" aria-selected="false">Shipping Policy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" id="review-tab" data-bs-toggle="tab" href="#connect-4" role="tab" aria-selected="false">Size Chart</a>
-                    </li>
+
                 </ul>
                 <div class="tab-content mb-text" id="myTabContent">
                     <div class="tab-pane fade show active" id="connect-1" role="tabpanel" aria-labelledby="home-tab">
@@ -346,55 +288,55 @@
                         </div>
                         <!-- Shipping Policy End -->
                     </div>
-                    <div class="tab-pane fade" id="connect-4" role="tabpanel" aria-labelledby="review-tab">
-                        <div class="size-tab table-responsive-lg">
-                            <h4 class="title-3 mb-4">Size Chart</h4>
-                            <table class="table border mb-0">
-                                <tbody>
-                                    <tr>
-                                        <td class="cun-name"><span>UK</span></td>
-                                        <td>18</td>
-                                        <td>20</td>
-                                        <td>22</td>
-                                        <td>24</td>
-                                        <td>26</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>European</span></td>
-                                        <td>46</td>
-                                        <td>48</td>
-                                        <td>50</td>
-                                        <td>52</td>
-                                        <td>54</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>usa</span></td>
-                                        <td>14</td>
-                                        <td>16</td>
-                                        <td>18</td>
-                                        <td>20</td>
-                                        <td>22</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>Australia</span></td>
-                                        <td>28</td>
-                                        <td>10</td>
-                                        <td>12</td>
-                                        <td>14</td>
-                                        <td>16</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cun-name"><span>Canada</span></td>
-                                        <td>24</td>
-                                        <td>18</td>
-                                        <td>14</td>
-                                        <td>42</td>
-                                        <td>36</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @*<div class="tab-pane fade" id="connect-4" role="tabpanel" aria-labelledby="review-tab">
+                            <div class="size-tab table-responsive-lg">
+                                <h4 class="title-3 mb-4">Size Chart</h4>
+                                <table class="table border mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="cun-name"><span>UK</span></td>
+                                            <td>18</td>
+                                            <td>20</td>
+                                            <td>22</td>
+                                            <td>24</td>
+                                            <td>26</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cun-name"><span>European</span></td>
+                                            <td>46</td>
+                                            <td>48</td>
+                                            <td>50</td>
+                                            <td>52</td>
+                                            <td>54</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cun-name"><span>usa</span></td>
+                                            <td>14</td>
+                                            <td>16</td>
+                                            <td>18</td>
+                                            <td>20</td>
+                                            <td>22</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cun-name"><span>Australia</span></td>
+                                            <td>28</td>
+                                            <td>10</td>
+                                            <td>12</td>
+                                            <td>14</td>
+                                            <td>16</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cun-name"><span>Canada</span></td>
+                                            <td>24</td>
+                                            <td>18</td>
+                                            <td>14</td>
+                                            <td>42</td>
+                                            <td>36</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>*@
                 </div>
             </div>
             <!-- Single Product Tab End -->
