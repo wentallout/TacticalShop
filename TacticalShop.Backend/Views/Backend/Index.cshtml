@@ -1,20 +1,17 @@
 ﻿@using IdentityModel
-@{
-    ViewData["Title"] = "Home Page";
-}
+@{ ViewData["Title"] = "Home Page"; }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to TacticalShop BACKEND (owned by Khoa)</h1>
-    <p>Admin: please login to access Swagger API</p>
+
     <div class="m-5"></div>
-        
-    @{
-        if (User.Identity.IsAuthenticated)
-        {
-            <h2><a href="/swagger">Explore APIs</a></h2>
-            <h2><a href="/.well-known/openid-configuration">openid-configuration</a></h2>
-        }
-    }
-    
-   
+
+
+
+    <h2><a href="/swagger">Explore APIs</a></h2>
+    <h2><a href="/.well-known/openid-configuration">openid-configuration</a></h2>
+
+
+
+
 </div>

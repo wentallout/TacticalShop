@@ -1,0 +1,9 @@
+﻿@model IList<TacticalShop.ViewModels.BrandVm>
+
+
+
+
+
+@foreach (var brand in Model)
+{
+<li><a asp-controller="Product" asp-action="Index" asp-route-categoryid="@null" asp-route-brandid="@brand.BrandId">@brand.BrandName</a></li>}

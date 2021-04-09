@@ -9,5 +9,7 @@ namespace TacticalShop.Frontend.Services
         Task<IList<ProductVm>> GetProducts();
 
         Task<ProductVm> GetProduct(int id);
+
+        Task<IList<ProductVm>> GetFilteredProducts(int? categoryid, int? brandid);
     }
 }

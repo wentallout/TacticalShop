@@ -2,15 +2,13 @@
 
 @model IList<TacticalShop.ViewModels.ProductVm>
 
-@{
-    ViewData["Title"] = "Home Page";
-    var backendurl = Configuration.GetServiceUri("backend");
-}
+@{ ViewData["Title"] = "Home Page";
+    var backendurl = Configuration.GetServiceUri("backend"); }
 
 
 
 @inject IConfiguration Configuration
-@*data-aos-delay="\d\d\d"*@
+
 
 <div class="section">
     <div class="hero-slider">
@@ -27,11 +25,11 @@
                     <!-- Hero Slider Content Start -->
                     <div class="container">
                         <div class="hero-slide-content">
-                            <h2 style="color:white" class="title">
+                            <h2 style="color: white" class="title">
                                 RUSH BACKPACKS <br />
                                 Collection
                             </h2>
-                            <p style="color:white">Up to 70% off selected Product</p>
+                            <p style="color: white">Up to 70% off selected Product</p>
                             <a href="shop-grid.html" class="btn btn-lg btn-primary btn-hover-dark">Shop Now</a>
                         </div>
                     </div>
@@ -68,14 +66,18 @@
             <div class="swiper-pagination d-md-none"></div>
             <!-- Swiper Pagination End -->
             <!-- Swiper Navigation Start -->
-            <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
-            <div class="home-slider-next swiper-button-next main-slider-nav d-md-flex d-none"><i class="pe-7s-angle-right"></i></div>
+            <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none">
+                <i class="pe-7s-angle-left"></i>
+            </div>
+            <div class="home-slider-next swiper-button-next main-slider-nav d-md-flex d-none">
+                <i class="pe-7s-angle-right"></i>
+            </div>
             <!-- Swiper Navigation End -->
 
         </div>
     </div>
 </div>
-<!-- Hero/Intro Slider End -->
+
 <!-- Banner Section Start -->
 <div class="section section-margin">
     <div class="container">
@@ -86,12 +88,14 @@
             <div class="col-lg-4 col-md-6 col-12 mb-6">
                 <div class="banner" data-aos="fade-up">
                     <div class="banner-image">
-                        <a href=""><img src="assets/images/banner/banner-1.jpg" alt=""></a>
+                        <a href="">
+                            <img src="assets/images/banner/banner-1.jpg" alt="">
+                        </a>
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
-                            <h4 class="sub-title">Sun Hat</h4>
-                            <h3 class="title">Get Offer <br />For Summer</h3>
+                            <h4 class="sub-title">Stanley Bottles</h4>
+                            <h3 class="title">ALL 30% <br />OFF</h3>
                             <a href="shop-grid.html" class="btn btn-dark btn-sm">Shop Now</a>
                         </div>
                     </div>
@@ -102,11 +106,13 @@
             <div class="col-lg-4 col-md-6 col-12 mb-6">
                 <div class="banner" data-aos="fade-up">
                     <div class="banner-image">
-                        <a href=""><img src="assets/images/banner/banner-2.jpg" alt=""></a>
+                        <a href="">
+                            <img src="assets/images/banner/banner-2.jpg" alt="">
+                        </a>
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
-                            <h4 class="sub-title">Ladies Bag</h4>
+                            <h4 class="sub-title">Victorinox Knives</h4>
                             <h3 class="title">Buy One <br />Get One Free</h3>
                             <a href="shop-grid.html" class="btn btn-dark btn-sm">Shop Now</a>
                         </div>
@@ -118,12 +124,14 @@
             <div class="col-lg-4 col-md-6 col-12 mb-6">
                 <div class="banner" data-aos="fade-up">
                     <div class="banner-image">
-                        <a href=""><img src="assets/images/banner/banner-3.jpg" alt=""></a>
+                        <a href="">
+                            <img src="assets/images/banner/banner-3.jpg" alt="">
+                        </a>
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
-                            <h4 class="sub-title">Smart Watch</h4>
-                            <h3 class="title">20% Off <br />Smart Watch</h3>
+                            <h4 class="sub-title">5.11 Tactical Backpacks</h4>
+                            <h3 class="title">20% Off <br />RUSH SERIES</h3>
                             <a href="shop-grid.html" class="btn btn-dark btn-sm">Shop Now</a>
                         </div>
                     </div>
@@ -188,7 +196,7 @@
                         </div>
                         <div class="content">
                             <h5 class="title">Order Discount</h5>
-                            <p>Onevery order over $150</p>
+                            <p>One every order over $150</p>
                         </div>
                     </div>
                 </div>
@@ -202,10 +210,12 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-12" data-aos="fade-up">
+            <div class="col-12 pt-3" data-aos="fade-up">
                 <div class="banner">
                     <div class="banner-image">
-                        <a><img src="assets/images/banner/big-banner.jpg" alt="Banner"></a>
+                        <a>
+                            <img src="~/assets/images/banner/big-banner.jpg" alt="Banner">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -225,9 +235,15 @@
                         <h1 class="title">Daily Deals</h1>
                     </div>
                     <ul class="product-tab-nav nav mt-n3" data-aos="fade-left">
-                        <li class="nav-item"><a class="nav-link active mt-3" data-bs-toggle="tab" href="#product-deal-all">New Arrivals</a></li>
-                        <li class="nav-item"><a class="nav-link mt-3" data-bs-toggle="tab" href="#product-deal-clothings">Best Sellers</a></li>
-                        <li class="nav-item"><a class="nav-link mt-3" data-bs-toggle="tab" href="#product-deal-all">Sale Items</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link active mt-3" data-bs-toggle="tab" href="#product-deal-all">New Arrivals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mt-3" data-bs-toggle="tab" href="#product-deal-clothings">Best Sellers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mt-3" data-bs-toggle="tab" href="#product-deal-all">Sale Items</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -260,8 +276,12 @@
                                                 <div class="countdown-area">
                                                     <div class="countdown-wrapper d-flex" data-countdown="2022/12/24"></div>
                                                 </div>
-                                                <h4 class="sub-title"><a href="single-product-sale.html">Studio Design</a></h4>
-                                                <h5 class="title"><a href="single-product-sale.html">Enjoy The Rest T-Shirt</a></h5>
+                                                <h4 class="sub-title">
+                                                    <a href="single-product-sale.html">Studio Design</a>
+                                                </h4>
+                                                <h5 class="title">
+                                                    <a href="single-product-sale.html">Enjoy The Rest T-Shirt</a>
+                                                </h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: 100%"></span>
@@ -294,8 +314,12 @@
                                                 <div class="countdown-area">
                                                     <div class="countdown-wrapper d-flex" data-countdown="2022/12/24"></div>
                                                 </div>
-                                                <h4 class="sub-title"><a href="single-product-sale.html">Studio Design</a></h4>
-                                                <h5 class="title"><a href="single-product-sale.html">Classic Trucker Hat</a></h5>
+                                                <h4 class="sub-title">
+                                                    <a href="single-product-sale.html">Studio Design</a>
+                                                </h4>
+                                                <h5 class="title">
+                                                    <a href="single-product-sale.html">Classic Trucker Hat</a>
+                                                </h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: 65%"></span>
@@ -328,8 +352,12 @@
                                                 <div class="countdown-area">
                                                     <div class="countdown-wrapper d-flex" data-countdown="2022/12/24"></div>
                                                 </div>
-                                                <h4 class="sub-title"><a href="single-product-sale.html">Studio Design</a></h4>
-                                                <h5 class="title"><a href="single-product-sale.html">Basic Lather Sneaker</a></h5>
+                                                <h4 class="sub-title">
+                                                    <a href="single-product-sale.html">Studio Design</a>
+                                                </h4>
+                                                <h5 class="title">
+                                                    <a href="single-product-sale.html">Basic Lather Sneaker</a>
+                                                </h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: 80%"></span>
@@ -354,8 +382,12 @@
                                 <div class="swiper-pagination d-md-none"></div>
                                 <!-- Swiper Pagination End -->
                                 <!-- Next Previous Button Start -->
-                                <div class="swiper-product-deal-next swiper-button-next swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-right"></i></div>
-                                <div class="swiper-product-deal-prev swiper-button-prev swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
+                                <div class="swiper-product-deal-next swiper-button-next swiper-button-white d-md-flex d-none">
+                                    <i class="pe-7s-angle-right"></i>
+                                </div>
+                                <div class="swiper-product-deal-prev swiper-button-prev swiper-button-white d-md-flex d-none">
+                                    <i class="pe-7s-angle-left"></i>
+                                </div>
                                 <!-- Next Previous Button End -->
                             </div>
                         </div>
@@ -380,8 +412,12 @@
                                                 <div class="countdown-area">
                                                     <div class="countdown-wrapper d-flex" data-countdown="2022/12/24"></div>
                                                 </div>
-                                                <h4 class="sub-title"><a href="single-product-sale.html">Studio Design</a></h4>
-                                                <h5 class="title"><a href="single-product-sale.html">Basic Lather Sneaker</a></h5>
+                                                <h4 class="sub-title">
+                                                    <a href="single-product-sale.html">Studio Design</a>
+                                                </h4>
+                                                <h5 class="title">
+                                                    <a href="single-product-sale.html">Basic Lather Sneaker</a>
+                                                </h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: 80%"></span>
@@ -417,8 +453,12 @@
                                                 <div class="countdown-area">
                                                     <div class="countdown-wrapper d-flex" data-countdown="2022/12/24"></div>
                                                 </div>
-                                                <h4 class="sub-title"><a href="single-product-sale.html">Studio Design</a></h4>
-                                                <h5 class="title"><a href="single-product-sale.html">Enjoy The Rest T-Shirt</a></h5>
+                                                <h4 class="sub-title">
+                                                    <a href="single-product-sale.html">Studio Design</a>
+                                                </h4>
+                                                <h5 class="title">
+                                                    <a href="single-product-sale.html">Enjoy The Rest T-Shirt</a>
+                                                </h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: 100%"></span>
@@ -443,8 +483,12 @@
                                 <div class="swiper-pagination d-md-none"></div>
                                 <!-- Swiper Pagination End -->
                                 <!-- Next Previous Button Start -->
-                                <div class="swiper-product-deal-next swiper-button-next swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-right"></i></div>
-                                <div class="swiper-product-deal-prev swiper-button-prev swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
+                                <div class="swiper-product-deal-next swiper-button-next swiper-button-white d-md-flex d-none">
+                                    <i class="pe-7s-angle-right"></i>
+                                </div>
+                                <div class="swiper-product-deal-prev swiper-button-prev swiper-button-white d-md-flex d-none">
+                                    <i class="pe-7s-angle-left"></i>
+                                </div>
                                 <!-- Next Previous Button End -->
                             </div>
                         </div>
@@ -466,12 +510,14 @@
             <div class="col-md-6 col-12 mb-6" data-aos="fade-right">
                 <div class="banner">
                     <div class="banner-image">
-                        <a href="shop-grid.html"><img src="assets/images/banner/banner-4.jpg" alt="Banner Image"></a>
+                        <a href="shop-grid.html">
+                            <img src="assets/images/banner/banner-4.jpg" alt="Banner Image">
+                        </a>
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
-                            <h4 class="sub-title">Up to <span>50%</span> Off</h4>
-                            <h3 class="title">Office Dress</h3>
+                            <h4 class="sub-title"><span>Premium</span> Knives from USA</h4>
+                            <h3 class="title">Zero Tolerance Knives</h3>
                             <a href="shop-grid.html" class="btn btn-primary btn-hover-dark btn-sm">Shop Now</a>
                         </div>
                     </div>
@@ -482,7 +528,9 @@
             <div class="col-md-6 col-12 mb-6" data-aos="fade-left">
                 <div class="banner">
                     <div class="banner-image">
-                        <a href="shop-grid.html"><img src="assets/images/banner/banner-5.jpg" alt="Banner Image"></a>
+                        <a href="shop-grid.html">
+                            <img src="assets/images/banner/banner-5.jpg" alt="Banner Image">
+                        </a>
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
@@ -507,7 +555,7 @@
             <div class="col-md-6 col-lg-4 col-12 mb-8" data-aos="fade-up">
                 <!-- Product List Title Start -->
                 <div class="product-list-title">
-                    <h2 class="title pb-3 mb-0">Best Offer</h2>
+                    <h2 class="title pb-3 mb-0">Backpacks</h2>
                     <span></span>
                 </div>
                 <!-- Product List Title End -->
@@ -520,36 +568,36 @@
                             <!-- Product List Wrapper Start -->
                             <div class="swiper-slide product-list-wrapper mb-n6">
                                 @{
-                                    @foreach (var product in Model)
-                                    {
-                                        <!-- Single Product List Start -->
-                                        <div class="single-product-list product-hover mb-6">
+                                                @foreach (var product in Model)
+                                                {
+                                    @if (product.CategoryId == 1)
+                                    {<!-- Single Product List Start -->
+                                                            <div class="single-product-list product-hover mb-6">
 
-                                            <div class="thumb">
-                                                <a class="image">
-                                                    <img style="width:100px;height:100px" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
-                                                    <img style="width:100px;height:100px" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="title"><a href="single-product.html">@product.ProductName</a></h5>
-                                                <span class="price">
-                                                    <span class="new">$@product.ProductPrice</span>
-                                                    @* <span class="old">$42.50</span> *@
-                                                </span>
-                                                <span class="ratings">
-                                                    <span class="rating-wrap">
-                                                        <span class="star" style="width: 100%"></span>
-                                                    </span>
-                                                    <span class="rating-num">(4)</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <!-- Single Product List End -->
-                                    }
-                                }
+                                                                <div class="thumb">
+                                                                    <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId" class="image">
+                                                                        <img style="width: 100px; height: 100px" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                        <img style="width: 100px; height: 100px" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <h5 class="title">
+                                                                        <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId">@product.ProductName</a>
+                                                                    </h5>
+                                                                    <span class="price">
+                                                                        <span class="new">$@product.ProductPrice</span>
+                                                                        @* <span class="old">$42.50</span> *@
+                                                                    </span>
+                                                                    <span class="ratings">
+                                                                        <span class="rating-wrap">
+                                                                            <span class="star" style="width: 100%"></span>
+                                                                        </span>
+                                                                        <span class="rating-num">(4)</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> <!-- Single Product List End -->}} }
 
-                                
+
                             </div>
                             <!-- Product List Wrapper End -->
 
@@ -572,7 +620,7 @@
             <div class="col-md-6 col-lg-4 col-12 mb-8" data-aos="fade-up">
                 <!-- Product List Title Start -->
                 <div class="product-list-title">
-                    <h2 class="title pb-3 mb-0">New Products</h2>
+                    <h2 class="title pb-3 mb-0">Flashlight</h2>
                     <span></span>
                 </div>
                 <!-- Product List Title End -->
@@ -583,162 +631,46 @@
 
                             <!-- Product List Wrapper Start -->
                             <div class="swiper-slide product-list-wrapper mb-n6">
+                                @{
+                                                @foreach (var product in Model)
+                                                {
+                                    @if (product.CategoryId == 3)
+                                    {<!-- Single Product List Start -->
+                                                            <div class="single-product-list product-hover mb-6">
 
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/5.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/6.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Make Thing Happen T-Shirt</a></h5>
-                                        <span class="price">
-                                            <span class="new">$66.50</span>
-                                            <span class="old">$70.55</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/4.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/10.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Simple Woven Fabrics</a></h5>
-                                        <span class="price">
-                                            <span class="new">$86.00</span>
-                                            <span class="old">$90.00</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 80%"></span>
-                                            </span>
-                                            <span class="rating-num">(1)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/1.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/5.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Brother Hoddies in Grey</a></h5>
-                                        <span class="price">
-                                            <span class="new">$38.00</span>
-                                            <span class="old">$42.50</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
+                                                                <div class="thumb">
+                                                                    <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId" class="image">
+                                                                        <img style="width: 100px; height: 100px" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                        <img style="width: 100px; height: 100px" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <h5 class="title">
+                                                                        <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId">@product.ProductName</a>
+                                                                    </h5>
+                                                                    <span class="price">
+                                                                        <span class="new">$@product.ProductPrice</span>
+                                                                        @* <span class="old">$42.50</span> *@
+                                                                    </span>
+                                                                    <span class="ratings">
+                                                                        <span class="rating-wrap">
+                                                                            <span class="star" style="width: 100%"></span>
+                                                                        </span>
+                                                                        <span class="rating-num">(4)</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> <!-- Single Product List End -->}} }
+
 
                             </div>
                             <!-- Product List Wrapper End -->
-                            <!-- Product List Wrapper Start -->
-                            <div class="swiper-slide product-list-wrapper mb-n6">
 
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/7.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/9.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Basic Lather Sneaker</a></h5>
-                                        <span class="price">
-                                            <span class="new">$65.00</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/11.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/10.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Handmade Shoulder Bag</a></h5>
-                                        <span class="price">
-                                            <span class="new">$86.00</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 80%"></span>
-                                            </span>
-                                            <span class="rating-num">(1)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/3.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/5.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Enjoy The Rest T-Shirt</a></h5>
-                                        <span class="price">
-                                            <span class="new">$44.00</span>
-                                            <span class="old">$48.50</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-
-                            </div>
-                            <!-- Product List Wrapper End -->
 
                         </div>
 
                         <!-- Swiper Pagination Start -->
-                        <!-- <div class="swiper-pagination d-md-none"></div> -->
                         <!-- Swiper Pagination End -->
-                        <!-- Next Previous Button Start -->
-                        <div class="swiper-product-list-next swiper-button-next"><i class="pe-7s-angle-right"></i></div>
-                        <div class="swiper-product-list-prev swiper-button-prev"><i class="pe-7s-angle-left"></i></div>
-                        <!-- Next Previous Button End -->
+
                     </div>
                 </div>
                 <!-- Product List End -->
@@ -746,7 +678,7 @@
             <div class="col-md-6 col-lg-4 col-12 mb-8" data-aos="fade-up">
                 <!-- Product List Title Start -->
                 <div class="product-list-title">
-                    <h2 class="title pb-3 mb-0">Best Sellers</h2>
+                    <h2 class="title pb-3 mb-0">Knives/Multi-tool</h2>
                     <span></span>
                 </div>
                 <!-- Product List Title End -->
@@ -758,73 +690,35 @@
                             <!-- Product List Wrapper Start -->
                             <div class="swiper-slide product-list-wrapper mb-n6">
 
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/7.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/9.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Basic Lather Sneaker</a></h5>
-                                        <span class="price">
-                                            <span class="new">$65.00</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/11.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/10.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Handmade Shoulder Bag</a></h5>
-                                        <span class="price">
-                                            <span class="new">$86.00</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 80%"></span>
-                                            </span>
-                                            <span class="rating-num">(1)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
-                                <!-- Single Product List Start -->
-                                <div class="single-product-list product-hover mb-6">
-                                    <div class="thumb">
-                                        <a href="single-product.html" class="image">
-                                            <img class="first-image" src="assets/images/products/small-product/3.jpg" alt="Product" />
-                                            <img class="second-image" src="assets/images/products/small-product/5.jpg" alt="Product" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Enjoy The Rest T-Shirt</a></h5>
-                                        <span class="price">
-                                            <span class="new">$44.00</span>
-                                            <span class="old">$48.50</span>
-                                        </span>
-                                        <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Single Product List End -->
+                                @{
+                                                @foreach (var product in Model)
+                                                {
+                                    @if (product.CategoryId == 4)
+                                    {<!-- Single Product List Start -->
+                                                            <div class="single-product-list product-hover mb-6">
+
+                                                                <div class="thumb">
+                                                                    <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId" class="image">
+                                                                        <img style="width: 100px; height: 100px" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                        <img style="width: 100px; height: 100px" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <h5 class="title">
+                                                                        <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId">@product.ProductName</a>
+                                                                    </h5>
+                                                                    <span class="price">
+                                                                        <span class="new">$@product.ProductPrice</span>
+                                                                        @* <span class="old">$42.50</span> *@
+                                                                    </span>
+                                                                    <span class="ratings">
+                                                                        <span class="rating-wrap">
+                                                                            <span class="star" style="width: 100%"></span>
+                                                                        </span>
+                                                                        <span class="rating-num">(4)</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div> <!-- Single Product List End -->}} }
 
                             </div>
                             <!-- Product List Wrapper End -->
@@ -840,7 +734,9 @@
                                         </a>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Brother Hoddies in Grey</a></h5>
+                                        <h5 class="title">
+                                            <a href="single-product.html">Brother Hoddies in Grey</a>
+                                        </h5>
                                         <span class="price">
                                             <span class="new">$38.00</span>
                                             <span class="old">$42.50</span>
@@ -863,7 +759,9 @@
                                         </a>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Basic Jogging Shorts</a></h5>
+                                        <h5 class="title">
+                                            <a href="single-product.html">Basic Jogging Shorts</a>
+                                        </h5>
                                         <span class="price">
                                             <span class="new">$21.00</span>
                                             <span class="old">$22.50</span>
@@ -886,7 +784,9 @@
                                         </a>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="single-product.html">Simple Woven Fabrics</a></h5>
+                                        <h5 class="title">
+                                            <a href="single-product.html">Simple Woven Fabrics</a>
+                                        </h5>
                                         <span class="price">
                                             <span class="new">$86.00</span>
                                             <span class="old">$90.00</span>
@@ -910,8 +810,12 @@
                         <!-- <div class="swiper-pagination d-md-none"></div> -->
                         <!-- Swiper Pagination End -->
                         <!-- Next Previous Button Start -->
-                        <div class="swiper-product-list-next swiper-button-next"><i class="pe-7s-angle-right"></i></div>
-                        <div class="swiper-product-list-prev swiper-button-prev"><i class="pe-7s-angle-left"></i></div>
+                        <div class="swiper-product-list-next swiper-button-next">
+                            <i class="pe-7s-angle-right"></i>
+                        </div>
+                        <div class="swiper-product-list-prev swiper-button-prev">
+                            <i class="pe-7s-angle-left"></i>
+                        </div>
                         <!-- Next Previous Button End -->
 
                     </div>
@@ -935,27 +839,37 @@
 
                                 <!-- Single Brand Logo Start -->
                                 <div class="swiper-slide single-brand-logo" data-aos="fade-up">
-                                    <a href="#"><img src="assets/images/brand-logo/1.png" alt="Brand Logo 5.11"></a>
+                                    <a href="#">
+                                        <img class="brand-logo" src="assets/images/brand-logo/1.png" alt="Brand Logo 5.11">
+                                    </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
                                 <!-- Single Brand Logo Start -->
                                 <div class="swiper-slide single-brand-logo" data-aos="fade-up">
-                                    <a href="#"><img src="assets/images/brand-logo/2.png" alt="Brand Logo"></a>
+                                    <a href="#">
+                                        <img class="brand-logo" src="assets/images/brand-logo/2.png" alt="Brand Logo">
+                                    </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
                                 <!-- Single Brand Logo Start -->
                                 <div class="swiper-slide single-brand-logo" data-aos="fade-up">
-                                    <a href=""><img src="assets/images/brand-logo/3.png" alt="Brand Logo"></a>
+                                    <a href="">
+                                        <img class="brand-logo" src="assets/images/brand-logo/3.png" alt="Brand Logo">
+                                    </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
                                 <!-- Single Brand Logo Start -->
                                 <div class="swiper-slide single-brand-logo" data-aos="fade-up">
-                                    <a href="#"><img src="assets/images/brand-logo/4.png" alt="Brand Logo"></a>
+                                    <a href="#">
+                                        <img class="brand-logo" src="assets/images/brand-logo/4.png" alt="Brand Logo">
+                                    </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
                                 <!-- Single Brand Logo Start -->
                                 <div class="swiper-slide single-brand-logo" data-aos="fade-up">
-                                    <a href="#"><img src="assets/images/brand-logo/5.png" alt="Brand Logo"></a>
+                                    <a href="#">
+                                        <img class="brand-logo" src="assets/images/brand-logo/5.png" alt="Brand Logo">
+                                    </a>
                                 </div>
                                 <!-- Single Brand Logo End -->
 
