@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace TacticalShop.ViewModels
 {
     public class ProductCreateRequest
     {
-        
+
         [Required]
         public string ProductName { get; set; }
 
@@ -16,7 +15,7 @@ namespace TacticalShop.ViewModels
         public string ProductDescription { get; set; }
 
         public IFormFile ProductImage { get; set; }
-       
+
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ProductQuantity { get; set; }
@@ -25,13 +24,13 @@ namespace TacticalShop.ViewModels
 
         public DateTime? UpdatedDate { get; set; }
 
-         public ProductCreateRequest()
-       {          
-         this.CreatedDate  = DateTime.UtcNow;
-         this.UpdatedDate = DateTime.UtcNow;
-       }
+        public ProductCreateRequest()
+        {
+            this.CreatedDate = DateTime.UtcNow;
 
-        
+        }
+
+
 
 
     }

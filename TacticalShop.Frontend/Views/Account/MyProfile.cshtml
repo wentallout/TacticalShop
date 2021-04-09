@@ -3,13 +3,18 @@
 
 @inject IConfiguration Configuration
 
+
+
 @{
-    ViewData["Title"] = "My profile";
+    ViewData["Title"] = "My Profile";
+    var backendurl = Configuration.GetServiceUri("backend");
 }
+
+
 
 <h1>Frontend page</h1>
 
-<h2><a href="https://localhost:44341/Identity/Account/Manage">My Account</a></h2>
+<h2><a href="@backendurl/Identity/Account/Manage">My Account</a></h2>
 <br />
 <br />
 

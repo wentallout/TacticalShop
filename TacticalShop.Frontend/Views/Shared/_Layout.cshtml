@@ -5,31 +5,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>@ViewData["Title"] - TacticalShop - Next level tactical gear</title>
-   
-    
-    <!-- Favicons -->
+    <title>@ViewData["Title"] - TacticalShop - Next level tactical gear shop</title>
+
+
+
     <link rel="shortcut icon" href="~/assets/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/css/vendor.min.css">
     <link rel="stylesheet" href="~/assets/css/plugins.min.css">
     <link rel="stylesheet" href="~/assets/css/style.min.css">
 
+
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+
 </head>
 <body>
-    
-    
-
-<partial name="_Header"/>
 
 
 
-   
-        <main role="main" >
-            @RenderBody()
-        </main>
-   
+    <partial name="_Header" />
 
-<partial name="_Footer"/>
+
+
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+
+    <partial name="_Footer" />
 
 
 

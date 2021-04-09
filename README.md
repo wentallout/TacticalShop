@@ -27,6 +27,32 @@ You need to install .NET 5.0 here: https://dotnet.microsoft.com/download/dotnet/
 
 All the content: brands, categories, products can be added via swagger ui. The insert/update/delete APIs are required authentication. So you will need to register an account. Then, in the swagger ui click "Authorize", a popup dialog will be showed and in the **Scope** you need to check on the 'api.TacticalShop'. After authorized you can invoke methods to create brands, categories, projects including upload product thumbnails.
 
+## IMPORTANT:
+
+You can quickly change important urls using appsettings.json. We use this to avoid hardcoding urls.
+
+appsettings.json in Backend
+```
+  "ClientUrl": {
+    "Mvc": "https://localhost:44367",  
+    "Swagger": "https://localhost:44341"
+   
+  }
+```
+
+appsettings.json in Frontend
+```
+"Service": {
+    "Backend": {
+      "Host": "localhost",
+      "Port": "44341",
+      "Protocol": "https"
+    }
+  }
+```
+
+
+
 Checklist:
 
 ⭐ Customer
