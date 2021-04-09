@@ -31,9 +31,9 @@ Checklist:
 
 ⭐ Customer
 
-- Home: category menu, features products
-- View products by category
-- View products details
+- ✅ Home: category menu, features products
+- ✅ View products by category
+- ✅ View products details
 - Product rating
 - ✅ Login/Logout ✅ IdentityServer4
 - Shopping Cart, Ordering
@@ -45,6 +45,7 @@ Checklist:
 - Manage products (Name, Category, Description, Price, Images, CreatedDate, UpdatedDate)
 - View Customers
 
-Current Problems:
+❌Current Problems:
 
 - Nvarchar(max) is super bad --> fix by using MaxLength and varchar if possible.
+- Not sure if I should put DataAnnotation in ViewModels ???
