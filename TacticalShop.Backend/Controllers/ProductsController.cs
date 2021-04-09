@@ -209,22 +209,24 @@ namespace TacticalShop.Backend.Controllers
 
 
 
-        [HttpGet("{categoryId?}/{brandId?}")]
+        [HttpGet("filterproducts")]
         [AllowAnonymous]
-        public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryId = null, int? brandId = null)
+        public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryid = null, int? brandid = null)
         {
 
             var queryable = _context.Products.AsQueryable();
 
-            if (categoryId != null)
+            if (categoryid != null)
             {
-                queryable = _context.Products.Where(x => x.CategoryId == categoryId);
+                queryable = _context.Products.Where(x => x.CategoryId == categoryid);
             }
 
-            if (brandId != null)
+            if (brandid != null)
             {
-                queryable = _context.Products.Where(x => x.BrandId == brandId);
+                queryable = _context.Products.Where(x => x.BrandId == brandid);
             }
+
+
 
             var product = await queryable.Select(x => new
             {
@@ -242,23 +244,21 @@ namespace TacticalShop.Backend.Controllers
                 x.Brand.BrandName
             }).ToListAsync();
 
-            var productVm = product.Select(x =>
-
-                new ProductVm
-                {
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
-                    ProductPrice = x.ProductPrice,
-                    ProductDescription = x.ProductDescription,
-                    ProductImageName = x.ProductImageName,
-                    ProductQuantity = x.ProductQuantity,
-                    CategoryId = x.CategoryId,
-                    CategoryName = x.CategoryName,
-                    BrandId = x.BrandId,
-                    BrandName = x.BrandName,
-                    CreatedDate = x.CreatedDate,
-                    UpdatedDate = x.UpdatedDate
-                }).ToList();
+            var productVm = product.Select(x => new ProductVm
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                ProductPrice = x.ProductPrice,
+                ProductDescription = x.ProductDescription,
+                ProductImageName = x.ProductImageName,
+                ProductQuantity = x.ProductQuantity,
+                CategoryId = x.CategoryId,
+                CategoryName = x.CategoryName,
+                BrandId = x.BrandId,
+                BrandName = x.BrandName,
+                CreatedDate = x.CreatedDate,
+                UpdatedDate = x.UpdatedDate
+            }).ToList();
 
 
 

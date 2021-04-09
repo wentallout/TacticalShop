@@ -11,16 +11,25 @@ namespace TacticalShop.Frontend.Controllers
         {
             _productApiClient = productApiClient;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? categoryid = null, int? brandid = null)
         {
-            return View();
-        }
 
-        public async Task<IActionResult> ProductDetail(int id)
-        {
-            var product = await _productApiClient.GetProduct(id);
+            var product = await _productApiClient.GetFilteredProducts(categoryid, brandid);
             return View(product);
         }
+
+
+
+
+
+        public async Task<IActionResult> Detail(int productid)
+        {
+            var product = await _productApiClient.GetProduct(productid);
+            return View(product);
+        }
+
+
+
 
     }
 }
