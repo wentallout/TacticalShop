@@ -35,3 +35,12 @@ small-banner-content sub-title {
 .banner-image img {
     filter: brightness(50%);
 }
+
+
+.first-image {
+    object-fit: contain !important;
+}
+
+.second-image {
+    object-fit: cover !important;
+}
