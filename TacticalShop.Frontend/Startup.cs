@@ -89,7 +89,6 @@ namespace TacticalShop.Frontend
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-
                 app.UseHsts();
             }
 
