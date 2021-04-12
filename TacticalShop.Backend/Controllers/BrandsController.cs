@@ -26,7 +26,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrand()
         {
             return await _context.Brands
-                .Select(x => new BrandVm { BrandId = x.BrandId, BrandName = x.BrandName })
+                .Select(x => new BrandVm { BrandId = x.BrandId, BrandName = x.BrandName }).AsNoTracking()
                 .ToListAsync();
         }
 

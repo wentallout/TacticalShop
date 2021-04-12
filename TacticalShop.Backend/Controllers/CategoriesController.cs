@@ -27,7 +27,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
             return await _context.Categories
-                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName })
+                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName }).AsNoTracking()
                 .ToListAsync();
         }
 

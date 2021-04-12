@@ -51,7 +51,7 @@ namespace TacticalShop.Backend.Controllers
                 x.Brand.BrandName,
                 x.Category.CategoryName,
                 x.ProductImageName,
-            })
+            }).AsNoTracking()
                 .ToListAsync();
 
             var productVm = product.Select(x => new ProductVm
@@ -79,7 +79,7 @@ namespace TacticalShop.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
-            var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId.Equals(id));
+            var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(id));
 
             if (product == null)
             {
@@ -214,7 +214,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryid = null, int? brandid = null)
         {
 
-            var queryable = _context.Products.AsQueryable();
+            var queryable = _context.Products.AsQueryable().AsNoTracking();
 
             if (categoryid != null)
             {
