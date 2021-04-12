@@ -1,4 +1,8 @@
-﻿<!-- Mobile Menu Start -->
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@{ var backendurl = Configuration.GetServiceUri("backend"); }
+<!-- Mobile Menu Start -->
 <div class="mobile-navigation">
     <nav>
         <ul class="mobile-menu">
@@ -15,43 +19,16 @@
             <li class="has-children">
                 <a href="#">BRANDS<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                 <ul class="dropdown">
-                    <li><a href="single-product.html">Single Product</a></li>
-                    <li><a href="single-product-sale.html">Single Product Sale</a></li>
-                    <li><a href="single-product-group.html">Single Product Group</a></li>
-                    <li><a href="single-product-normal.html">Single Product Normal</a></li>
-                    <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
-                    <li><a href="single-product-slider.html">Single Product Slider</a></li>
-                    <li><a href="single-product-gallery-left.html">Gallery Left</a></li>
-                    <li><a href="single-product-gallery-right.html">Gallery Right</a></li>
-                    <li><a href="single-product-tab-style-left.html">Tab Style Left</a></li>
-                    <li><a href="single-product-tab-style-right.html">Tab Style Right</a></li>
-                    <li><a href="single-product-sticky-left.html">Sticky Left</a></li>
-                    <li><a href="single-product-sticky-right.html">Sticky Right</a></li>
+                    <vc:brand-menu is-done="false"></vc:brand-menu>
                 </ul>
             </li>
             <li class="has-children">
-                <a asp-controller="Home" asp-action="Faq">FAQ<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                <ul class="dropdown">
-                    <li><a asp-controller="Home" asp-action="About">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="faq.html">Faq</a></li>
+                <a asp-controller="Home" asp-action="Faq">FAQ</a>
 
-                    <li><a href="my-account.html">My Account</a></li>
-
-                </ul>
             </li>
-            @*<li class="has-children">
-                    <a href="#">Blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                    <ul class="dropdown">
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                        <li><a href="blog-details.html">Blog Details</a></li>
-                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
-                    </ul>
-                </li>*@
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="@(backendurl)Identity/Account/Register">My Account</a></li>
+            <li><a asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
         </ul>
     </nav>
 </div>
