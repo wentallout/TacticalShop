@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TacticalShop.Backend.Models
 {
@@ -7,6 +8,7 @@ namespace TacticalShop.Backend.Models
     {
         public User() : base()
         {
+            Ratings = new HashSet<Rating>();
         }
 
         public User(string userName) : base(userName)
@@ -16,5 +18,7 @@ namespace TacticalShop.Backend.Models
         [PersonalData] [MaxLength(70)] public string FullName { get; set; }
 
         [PersonalData] [MaxLength(100)] public string UserAddress { get; set; }
+
+        public ICollection<Rating> Ratings { get; set; }
     }
 }
