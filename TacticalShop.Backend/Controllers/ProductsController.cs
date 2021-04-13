@@ -51,6 +51,7 @@ namespace TacticalShop.Backend.Controllers
                 x.Brand.BrandName,
                 x.Category.CategoryName,
                 x.ProductImageName,
+                x.StarRating
             }).AsNoTracking()
                 .ToListAsync();
 
@@ -67,6 +68,7 @@ namespace TacticalShop.Backend.Controllers
                 UpdatedDate = x.UpdatedDate,
                 BrandName = x.BrandName,
                 CategoryName = x.CategoryName,
+                StarRating = x.StarRating,
                 ProductImageName = _storageService.GetFileUrl(x.ProductImageName)
 
             }).ToList();
@@ -98,6 +100,7 @@ namespace TacticalShop.Backend.Controllers
                 ProductQuantity = product.ProductQuantity,
                 CreatedDate = product.CreatedDate,
                 UpdatedDate = product.UpdatedDate,
+                StarRating = product.StarRating
 
             };
 

@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Data
 {
@@ -16,14 +11,17 @@ namespace TacticalShop.Backend.Data
         public DbSet<Brand> Brands { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
         }
-        
-        
-        
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
-        
+            builder.Entity<Rating>()
+                .HasKey((o => new { o.UserId, o.ProductId }));
+        }
     }
 }
