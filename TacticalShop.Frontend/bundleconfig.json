@@ -1,11 +1,12 @@
-[
+﻿[
   {
     "outputFileName": "wwwroot/assets/css/bundle.css",
     "inputFiles": [
-      "wwwroot/assets/css/custom.css",
+      "wwwroot/assets/css/vendor.min.css",
       "wwwroot/assets/css/plugins.min.css",
       "wwwroot/assets/css/style.min.css",
-      "wwwroot/assets/css/vendor.min.css"
+      "wwwroot/assets/css/custom.css"
     ]
   }
+
 ]
