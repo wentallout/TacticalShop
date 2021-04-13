@@ -75,6 +75,7 @@ namespace TacticalShop.Frontend
             services.AddHttpClient<IProductApiClient, ProductApiClient>(configureClient);
             services.AddHttpClient<ICategoryApiClient, CategoryApiClient>(configureClient);
             services.AddHttpClient<IBrandApiClient, BrandApiClient>(configureClient);
+            services.AddHttpClient<IRatingApiClient, RatingApiClient>(configureClient);
             services.AddControllersWithViews();
         }
 
