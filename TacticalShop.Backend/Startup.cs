@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
 using TacticalShop.Backend.Data;
+using TacticalShop.Backend.Extensions.ServiceCollection;
 using TacticalShop.Backend.IdentityServer;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
@@ -24,13 +25,13 @@ namespace TacticalShop.Backend
 
         public IConfiguration Configuration { get; }
 
-       
+
         public void ConfigureServices(IServiceCollection services)
         {
             var clientUrls = new Dictionary<string, string>
             {
-                ["Mvc"] = Configuration["ClientUrl:Mvc"],       
-                ["Swagger"] = Configuration["ClientUrl:Swagger"],            
+                ["Mvc"] = Configuration["ClientUrl:Mvc"],
+                ["Swagger"] = Configuration["ClientUrl:Swagger"],
                 //["React"] = Configuration["ClientUrl:React"]
             };
 
@@ -40,6 +41,8 @@ namespace TacticalShop.Backend
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IStorageService, FileStorageService>();
             // services.AddDatabaseDeveloperPageExceptionFilter();
+
+
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
@@ -59,26 +62,28 @@ namespace TacticalShop.Backend
                 .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
                 .AddAspNetIdentity<User>()
                 .AddProfileService<CustomProfileService>()
-                .AddDeveloperSigningCredential(); 
+                .AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                .AddLocalApi("Bearer", option =>
-                {
-                    option.ExpectedScope = "tacticalshop.api";
-                });
+            services.AddAuthenAuthor();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Bearer", policy =>
-                {
-                    policy.AddAuthenticationSchemes("Bearer");
-                    policy.RequireAuthenticatedUser();
-                });
-            });
+            //services.AddAuthentication()
+            //    .AddLocalApi("Bearer", option =>
+            //    {
+            //        option.ExpectedScope = "tacticalshop.api";
+            //    });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Bearer", policy =>
+            //    {
+            //        policy.AddAuthenticationSchemes("Bearer");
+            //        policy.RequireAuthenticatedUser();
+            //    });
+            //});
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-        
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tactical Shop API", Version = "v1" });
@@ -120,7 +125,7 @@ namespace TacticalShop.Backend
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            
+
                 app.UseHsts();
             }
 
@@ -135,8 +140,8 @@ namespace TacticalShop.Backend
 
 
 
-         
-            
+
+
             app.UseSwaggerUI(c =>
             {
                 c.OAuthClientId("swagger");
