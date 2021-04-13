@@ -29,6 +29,8 @@ namespace TacticalShop.ViewModels
 
         public DateTime UpdatedDate { get; set; }
 
+        public int StarRating { get; set; }
+
 
     }
 }
