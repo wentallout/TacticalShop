@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using TacticalShop.Backend.Configs;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Extensions.ServiceCollection;
 using TacticalShop.Backend.IdentityServer;
@@ -25,96 +26,22 @@ namespace TacticalShop.Backend
 
         public IConfiguration Configuration { get; }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
-            var clientUrls = new Dictionary<string, string>
-            {
-                ["Mvc"] = Configuration["ClientUrl:Mvc"],
-                ["Swagger"] = Configuration["ClientUrl:Swagger"],
-                //["React"] = Configuration["ClientUrl:React"]
-            };
-
-
-            services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseContext(Configuration);
             services.AddTransient<IStorageService, FileStorageService>();
-            // services.AddDatabaseDeveloperPageExceptionFilter();
-
-
-
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>();
 
-            services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                    options.EmitStaticAudienceClaim = true;
-                })
-                .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
-                //.AddInMemoryClients(IdentityServerConfig.Clients)
-                .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
-                .AddAspNetIdentity<User>()
-                .AddProfileService<CustomProfileService>()
-                .AddDeveloperSigningCredential();
-
+            services.AddIdentityServerCustom(Configuration);
             services.AddAuthenAuthor();
-
-            //services.AddAuthentication()
-            //    .AddLocalApi("Bearer", option =>
-            //    {
-            //        option.ExpectedScope = "tacticalshop.api";
-            //    });
-
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("Bearer", policy =>
-            //    {
-            //        policy.AddAuthenticationSchemes("Bearer");
-            //        policy.RequireAuthenticatedUser();
-            //    });
-            //});
-
+            services.AddCorsOrigins(Configuration);
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tactical Shop API", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        AuthorizationCode = new OpenApiOAuthFlow
-                        {
-                            TokenUrl = new Uri("/connect/token", UriKind.Relative),
-                            AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
-                            Scopes = new Dictionary<string, string> { { "tacticalshop.api", "Tactical Shop API" } }
-                        },
-                    },
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-                        },
-                        new List<string>{ "tacticalshop.api" }
-                    }
-                });
-                services.AddDatabaseDeveloperPageExceptionFilter();
-            });
+            services.AddSwagger();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -125,23 +52,15 @@ namespace TacticalShop.Backend
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-            app.UseSwagger();
-
+            app.UseCors(AllowOrigins.MyAllowSpecificOrigins);
             app.UseIdentityServer();
             app.UseAuthorization();
-
-
-
-
-
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.OAuthClientId("swagger");

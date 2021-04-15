@@ -136,14 +136,6 @@
                                 <div class="review_details">
                                     <div class="review_info mb-2">
 
-                                        <!-- Rating Start -->
-                                        <span class="ratings justify-content-start mb-3">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(1)</span>
-                                        </span>
-                                        <!-- Rating End -->
                                         <!-- Review Title & Date Start -->
                                         <div class="review-title-date d-flex">
                                             <h5 class="title">Admin - </h5><span> January 19, 2021</span>
@@ -219,7 +211,7 @@
                                 <li>Free shipping in Ho Chi Minh City.</li>
                             </ul>
                             <p class="desc-content mb-2">No refund if the product was unboxed.</p>
-                            <p class="desc-content mb-2">Free refund if product was damaged.</p>
+                            <p class="desc-content mb-2">Free refund if product was damaged during shipping.</p>
                         </div>
                         <!-- Shipping Policy End -->
                     </div>
@@ -227,37 +219,39 @@
                         <!-- Shipping Policy Start -->
                         <div class="shipping-policy mb-n2">
                             <h4 class="title-3 mb-4">RATING</h4>
-
-                            @if (clientoldrating != null)
-                            {
-                @for (int i = 1; i <= clientoldrating.Star; i++)
-                {
-<a asp-controller="Rating" asp-action="UpdateRating" asp-route-productid="@Model.ProductId" asp-route-star="@i">
-    <span class="fa fa-star" style="font-size: 50px"></span>
-</a>}
-                                @for (int i = 1; i <= 5 - clientoldrating.Star; i++)
+                            <div style="display: flex;justify-content: center;align-items: center;">
+                                @if (clientoldrating != null)
                                 {
-                                    var star = i + clientoldrating.Star;
-                <a asp-controller="Rating" asp-action="UpdateRating" asp-route-productid="@Model.ProductId" asp-route-star="@star">
-                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                </a>} }
-                            else
-                            {
-                <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="1">
-                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                </a>
-                                <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="2">
-                                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                                </a>
-                                                <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="3">
-                                                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                                                </a>
-                                                                <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="4">
-                                                                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                                                                </a>
-                                                                                <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="5">
-                                                                                    <span class="fa fa-star-o" style="font-size: 50px"></span>
-                                                                                </a>}
+                                    @for (int i = 1; i <= clientoldrating.Star; i++)
+                                    {
+                                        <a asp-controller="Rating" asp-action="UpdateRating" asp-route-productid="@Model.ProductId" asp-route-star="@i">
+                                            <span class="fa fa-star" style="font-size: 60px;color:#ff4545"></span>
+                                        </a>}
+                                    @for (int i = 1; i <= 5 - clientoldrating.Star; i++)
+                                    {
+                                        var star = i + clientoldrating.Star;
+                                        <a asp-controller="Rating" asp-action="UpdateRating" asp-route-productid="@Model.ProductId" asp-route-star="@star">
+                                            <span class="fa fa-star-o" style="font-size: 60px"></span>
+                                        </a>} }
+                                else
+                                {
+                                    <p>YOU NEED TO LOGIN TO RATE PRODUCTS</p>
+                                    <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="1">
+                                        <span class="fa fa-star-o" style="font-size: 50px"></span>
+                                    </a>
+                                    <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="2">
+                                        <span class="fa fa-star-o" style="font-size: 50px"></span>
+                                    </a>
+                                    <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="3">
+                                        <span class="fa fa-star-o" style="font-size: 50px"></span>
+                                    </a>
+                                    <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="4">
+                                        <span class="fa fa-star-o" style="font-size: 50px"></span>
+                                    </a>
+                                    <a asp-controller="Rating" asp-action="CreateRating" asp-route-productid="@Model.ProductId" asp-route-star="5">
+                                        <span class="fa fa-star-o" style="font-size: 50px"></span>
+                                    </a>}
+                            </div>
                         </div>
                     </div>
                 </div>
