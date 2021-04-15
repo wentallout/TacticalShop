@@ -1,58 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Controllers;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
 using TacticalShop.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using TacticalShop.Backend.Models;
+using TacticalShop.Test;
 
 namespace TacticalShop.Test
 {
-    public class BrandsControllerTests : IDisposable
+    public class BrandsControllerTests : IClassFixture<SqliteInMemoryFixture>
     {
-        private SqliteConnection _connection;
-        private DatabaseContext _dbContext;
+        private readonly SqliteInMemoryFixture _fixture;
 
-        public BrandsControllerTests()
+        public BrandsControllerTests(SqliteInMemoryFixture fixture)
         {
-            _connection = new SqliteConnection("DataSource=:memory:");
-            _connection.Open();
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlite(_connection)
-                .Options;
-            _dbContext = new DatabaseContext(options);
-            _dbContext.Database.EnsureCreated();
-        }
-
-        public void Dispose()
-        {
-            _connection.Close();
+            _fixture = fixture;
+            _fixture.CreateDatabase();
         }
 
         [Fact]
         public async Task PostBrand_Success()
         {
-            var brand = new BrandCreateRequest { BrandName = "PostTestBrand" };
+            var dbContext = _fixture.Context;
+            var brand = new BrandCreateRequest { BrandName = "TestPostBrand" };
 
-            var controller = new BrandsController(_dbContext);
+            var controller = new BrandsController(dbContext);
             var result = await controller.PostBrand(brand);
 
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
             var returnValue = Assert.IsType<BrandVm>(createdAtActionResult.Value);
-            Assert.Equal("PostTestBrand", returnValue.BrandName);
+            Assert.Equal("TestPostBrand", returnValue.BrandName);
         }
 
         [Fact]
         public async Task GetBrand_Success()
         {
-            _dbContext.Categories.Add(new Brand { BrandName = "GetBrandTest" });
-            await _dbContext.SaveChangesAsync();
+            var dbContext = _fixture.Context;
+            dbContext.Brands.Add(new Brand { BrandName = "TestGetBrand" });
+            await dbContext.SaveChangesAsync();
 
-            var controller = new BrandsController(_dbContext);
+            var controller = new BrandsController(dbContext);
             var result = await controller.GetBrand();
 
             var actionResult = Assert.IsType<ActionResult<IEnumerable<BrandVm>>>(result);

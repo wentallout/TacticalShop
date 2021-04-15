@@ -1,58 +1,46 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Controllers;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
 using TacticalShop.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using TacticalShop.Backend.Models;
+using TacticalShop.Test;
 
 namespace TacticalShop.Test
 {
-    public class CategoriesControllerTests : IDisposable
+    public class CategoriesControllerTests : IClassFixture<SqliteInMemoryFixture>
     {
-        private SqliteConnection _connection;
-        private DatabaseContext _dbContext;
+        private readonly SqliteInMemoryFixture _fixture;
 
-        public CategoriesControllerTests()
+        public CategoriesControllerTests(SqliteInMemoryFixture fixture)
         {
-            _connection = new SqliteConnection("DataSource=:memory:");
-            _connection.Open();
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlite(_connection)
-                .Options;
-            _dbContext = new DatabaseContext(options);
-            _dbContext.Database.EnsureCreated();
-        }
-
-        public void Dispose()
-        {
-            _connection.Close();
+            _fixture = fixture;
+            _fixture.CreateDatabase();
         }
 
         [Fact]
         public async Task PostCategory_Success()
         {
-            var category = new CategoryCreateRequest { CategoryName = "PostTestCategory" };
+            var dbContext = _fixture.Context;
+            var category = new CategoryCreateRequest { CategoryName = "TestPostCategory" };
 
-            var controller = new CategoriesController(_dbContext);
+            var controller = new CategoriesController(dbContext);
             var result = await controller.PostCategory(category);
 
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
             var returnValue = Assert.IsType<CategoryVm>(createdAtActionResult.Value);
-            Assert.Equal("PostTestCategory", returnValue.CategoryName);
+            Assert.Equal("TestPostCategory", returnValue.CategoryName);
         }
 
         [Fact]
         public async Task GetCategory_Success()
         {
-            _dbContext.Categories.Add(new Category { CategoryName = "GetCategoryTest" });
-            await _dbContext.SaveChangesAsync();
+            var dbContext = _fixture.Context;
+            dbContext.Categories.Add(new Category { CategoryName = "TestGetCategory" });
+            await dbContext.SaveChangesAsync();
 
-            var controller = new CategoriesController(_dbContext);
+            var controller = new CategoriesController(dbContext);
             var result = await controller.GetCategory();
 
             var actionResult = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
