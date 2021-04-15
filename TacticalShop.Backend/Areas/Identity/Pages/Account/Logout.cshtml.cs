@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +12,12 @@ namespace TacticalShop.Backend.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
         private readonly IIdentityServerInteractionService _interaction;
+        private readonly ILogger<LogoutModel> _logger;
+        private readonly SignInManager<User> _signInManager;
 
-        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger,IIdentityServerInteractionService interaction)
+        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger,
+            IIdentityServerInteractionService interaction)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -28,7 +26,7 @@ namespace TacticalShop.Backend.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
         {
-            return await this.OnPost(returnUrl);
+            return await OnPost(returnUrl);
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
@@ -36,30 +34,21 @@ namespace TacticalShop.Backend.Areas.Identity.Pages.Account
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            var logoutId = this.Request.Query["logoutId"].ToString();
+            var logoutId = Request.Query["logoutId"].ToString();
 
-            if (returnUrl != null)
+            if (returnUrl != null) return LocalRedirect(returnUrl);
+
+            if (!string.IsNullOrEmpty(logoutId))
             {
-                return LocalRedirect(returnUrl);
-            }
-            else if (!string.IsNullOrEmpty(logoutId))
-            {
-                var logoutContext = await this._interaction.GetLogoutContextAsync(logoutId);
+                var logoutContext = await _interaction.GetLogoutContextAsync(logoutId);
                 returnUrl = logoutContext.PostLogoutRedirectUri;
 
                 if (!string.IsNullOrEmpty(returnUrl))
-                {
-                    return this.Redirect(returnUrl);
-                }
-                else
-                {
-                    return Page();
-                }
-            }
-            else
-            {
+                    return Redirect(returnUrl);
                 return Page();
             }
+
+            return Page();
         }
     }
 }

@@ -8,16 +8,16 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "Products",
-                type: "datetime2",
+                "CreatedDate",
+                "Products",
+                "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "Products",
-                type: "datetime2",
+                "UpdatedDate",
+                "Products",
+                "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
         }
@@ -25,12 +25,12 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CreatedDate",
-                table: "Products");
+                "CreatedDate",
+                "Products");
 
             migrationBuilder.DropColumn(
-                name: "UpdatedDate",
-                table: "Products");
+                "UpdatedDate",
+                "Products");
         }
     }
 }

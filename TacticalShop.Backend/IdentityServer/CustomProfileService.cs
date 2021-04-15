@@ -1,16 +1,16 @@
-﻿using IdentityModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using IdentityModel;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using TacticalShop.Backend.Models;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace TacticalShop.Backend.IdentityServer
 {
@@ -29,10 +29,7 @@ namespace TacticalShop.Backend.IdentityServer
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var sub = context.Subject?.GetSubjectId();
-            if (sub == null)
-            {
-                throw new Exception("No sub claim present");
-            }
+            if (sub == null) throw new Exception("No sub claim present");
 
             var user = await _userManager.FindByIdAsync(sub);
             if (user == null)
@@ -43,17 +40,14 @@ namespace TacticalShop.Backend.IdentityServer
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(JwtClaimTypes.Name, user.Email),
-                    new Claim(JwtClaimTypes.Email, user.Email),
+                    new(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new(ClaimTypes.NameIdentifier, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new(JwtClaimTypes.Name, user.Email),
+                    new(JwtClaimTypes.Email, user.Email)
                 };
 
                 var userRoles = await _userManager.GetRolesAsync(user);
-                foreach (var userRole in userRoles)
-                {
-                    claims.Add(new Claim(JwtClaimTypes.Role, userRole));
-                }
+                foreach (var userRole in userRoles) claims.Add(new Claim(JwtClaimTypes.Role, userRole));
 
                 context.IssuedClaims.AddRange(claims);
             }
@@ -62,16 +56,10 @@ namespace TacticalShop.Backend.IdentityServer
         public async Task IsActiveAsync(IsActiveContext context)
         {
             var sub = context.Subject?.GetSubjectId();
-            if (sub == null)
-            {
-                throw new Exception("No subject Id claim present");
-            }
+            if (sub == null) throw new Exception("No subject Id claim present");
 
             var user = await _userManager.FindByIdAsync(sub);
-            if (user == null)
-            {
-                _logger.LogWarning("No user found matching subject Id: {0}", sub);
-            }
+            if (user == null) _logger.LogWarning("No user found matching subject Id: {0}", sub);
 
             context.IsActive = user != null;
         }

@@ -1,6 +1,6 @@
-﻿using IdentityServer4;
+﻿using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
-using System.Collections.Generic;
 
 namespace TacticalShop.Backend.IdentityServer
 {
@@ -10,18 +10,19 @@ namespace TacticalShop.Backend.IdentityServer
             new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.Profile()
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
-             new ApiScope[]
-             {
-                  new ApiScope("tacticalshop.api", "Tactical Shop API")
-             };
+            new[]
+            {
+                new("tacticalshop.api", "Tactical Shop API")
+            };
 
-        public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls) =>
+        public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls)
+        {
             //new List<Client>
-            new []
+            return new[]
             {
                 // machine to machine client
                 new Client
@@ -29,24 +30,24 @@ namespace TacticalShop.Backend.IdentityServer
                     ClientId = "ro.client",
                     ClientName = "Resource Owner Client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-                    
-                    AllowedScopes = { "tacticalshop.api" }
+                    ClientSecrets = {new Secret("secret".Sha256())},
+
+                    AllowedScopes = {"tacticalshop.api"}
                 },
 
-             
+
                 new Client
                 {
                     ClientId = "mvc",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientSecrets = {new Secret("secret".Sha256())},
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = false,
                     RequirePkce = true,
                     AllowOfflineAccess = true,
 
-                    RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
-                    PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
+                    RedirectUris = {$"{clientUrls["Mvc"]}/signin-oidc"},
+                    PostLogoutRedirectUris = {$"{clientUrls["Mvc"]}/signout-callback-oidc"},
 
                     AllowedScopes = new List<string>
                     {
@@ -59,15 +60,15 @@ namespace TacticalShop.Backend.IdentityServer
                 new Client
                 {
                     ClientId = "swagger",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code,
 
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"{clientUrls["Swagger"]}" },
+                    RedirectUris = {$"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html"},
+                    PostLogoutRedirectUris = {$"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html"},
+                    AllowedCorsOrigins = {$"{clientUrls["Swagger"]}"},
 
                     AllowedScopes = new List<string>
                     {
@@ -75,7 +76,8 @@ namespace TacticalShop.Backend.IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "tacticalshop.api"
                     }
-                },
+                }
             };
+        }
     }
 }

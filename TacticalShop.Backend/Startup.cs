@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
 using TacticalShop.Backend.Configs;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Extensions.ServiceCollection;
-using TacticalShop.Backend.IdentityServer;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
 
@@ -54,6 +49,7 @@ namespace TacticalShop.Backend
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -72,8 +68,8 @@ namespace TacticalShop.Backend
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Backend}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Backend}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

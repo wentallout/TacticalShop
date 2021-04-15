@@ -7,14 +7,14 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "ProductImageName",
-                table: "Products",
-                newName: "ProductImage");
+                "ProductImageName",
+                "Products",
+                "ProductImage");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProductName",
-                table: "Products",
-                type: "nvarchar(50)",
+                "ProductName",
+                "Products",
+                "nvarchar(50)",
                 maxLength: 50,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -22,9 +22,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "CategoryName",
-                table: "Categories",
-                type: "nvarchar(30)",
+                "CategoryName",
+                "Categories",
+                "nvarchar(30)",
                 maxLength: 30,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -32,9 +32,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "BrandName",
-                table: "Brands",
-                type: "nvarchar(30)",
+                "BrandName",
+                "Brands",
+                "nvarchar(30)",
                 maxLength: 30,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -45,14 +45,14 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "ProductImage",
-                table: "Products",
-                newName: "ProductImageName");
+                "ProductImage",
+                "Products",
+                "ProductImageName");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProductName",
-                table: "Products",
-                type: "nvarchar(max)",
+                "ProductName",
+                "Products",
+                "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(50)",
@@ -60,9 +60,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "CategoryName",
-                table: "Categories",
-                type: "nvarchar(max)",
+                "CategoryName",
+                "Categories",
+                "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(30)",
@@ -70,9 +70,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "BrandName",
-                table: "Brands",
-                type: "nvarchar(max)",
+                "BrandName",
+                "Brands",
+                "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(30)",

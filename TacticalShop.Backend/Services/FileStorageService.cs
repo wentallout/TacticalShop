@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
@@ -9,8 +6,8 @@ namespace TacticalShop.Backend.Services
 {
     public class FileStorageService : IStorageService
     {
-        private readonly string _userContentFolder;
         private const string USER_CONTENT_FOLDER_NAME = "images";
+        private readonly string _userContentFolder;
 
         public FileStorageService(IWebHostEnvironment webHostEnvironment)
         {
@@ -32,10 +29,7 @@ namespace TacticalShop.Backend.Services
         public async Task DeleteFileAsync(string fileName)
         {
             var filePath = Path.Combine(_userContentFolder, fileName);
-            if (File.Exists(filePath))
-            {
-                await Task.Run(() => File.Delete(filePath));
-            }
+            if (File.Exists(filePath)) await Task.Run(() => File.Delete(filePath));
         }
     }
 }

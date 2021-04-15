@@ -7,13 +7,13 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ProductImage",
-                table: "Products");
+                "ProductImage",
+                "Products");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProductName",
-                table: "Products",
-                type: "nvarchar(50)",
+                "ProductName",
+                "Products",
+                "nvarchar(50)",
                 maxLength: 50,
                 nullable: false,
                 defaultValue: "",
@@ -26,9 +26,9 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "ProductName",
-                table: "Products",
-                type: "nvarchar(50)",
+                "ProductName",
+                "Products",
+                "nvarchar(50)",
                 maxLength: 50,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -36,9 +36,9 @@ namespace TacticalShop.Backend.Migrations
                 oldMaxLength: 50);
 
             migrationBuilder.AddColumn<string>(
-                name: "ProductImage",
-                table: "Products",
-                type: "nvarchar(max)",
+                "ProductImage",
+                "Products",
+                "nvarchar(max)",
                 nullable: true);
         }
     }

@@ -7,10 +7,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
         public static void AddAuthenAuthor(this IServiceCollection services)
         {
             services.AddAuthentication()
-                .AddLocalApi("Bearer", option =>
-                {
-                    option.ExpectedScope = "tacticalshop.api";
-                });
+                .AddLocalApi("Bearer", option => { option.ExpectedScope = "tacticalshop.api"; });
 
             services.AddAuthorization(options =>
             {

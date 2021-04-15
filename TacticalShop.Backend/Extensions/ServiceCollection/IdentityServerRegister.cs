@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TacticalShop.Backend.IdentityServer;
-using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 
 namespace TacticalShop.Backend.Extensions.ServiceCollection
@@ -14,7 +13,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
             var clientUrls = new Dictionary<string, string>
             {
                 ["Mvc"] = configuration["ClientUrl:Mvc"],
-                ["Swagger"] = configuration["ClientUrl:Swagger"],
+                ["Swagger"] = configuration["ClientUrl:Swagger"]
                 //["React"] = Configuration["ClientUrl:React"]
             };
 

@@ -23,10 +23,5 @@ namespace TacticalShop.Backend.Models
         public User User { get; set; }
 
         public int Star { get; set; }
-
-
-
-
-
     }
 }

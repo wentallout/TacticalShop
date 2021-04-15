@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace TacticalShop.Backend.Models
 {
     public class User : IdentityUser
     {
-        public User() : base()
+        public User()
         {
             Ratings = new HashSet<Rating>();
         }
