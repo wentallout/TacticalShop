@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account
@@ -8,6 +12,7 @@ namespace TacticalShop.Backend.Areas.Identity.Pages.Account
     {
         public void OnGet()
         {
+
         }
     }
 }

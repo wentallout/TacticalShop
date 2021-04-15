@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
@@ -18,14 +18,14 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class ProductsController : ControllerBase
     {
         private readonly DatabaseContext _context;
-        private readonly ILogger _logger;
         private readonly IStorageService _storageService;
+        private readonly ILogger _logger;
 
-        public ProductsController(DatabaseContext context, IStorageService storageService,
-            ILogger<ProductsController> logger)
+        public ProductsController(DatabaseContext context, IStorageService storageService, ILogger<ProductsController> logger)
         {
             _context = context;
             _storageService = storageService;
@@ -38,21 +38,21 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts()
         {
             var product = await _context.Products.Select(x => new
-                {
-                    x.ProductId,
-                    x.CategoryId,
-                    x.BrandId,
-                    x.ProductName,
-                    x.ProductPrice,
-                    x.ProductDescription,
-                    x.ProductQuantity,
-                    x.CreatedDate,
-                    x.UpdatedDate,
-                    x.Brand.BrandName,
-                    x.Category.CategoryName,
-                    x.ProductImageName,
-                    x.StarRating
-                }).AsNoTracking()
+            {
+                x.ProductId,
+                x.CategoryId,
+                x.BrandId,
+                x.ProductName,
+                x.ProductPrice,
+                x.ProductDescription,
+                x.ProductQuantity,
+                x.CreatedDate,
+                x.UpdatedDate,
+                x.Brand.BrandName,
+                x.Category.CategoryName,
+                x.ProductImageName,
+                x.StarRating
+            }).AsNoTracking()
                 .ToListAsync();
 
             var productVm = product.Select(x => new ProductVm
@@ -70,6 +70,7 @@ namespace TacticalShop.Backend.Controllers
                 CategoryName = x.CategoryName,
                 StarRating = x.StarRating,
                 ProductImageName = _storageService.GetFileUrl(x.ProductImageName)
+
             }).ToList();
 
             return productVm;
@@ -80,10 +81,12 @@ namespace TacticalShop.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ProductVm>> GetProduct(int id)
         {
-            var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).AsNoTracking()
-                .FirstOrDefaultAsync(x => x.ProductId.Equals(id));
+            var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(id));
 
-            if (product == null) return NotFound();
+            if (product == null)
+            {
+                return NotFound();
+            }
 
             var productVm = new ProductVm
             {
@@ -98,6 +101,7 @@ namespace TacticalShop.Backend.Controllers
                 CreatedDate = product.CreatedDate,
                 UpdatedDate = product.UpdatedDate,
                 StarRating = product.StarRating
+
             };
 
             productVm.ProductImageName = _storageService.GetFileUrl(product.ProductImageName);
@@ -108,11 +112,15 @@ namespace TacticalShop.Backend.Controllers
 
 
         [HttpPut("{id}")]
+
         public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
             var product = await _context.Products.FindAsync(id);
 
-            if (product == null) return NotFound();
+            if (product == null)
+            {
+                return NotFound();
+            }
 
             product.ProductName = productCreateRequest.ProductName;
 
@@ -130,6 +138,7 @@ namespace TacticalShop.Backend.Controllers
 
 
         [HttpPost]
+
         public async Task<IActionResult> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
         {
             var product = new Product
@@ -141,11 +150,13 @@ namespace TacticalShop.Backend.Controllers
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 BrandId = productCreateRequest.BrandId,
-                CategoryId = productCreateRequest.CategoryId
+                CategoryId = productCreateRequest.CategoryId,
             };
 
             if (productCreateRequest.ProductImage != null)
+            {
                 product.ProductImageName = await SaveFile(productCreateRequest.ProductImage);
+            }
 
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
@@ -165,15 +176,19 @@ namespace TacticalShop.Backend.Controllers
             //        BrandName = product.Brand.BrandName,
             //        CategoryName = product.Category.CategoryName,
             //    });
-            return CreatedAtAction(nameof(GetProduct), new {product.ProductId}, null);
+            return CreatedAtAction(nameof(GetProduct), new { ProductId = product.ProductId }, null);
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
+            if (product == null)
+            {
+                return NotFound();
+            }
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
@@ -195,16 +210,25 @@ namespace TacticalShop.Backend.Controllers
         }
 
 
+
+
         [HttpGet("filterproducts")]
         [AllowAnonymous]
-        public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryid = null,
-            int? brandid = null)
+        public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryid = null, int? brandid = null)
         {
+
             var queryable = _context.Products.AsQueryable().AsNoTracking();
 
-            if (categoryid != null) queryable = _context.Products.Where(x => x.CategoryId == categoryid);
+            if (categoryid != null)
+            {
+                queryable = _context.Products.Where(x => x.CategoryId == categoryid);
+            }
 
-            if (brandid != null) queryable = _context.Products.Where(x => x.BrandId == brandid);
+            if (brandid != null)
+            {
+                queryable = _context.Products.Where(x => x.BrandId == brandid);
+            }
+
 
 
             var product = await queryable.Select(x => new
@@ -240,7 +264,12 @@ namespace TacticalShop.Backend.Controllers
             }).ToList();
 
 
+
             return productVm;
+
         }
+
+
+
     }
 }

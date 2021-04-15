@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Http;
+
 
 namespace TacticalShop.Backend.Models
 {
@@ -12,7 +13,6 @@ namespace TacticalShop.Backend.Models
         {
             Ratings = new HashSet<Rating>();
         }
-
         public int ProductId { get; set; }
 
 
@@ -29,10 +29,12 @@ namespace TacticalShop.Backend.Models
         [NotMapped] public IFormFile ProductImage { get; set; }
 
 
-        [Column(TypeName = "varchar(300)")] public string ProductImageName { get; set; }
+        [Column(TypeName = "varchar(300)")]
+        public string ProductImageName { get; set; }
 
 
-        [Column(TypeName = "varchar(20)")] public int ProductQuantity { get; set; }
+        [Column(TypeName = "varchar(20)")]
+        public int ProductQuantity { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

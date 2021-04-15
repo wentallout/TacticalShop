@@ -2,6 +2,6 @@
 {
     public static class AllowOrigins
     {
-        public static readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        public readonly static string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
     }
 }

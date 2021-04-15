@@ -7,9 +7,9 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<decimal>(
-                "ProductPrice",
-                "Products",
-                "decimal(9,2)",
+                name: "ProductPrice",
+                table: "Products",
+                type: "decimal(9,2)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "decimal(9,0)");
@@ -18,9 +18,9 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<decimal>(
-                "ProductPrice",
-                "Products",
-                "decimal(9,0)",
+                name: "ProductPrice",
+                table: "Products",
+                type: "decimal(9,0)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "decimal(9,2)");

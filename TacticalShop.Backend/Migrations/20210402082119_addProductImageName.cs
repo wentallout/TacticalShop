@@ -7,17 +7,17 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                "ProductImageName",
-                "Products",
-                "nvarchar(max)",
+                name: "ProductImageName",
+                table: "Products",
+                type: "nvarchar(max)",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "ProductImageName",
-                "Products");
+                name: "ProductImageName",
+                table: "Products");
         }
     }
 }

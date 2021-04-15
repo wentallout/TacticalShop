@@ -7,26 +7,26 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                "ProductQuantity",
-                "Products",
-                "varchar(20)",
+                name: "ProductQuantity",
+                table: "Products",
+                type: "varchar(20)",
                 maxLength: 20,
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "int");
 
             migrationBuilder.AlterColumn<decimal>(
-                "ProductPrice",
-                "Products",
-                "decimal(9,0)",
+                name: "ProductPrice",
+                table: "Products",
+                type: "decimal(9,0)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "decimal(18,2)");
 
             migrationBuilder.AlterColumn<string>(
-                "ProductImageName",
-                "Products",
-                "varchar(50)",
+                name: "ProductImageName",
+                table: "Products",
+                type: "varchar(50)",
                 maxLength: 50,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -34,9 +34,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "CategoryName",
-                "Categories",
-                "nvarchar(30)",
+                name: "CategoryName",
+                table: "Categories",
+                type: "nvarchar(30)",
                 maxLength: 30,
                 nullable: false,
                 defaultValue: "",
@@ -46,9 +46,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "BrandName",
-                "Brands",
-                "nvarchar(30)",
+                name: "BrandName",
+                table: "Brands",
+                type: "nvarchar(30)",
                 maxLength: 30,
                 nullable: false,
                 defaultValue: "",
@@ -58,9 +58,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "UserAddress",
-                "AspNetUsers",
-                "nvarchar(100)",
+                name: "UserAddress",
+                table: "AspNetUsers",
+                type: "nvarchar(100)",
                 maxLength: 100,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -68,9 +68,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "FullName",
-                "AspNetUsers",
-                "nvarchar(70)",
+                name: "FullName",
+                table: "AspNetUsers",
+                type: "nvarchar(70)",
                 maxLength: 70,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -81,26 +81,26 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                "ProductQuantity",
-                "Products",
-                "int",
+                name: "ProductQuantity",
+                table: "Products",
+                type: "int",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "varchar(20)",
                 oldMaxLength: 20);
 
             migrationBuilder.AlterColumn<decimal>(
-                "ProductPrice",
-                "Products",
-                "decimal(18,2)",
+                name: "ProductPrice",
+                table: "Products",
+                type: "decimal(18,2)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "decimal(9,0)");
 
             migrationBuilder.AlterColumn<string>(
-                "ProductImageName",
-                "Products",
-                "nvarchar(max)",
+                name: "ProductImageName",
+                table: "Products",
+                type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "varchar(50)",
@@ -108,9 +108,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "CategoryName",
-                "Categories",
-                "nvarchar(30)",
+                name: "CategoryName",
+                table: "Categories",
+                type: "nvarchar(30)",
                 maxLength: 30,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -118,9 +118,9 @@ namespace TacticalShop.Backend.Migrations
                 oldMaxLength: 30);
 
             migrationBuilder.AlterColumn<string>(
-                "BrandName",
-                "Brands",
-                "nvarchar(30)",
+                name: "BrandName",
+                table: "Brands",
+                type: "nvarchar(30)",
                 maxLength: 30,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -128,9 +128,9 @@ namespace TacticalShop.Backend.Migrations
                 oldMaxLength: 30);
 
             migrationBuilder.AlterColumn<string>(
-                "UserAddress",
-                "AspNetUsers",
-                "nvarchar(max)",
+                name: "UserAddress",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(100)",
@@ -138,9 +138,9 @@ namespace TacticalShop.Backend.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "FullName",
-                "AspNetUsers",
-                "nvarchar(max)",
+                name: "FullName",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(70)",

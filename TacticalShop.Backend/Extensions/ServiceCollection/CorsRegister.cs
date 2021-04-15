@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using TacticalShop.Backend.Configs;
 
 namespace TacticalShop.Backend.Extensions.ServiceCollection
@@ -12,7 +12,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
             var clientUrls = new Dictionary<string, string>
             {
                 ["Mvc"] = configuration["ClientUrl:Mvc"],
-                ["Swagger"] = configuration["ClientUrl:Swagger"]
+                ["Swagger"] = configuration["ClientUrl:Swagger"],
                 //["React"] = Configuration["ClientUrl:React"]
             };
             services.AddCors(options =>

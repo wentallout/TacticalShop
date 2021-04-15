@@ -8,53 +8,53 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                "StarRating",
-                "Products",
-                "int",
+                name: "StarRating",
+                table: "Products",
+                type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                "Ratings",
-                table => new
+                name: "Ratings",
+                columns: table => new
                 {
-                    ProductId = table.Column<int>("int", nullable: false),
-                    UserId = table.Column<string>("nvarchar(450)", nullable: false),
-                    CreatedDate = table.Column<DateTime>("datetime2", nullable: true),
-                    UpdatedDate = table.Column<DateTime>("datetime2", nullable: true),
-                    Star = table.Column<int>("int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Star = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ratings", x => new {x.UserId, x.ProductId});
+                    table.PrimaryKey("PK_Ratings", x => new { x.UserId, x.ProductId });
                     table.ForeignKey(
-                        "FK_Ratings_AspNetUsers_UserId",
-                        x => x.UserId,
-                        "AspNetUsers",
-                        "Id",
+                        name: "FK_Ratings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        "FK_Ratings_Products_ProductId",
-                        x => x.ProductId,
-                        "Products",
-                        "ProductId",
+                        name: "FK_Ratings_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                "IX_Ratings_ProductId",
-                "Ratings",
-                "ProductId");
+                name: "IX_Ratings_ProductId",
+                table: "Ratings",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Ratings");
+                name: "Ratings");
 
             migrationBuilder.DropColumn(
-                "StarRating",
-                "Products");
+                name: "StarRating",
+                table: "Products");
         }
     }
 }

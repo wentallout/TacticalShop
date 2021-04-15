@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using TacticalShop.Backend.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
 {
+
     public class BackendController : Controller
     {
         private readonly ILogger<BackendController> _logger;
@@ -20,10 +21,11 @@ namespace TacticalShop.Backend.Controllers
         }
 
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult ErrorBackend()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

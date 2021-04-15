@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.ViewModels;
@@ -32,14 +32,16 @@ namespace TacticalShop.Backend.Controllers
         [HttpGet("{userid}/{productid}")]
         public async Task<ActionResult<Rating>> GetRating(string userid, int productid)
         {
-            var rating =
-                await _context.Ratings.FirstOrDefaultAsync(x => x.UserId == userid && x.ProductId == productid);
-            if (rating == null) return rating;
+            var rating = await _context.Ratings.FirstOrDefaultAsync(x => x.UserId == userid && x.ProductId == productid);
+            if (rating == null)
+            {
+                return rating;
+            }
             var ratingvm = new RatingVm
             {
                 UserId = rating.UserId,
                 ProductId = rating.ProductId,
-                Star = rating.Star
+                Star = rating.Star,
             };
             return rating;
         }
@@ -50,17 +52,17 @@ namespace TacticalShop.Backend.Controllers
             var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var rating = await _context.Ratings.FirstOrDefaultAsync(x =>
-                    x.ProductId == ratingUpdateRequest.ProductId && x.UserId == ratingUpdateRequest.UserId);
-                if (rating == null) return NotFound();
+                var rating = await _context.Ratings.FirstOrDefaultAsync(x => x.ProductId == ratingUpdateRequest.ProductId && x.UserId == ratingUpdateRequest.UserId);
+                if (rating == null)
+                {
+                    return NotFound();
+                }
                 rating.Star = ratingUpdateRequest.Star;
                 rating.UpdatedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
 
-                var product =
-                    await _context.Products.FirstOrDefaultAsync(x => x.ProductId == ratingUpdateRequest.ProductId);
-                var listRating = await _context.Ratings.Where(x => x.ProductId == ratingUpdateRequest.ProductId)
-                    .ToListAsync();
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == ratingUpdateRequest.ProductId);
+                var listRating = await _context.Ratings.Where(x => x.ProductId == ratingUpdateRequest.ProductId).ToListAsync();
                 product.StarRating = Convert.ToInt32(listRating.Sum(x => x.Star) / listRating.Count);
 
                 await _context.SaveChangesAsync();
@@ -83,24 +85,22 @@ namespace TacticalShop.Backend.Controllers
                 UserId = ratingCreateRequest.UserId,
                 ProductId = ratingCreateRequest.ProductId,
                 Star = ratingCreateRequest.Star,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+
             };
             try
             {
                 await _context.Ratings.AddAsync(rating);
                 await _context.SaveChangesAsync();
-                var product =
-                    await _context.Products.FirstOrDefaultAsync(x => x.ProductId == ratingCreateRequest.ProductId);
-                var listrating = await _context.Ratings.Where(x => x.ProductId == ratingCreateRequest.ProductId)
-                    .ToListAsync();
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == ratingCreateRequest.ProductId);
+                var listrating = await _context.Ratings.Where(x => x.ProductId == ratingCreateRequest.ProductId).ToListAsync();
                 product.StarRating = listrating.Sum(x => x.Star) / listrating.Count;
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
             catch (Exception)
-            {
-            }
+            { }
 
             return Accepted();
         }
@@ -110,7 +110,10 @@ namespace TacticalShop.Backend.Controllers
         public async Task<IActionResult> DeleteRating(string id)
         {
             var rating = await _context.Ratings.FindAsync(id);
-            if (rating == null) return NotFound();
+            if (rating == null)
+            {
+                return NotFound();
+            }
 
             _context.Ratings.Remove(rating);
             await _context.SaveChangesAsync();

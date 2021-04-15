@@ -1,4 +1,6 @@
-﻿namespace TacticalShop.Backend.ViewModels
+﻿using System;
+
+namespace TacticalShop.Backend.ViewModels
 {
     public class ErrorViewModel
     {

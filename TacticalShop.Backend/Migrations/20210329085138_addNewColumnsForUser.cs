@@ -7,41 +7,44 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                "ProductQuantity",
-                "Products",
-                "int",
+                name: "ProductQuantity",
+                table: "Products",
+                type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
-                "UserAddress",
-                "AspNetUsers",
-                "nvarchar(max)",
+                name: "UserAddress",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                "BrandVm",
-                table => new
+                name: "BrandVm",
+                columns: table => new
                 {
-                    BrandId = table.Column<int>("int", nullable: false)
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BrandName = table.Column<string>("nvarchar(30)", maxLength: 30, nullable: false)
+                    BrandName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_BrandVm", x => x.BrandId); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BrandVm", x => x.BrandId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "BrandVm");
+                name: "BrandVm");
 
             migrationBuilder.DropColumn(
-                "ProductQuantity",
-                "Products");
+                name: "ProductQuantity",
+                table: "Products");
 
             migrationBuilder.DropColumn(
-                "UserAddress",
-                "AspNetUsers");
+                name: "UserAddress",
+                table: "AspNetUsers");
         }
     }
 }

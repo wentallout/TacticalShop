@@ -7,9 +7,9 @@ namespace TacticalShop.Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                "ProductImageName",
-                "Products",
-                "varchar(300)",
+                name: "ProductImageName",
+                table: "Products",
+                type: "varchar(300)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "varchar(50)",
@@ -20,9 +20,9 @@ namespace TacticalShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                "ProductImageName",
-                "Products",
-                "varchar(50)",
+                name: "ProductImageName",
+                table: "Products",
+                type: "varchar(50)",
                 maxLength: 50,
                 nullable: true,
                 oldClrType: typeof(string),

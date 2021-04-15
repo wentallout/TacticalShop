@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.ViewModels;
@@ -27,7 +27,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
             return await _context.Categories
-                .Select(x => new CategoryVm {CategoryId = x.CategoryId, CategoryName = x.CategoryName}).AsNoTracking()
+                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName }).AsNoTracking()
                 .ToListAsync();
         }
 
@@ -38,7 +38,10 @@ namespace TacticalShop.Backend.Controllers
         {
             var category = await _context.Categories.FindAsync(id);
 
-            if (category == null) return NotFound();
+            if (category == null)
+            {
+                return NotFound();
+            }
 
             var categoryVm = new CategoryVm
             {
@@ -50,10 +53,15 @@ namespace TacticalShop.Backend.Controllers
         }
 
 
+
         [HttpPut("{id}")]
+
         public async Task<IActionResult> PutCategory(int id, CategoryVm categoryVm)
         {
-            if (id != categoryVm.CategoryId) return BadRequest();
+            if (id != categoryVm.CategoryId)
+            {
+                return BadRequest();
+            }
 
             _context.Entry(categoryVm).State = EntityState.Modified;
 
@@ -64,8 +72,13 @@ namespace TacticalShop.Backend.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!CategoryExists(id))
+                {
                     return NotFound();
-                throw;
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return NoContent();
@@ -73,6 +86,7 @@ namespace TacticalShop.Backend.Controllers
 
 
         [HttpPost]
+
         public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -83,16 +97,19 @@ namespace TacticalShop.Backend.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new {category.CategoryId},
-                new CategoryVm {CategoryId = category.CategoryId, CategoryName = category.CategoryName});
+            return CreatedAtAction("GetCategory", new { CategoryId = category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName = category.CategoryName });
         }
 
 
         [HttpDelete("{id}")]
+
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var categoryVm = await _context.Categories.FindAsync(id);
-            if (categoryVm == null) return NotFound();
+            if (categoryVm == null)
+            {
+                return NotFound();
+            }
 
             _context.Categories.Remove(categoryVm);
             await _context.SaveChangesAsync();
