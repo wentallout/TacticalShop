@@ -13,18 +13,16 @@ namespace TacticalShop.Backend.IdentityServer
                 new IdentityResources.Profile()
             };
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new[]
+        public static IEnumerable<ApiResource> Apis =>
+            new ApiResource[]
             {
-                new("tacticalshop.api", "Tactical Shop API")
+                new ApiResource("tacticalshop.api", "Tactical Shop API")
             };
 
         public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls)
         {
-            //new List<Client>
             return new[]
             {
-                // machine to machine client
                 new Client
                 {
                     ClientId = "ro.client",
@@ -34,7 +32,6 @@ namespace TacticalShop.Backend.IdentityServer
 
                     AllowedScopes = {"tacticalshop.api"}
                 },
-
 
                 new Client
                 {
