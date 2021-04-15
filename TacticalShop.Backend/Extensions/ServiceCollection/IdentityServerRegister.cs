@@ -26,7 +26,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
                     options.EmitStaticAudienceClaim = true;
                 })
                 .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
-                .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
                 .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
                 .AddAspNetIdentity<User>()
                 .AddProfileService<CustomProfileService>()
