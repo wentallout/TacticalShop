@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TacticalShop.Backend.Data;
 
-using TacticalShop.Backend.Data;
-
 namespace TacticalShop.Test
 {
     public class SqliteInMemoryFixture : IDisposable

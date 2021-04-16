@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TacticalShop.Frontend", "Ta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TacticalShop.ViewModels", "TacticalShop.ViewModels\TacticalShop.ViewModels.csproj", "{3651C432-EE77-485F-91A5-0519CA98952B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TacticalShop.Test", "TacticalShop.Test\TacticalShop.Test.csproj", "{BAF26EA0-068F-4A2D-BDFA-9BFA2E6CD4A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TacticalShop.Test", "TacticalShop.Test\TacticalShop.Test.csproj", "{BAF26EA0-068F-4A2D-BDFA-9BFA2E6CD4A8}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TacticalShop.React", "TacticalShop.React\TacticalShop.React.njsproj", "{CA3E2D4A-FFB8-4510-93B6-A7EA4B09BBB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BAF26EA0-068F-4A2D-BDFA-9BFA2E6CD4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAF26EA0-068F-4A2D-BDFA-9BFA2E6CD4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF26EA0-068F-4A2D-BDFA-9BFA2E6CD4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA3E2D4A-FFB8-4510-93B6-A7EA4B09BBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA3E2D4A-FFB8-4510-93B6-A7EA4B09BBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA3E2D4A-FFB8-4510-93B6-A7EA4B09BBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA3E2D4A-FFB8-4510-93B6-A7EA4B09BBB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
