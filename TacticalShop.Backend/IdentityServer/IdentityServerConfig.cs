@@ -21,7 +21,7 @@ namespace TacticalShop.Backend.IdentityServer
 
         public static IEnumerable<Client> Clients(Dictionary<string, string> clientUrls) =>
             //new List<Client>
-            new []
+            new[]
             {
                 // machine to machine client
                 new Client
@@ -30,11 +30,10 @@ namespace TacticalShop.Backend.IdentityServer
                     ClientName = "Resource Owner Client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedScopes = { "tacticalshop.api" }
                 },
 
-             
                 new Client
                 {
                     ClientId = "mvc",
@@ -68,6 +67,26 @@ namespace TacticalShop.Backend.IdentityServer
                     RedirectUris =           { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
                     PostLogoutRedirectUris = { $"{clientUrls["Swagger"]}/swagger/oauth2-redirect.html" },
                     AllowedCorsOrigins =     { $"{clientUrls["Swagger"]}" },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "tacticalshop.api"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "react",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+
+                    RequireConsent = false,
+                    RequirePkce = true,
+
+                    RedirectUris =           { $"{clientUrls["React"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientUrls["React"]}/swagger/oauth2-redirect.html" },
+                    AllowedCorsOrigins =     { $"{clientUrls["React"]}" },
 
                     AllowedScopes = new List<string>
                     {

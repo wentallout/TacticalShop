@@ -15,7 +15,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
             {
                 ["Mvc"] = configuration["ClientUrl:Mvc"],
                 ["Swagger"] = configuration["ClientUrl:Swagger"],
-                //["React"] = Configuration["ClientUrl:React"]
+                ["React"] = configuration["ClientUrl:React"]
             };
 
             services.AddIdentityServer(options =>
