@@ -20,7 +20,7 @@ namespace TacticalShop.Backend.Extensions.ServiceCollection
                 options.AddPolicy(AllowOrigins.MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins(clientUrls["Mvc"], clientUrls["Swagger"], clientUrls["Swagger"])
+                        builder.WithOrigins(clientUrls["Mvc"], clientUrls["Swagger"], clientUrls["React"])
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
