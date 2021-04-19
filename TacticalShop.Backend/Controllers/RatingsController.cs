@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.ViewModels;
@@ -12,6 +13,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class RatingsController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -23,6 +25,7 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Ratings
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Rating>>> GetRatings()
         {
             return await _context.Ratings.ToListAsync();
@@ -30,6 +33,7 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Ratings/5
         [HttpGet("{userid}/{productid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Rating>> GetRating(string userid, int productid)
         {
             var rating = await _context.Ratings.FirstOrDefaultAsync(x => x.UserId == userid && x.ProductId == productid);
@@ -47,6 +51,7 @@ namespace TacticalShop.Backend.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         public async Task<IActionResult> PutRating(RatingUpdateRequest ratingUpdateRequest)
         {
             var transaction = await _context.Database.BeginTransactionAsync();
@@ -75,8 +80,8 @@ namespace TacticalShop.Backend.Controllers
             return Accepted();
         }
 
-
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> PostRating(RatingCreateRequest ratingCreateRequest)
         {
             var transaction = await _context.Database.BeginTransactionAsync();
@@ -86,7 +91,6 @@ namespace TacticalShop.Backend.Controllers
                 ProductId = ratingCreateRequest.ProductId,
                 Star = ratingCreateRequest.Star,
                 CreatedDate = DateTime.Now,
-
             };
             try
             {
