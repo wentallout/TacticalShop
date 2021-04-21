@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace TacticalShop.Backend.Models
 {
     public class Product
@@ -13,11 +12,11 @@ namespace TacticalShop.Backend.Models
         {
             Ratings = new HashSet<Rating>();
         }
+
         public int ProductId { get; set; }
 
-
         [MaxLength(50, ErrorMessage = "Maximum length for the Product Name is 50 characters.")]
-        [Required(ErrorMessage = "Product Name is a required field.")]
+        // [Required(ErrorMessage = "Product Name is a required field.")]
         public string ProductName { get; set; }
 
         [Column(TypeName = "decimal(9,2)")]
@@ -28,10 +27,8 @@ namespace TacticalShop.Backend.Models
 
         [NotMapped] public IFormFile ProductImage { get; set; }
 
-
         [Column(TypeName = "varchar(300)")]
         public string ProductImageName { get; set; }
-
 
         [Column(TypeName = "varchar(20)")]
         public int ProductQuantity { get; set; }
@@ -41,7 +38,6 @@ namespace TacticalShop.Backend.Models
         public DateTime UpdatedDate { get; set; }
 
         public int StarRating { get; set; }
-
 
         public int BrandId { get; set; }
 

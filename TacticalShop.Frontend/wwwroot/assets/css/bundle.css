@@ -35060,27 +35060,19 @@ input[type="checkbox"] {
     object-fit: contain;
 }
 
-
 .banner-image img {
     width: 370px;
     height: 240px;
     object-fit: cover;
 }
 
-
-
-
 small-banner-content sub-title {
     font-size: 30px !important;
 }
 
-
-
-
 .banner .small-banner-content .sub-title {
     color: white;
 }
-
 
 .banner .small-banner-content .title {
     color: white;
@@ -35091,7 +35083,6 @@ small-banner-content sub-title {
 .banner-image img {
     filter: brightness(50%);
 }
-
 
 .first-image {
     object-fit: contain !important;
@@ -35118,7 +35109,6 @@ body::-webkit-scrollbar-thumb {
     background-color: #E75300;
 }
 
-
 .product .content .title a {
     white-space: nowrap;
     width: 246px;
@@ -35127,6 +35117,14 @@ body::-webkit-scrollbar-thumb {
     display: inline-block;
 }
 
+.single-footer-widget .widget-title {
+    font-weight: 600;
+}
+
+.breadcrumb-area.bg-light {
+    background-color: #e65205;
+    background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+}
 /*STAR RATING*/
 .star-rating {
     font-size: 0;

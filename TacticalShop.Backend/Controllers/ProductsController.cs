@@ -18,7 +18,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -70,12 +70,10 @@ namespace TacticalShop.Backend.Controllers
                 CategoryName = x.CategoryName,
                 StarRating = x.StarRating,
                 ProductImageName = _storageService.GetFileUrl(x.ProductImageName)
-
             }).ToList();
 
             return productVm;
         }
-
 
         [HttpGet("{id}")]
         [AllowAnonymous]
@@ -101,18 +99,15 @@ namespace TacticalShop.Backend.Controllers
                 CreatedDate = product.CreatedDate,
                 UpdatedDate = product.UpdatedDate,
                 StarRating = product.StarRating
-
             };
 
             productVm.ProductImageName = _storageService.GetFileUrl(product.ProductImageName);
 
-
             return productVm;
         }
 
-
         [HttpPut("{id}")]
-
+        [AllowAnonymous]
         public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
             var product = await _context.Products.FindAsync(id);
@@ -136,10 +131,9 @@ namespace TacticalShop.Backend.Controllers
             return NoContent();
         }
 
-
         [HttpPost]
-
-        public async Task<IActionResult> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
+        [AllowAnonymous]
+        public async Task<IActionResult> PostProduct(  /*[FromForm]*/ ProductCreateRequest productCreateRequest)
         {
             var product = new Product
             {
@@ -161,27 +155,12 @@ namespace TacticalShop.Backend.Controllers
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetProduct",
-            //    new { ProductId = product.ProductId },
-            //    new ProductVm
-            //    {
-            //        ProductId = product.ProductId,
-            //        ProductName = product.ProductName,
-            //        ProductDescription = product.ProductDescription,
-            //        ProductQuantity = product.ProductQuantity,                 
-            //        ProductPrice = product.ProductPrice,
-            //        CreatedDate = product.CreatedDate,
-            //        UpdatedDate = product.UpdatedDate,
-            //        ProductImageName = product.ProductImageName,
-            //        BrandName = product.Brand.BrandName,
-            //        CategoryName = product.Category.CategoryName,
-            //    });
             return CreatedAtAction(nameof(GetProduct), new { ProductId = product.ProductId }, null);
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -209,14 +188,10 @@ namespace TacticalShop.Backend.Controllers
             return fileName;
         }
 
-
-
-
         [HttpGet("filterproducts")]
         [AllowAnonymous]
         public async Task<ActionResult<IList<ProductVm>>> GetFilteredProducts(int? categoryid = null, int? brandid = null)
         {
-
             var queryable = _context.Products.AsQueryable().AsNoTracking();
 
             if (categoryid != null)
@@ -228,8 +203,6 @@ namespace TacticalShop.Backend.Controllers
             {
                 queryable = _context.Products.Where(x => x.BrandId == brandid);
             }
-
-
 
             var product = await queryable.Select(x => new
             {
@@ -263,13 +236,7 @@ namespace TacticalShop.Backend.Controllers
                 UpdatedDate = x.UpdatedDate
             }).ToList();
 
-
-
             return productVm;
-
         }
-
-
-
     }
 }

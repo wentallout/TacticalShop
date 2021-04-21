@@ -12,6 +12,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class CategoriesController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -52,10 +53,7 @@ namespace TacticalShop.Backend.Controllers
             return categoryVm;
         }
 
-
-
         [HttpPut("{id}")]
-
         public async Task<IActionResult> PutCategory(int id, CategoryVm categoryVm)
         {
             if (id != categoryVm.CategoryId)
@@ -84,9 +82,7 @@ namespace TacticalShop.Backend.Controllers
             return NoContent();
         }
 
-
         [HttpPost]
-
         public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -100,9 +96,7 @@ namespace TacticalShop.Backend.Controllers
             return CreatedAtAction("GetCategory", new { CategoryId = category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName = category.CategoryName });
         }
 
-
         [HttpDelete("{id}")]
-
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var categoryVm = await _context.Categories.FindAsync(id);

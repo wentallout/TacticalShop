@@ -6,8 +6,6 @@ namespace TacticalShop.ViewModels
 {
     public class ProductCreateRequest
     {
-
-        [Required]
         public string ProductName { get; set; }
 
         public decimal ProductPrice { get; set; }
@@ -27,11 +25,6 @@ namespace TacticalShop.ViewModels
         public ProductCreateRequest()
         {
             this.CreatedDate = DateTime.UtcNow;
-
         }
-
-
-
-
     }
 }

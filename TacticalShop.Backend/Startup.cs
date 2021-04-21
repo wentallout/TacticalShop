@@ -37,7 +37,11 @@ namespace TacticalShop.Backend
             services.AddIdentityServerCustom(Configuration);
             services.AddAuthenAuthor();
             services.AddCorsOrigins(Configuration);
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddRazorPages();
             services.AddSwagger();
         }

@@ -12,6 +12,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class BrandsController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -23,6 +24,7 @@ namespace TacticalShop.Backend.Controllers
 
         // GET: api/Brands
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<BrandVm>>> GetBrand()
         {
             return await _context.Brands
@@ -51,11 +53,9 @@ namespace TacticalShop.Backend.Controllers
             return brandVm;
         }
 
-
         // PUT: api/Brands/5
 
         [HttpPut("{id}")]
-
         public async Task<IActionResult> PutBrand(int id, BrandVm brandVm)
         {
             if (id != brandVm.BrandId)
@@ -87,7 +87,6 @@ namespace TacticalShop.Backend.Controllers
         // POST: api/Brands
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-
         public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {
             var brand = new Brand
@@ -103,7 +102,6 @@ namespace TacticalShop.Backend.Controllers
 
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
-
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brandVm = await _context.Brands.FindAsync(id);
