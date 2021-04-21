@@ -133,7 +133,7 @@ namespace TacticalShop.Backend.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
+        public async Task<IActionResult> PostProduct(  /*[FromForm]*/ ProductCreateRequest productCreateRequest)
         {
             var product = new Product
             {
@@ -155,21 +155,7 @@ namespace TacticalShop.Backend.Controllers
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct",
-                new { ProductId = product.ProductId },
-                new ProductVm
-                {
-                    ProductId = product.ProductId,
-                    ProductName = product.ProductName,
-                    ProductDescription = product.ProductDescription,
-                    ProductQuantity = product.ProductQuantity,
-                    ProductPrice = product.ProductPrice,
-                    CreatedDate = product.CreatedDate,
-                    UpdatedDate = product.UpdatedDate,
-                    ProductImageName = product.ProductImageName,
-                    BrandName = product.Brand.BrandName,
-                    CategoryName = product.Category.CategoryName,
-                });
+            return CreatedAtAction(nameof(GetProduct), new { ProductId = product.ProductId }, null);
         }
 
         // DELETE: api/Products/5
