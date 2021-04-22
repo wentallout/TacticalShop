@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { observer } from "mobx-react-lite";
 import React, { ChangeEvent, useState } from "react";
 
 import { Button, Segment, Form } from "semantic-ui-react";
 
 import { Product } from "../../../app/models/product";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-	product: Product | undefined;
-	closeForm: () => void;
-	createOrEdit: (product: Product) => void;
-	submitting: boolean;
-}
+export default observer(function ProductForm() {
+	const { productStore } = useStore();
 
-export default function ProductForm({
-	product: selectedProduct,
-	closeForm,
-	createOrEdit,
-	submitting,
-}: Props) {
+	const {
+		selectedProduct,
+		closeForm,
+		createProduct,
+		updateProduct,
+		loading,
+	} = productStore;
+
 	const initialState = selectedProduct ?? {
 		productId: "",
 		productName: "",
@@ -37,7 +37,7 @@ export default function ProductForm({
 	const [product, setProduct] = useState(initialState);
 
 	function handleSubmit() {
-		createOrEdit(product);
+		product.productId ? updateProduct(product) : createProduct(product);
 	}
 
 	function handleInputChange(
@@ -87,7 +87,7 @@ export default function ProductForm({
 					onChange={handleInputChange}></Form.Input>
 
 				<Button
-					loading={submitting}
+					loading={loading}
 					floated="right"
 					positive
 					type="submit"
@@ -102,4 +102,4 @@ export default function ProductForm({
 			</Form>
 		</Segment>
 	);
-}
+});

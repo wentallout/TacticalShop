@@ -1,21 +1,12 @@
+import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, Segment } from "semantic-ui-react";
-import { Product } from "../../../app/models/product";
+import { useStore } from '../../../app/stores/store';
 
-interface Props {
-	products: Product[];
-	selectProduct: (productid: string) => void;
-	deleteProduct: (productid: string) => void;
-	submitting: boolean;
-}
-
-export default function ProductList({
-	products,
-	selectProduct,
-	deleteProduct,
-	submitting,
-}: Props) {
-	const [target, setTarget] = useState('');
+export default observer(function ProductList() {
+	const { productStore } = useStore();
+	const { deleteProduct, productsByDate, loading } = productStore;
+	const [target, setTarget] = useState("");
 
 	function handleProductDelete(
 		e: SyntheticEvent<HTMLButtonElement>,
@@ -24,10 +15,12 @@ export default function ProductList({
 		setTarget(e.currentTarget.name);
 		deleteProduct(productid);
 	}
+	
+
 	return (
 		<Segment>
 			<Item.Group divided>
-				{products.map((product) => (
+				{productsByDate.map((product) => (
 					<Item key={product.productId}>
 						<Item.Content>
 							<Item.Header>
@@ -44,14 +37,14 @@ export default function ProductList({
 
 						<Item.Extra>
 							<Button
-								onClick={() => selectProduct(product.productId)}
+								onClick={() => productStore.selectProduct(product.productId)}
 								floated="right"
 								content="View"
 								color="blue"
 							/>
 							<Button
 								name={product.productId}
-								loading={submitting && target === product.productId}
+								loading={loading && target === product.productId}
 								onClick={(e) => handleProductDelete(e, product.productId)}
 								floated="right"
 								content="Delete"
@@ -63,4 +56,4 @@ export default function ProductList({
 			</Item.Group>
 		</Segment>
 	);
-}
+});
