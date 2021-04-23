@@ -1,24 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { observer } from "mobx-react-lite";
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import { Button, Segment, Form } from "semantic-ui-react";
 
-import { Product } from "../../../app/models/product";
 import { useStore } from "../../../app/stores/store";
+import { useHistory, useParams } from "react-router";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { Link } from "react-router-dom";
 
 export default observer(function ProductForm() {
+	const history = useHistory();
 	const { productStore } = useStore();
 
 	const {
-		selectedProduct,
-		closeForm,
 		createProduct,
 		updateProduct,
+		loadProduct,
 		loading,
+		loadingInitial,
 	} = productStore;
-
-	const initialState = selectedProduct ?? {
+	const { productid } = useParams<{ productid: string }>();
+	const [product, setProduct] = useState({
 		productId: "",
 		productName: "",
 		productPrice: "",
@@ -32,12 +34,23 @@ export default observer(function ProductForm() {
 		createdDate: "",
 		updatedDate: "",
 		starRating: "",
-	};
+	});
 
-	const [product, setProduct] = useState(initialState);
+	useEffect(() => {
+		if (productid)
+			loadProduct(productid).then((product) => setProduct(product!));
+	}, [productid, loadProduct]);
 
 	function handleSubmit() {
-		product.productId ? updateProduct(product) : createProduct(product);
+		if (product.productId.length === 0) {
+			createProduct(product).then(() =>
+				history.push(`/products/${product.productId}`),
+			);
+		} else {
+			updateProduct(product).then(() =>
+				history.push(`/products/${product.productId}`),
+			);
+		}
 	}
 
 	function handleInputChange(
@@ -47,6 +60,7 @@ export default observer(function ProductForm() {
 		setProduct({ ...product, [name]: value });
 	}
 
+	if (loadingInitial) return <LoadingComponent content="Loading product..." />;
 	return (
 		<Segment clearing>
 			<Form onSubmit={handleSubmit} autoComplete="off">
@@ -94,7 +108,8 @@ export default observer(function ProductForm() {
 					content="SUBMIT"
 				/>
 				<Button
-					onClick={closeForm}
+					as={Link}
+					to="/products"
 					floated="right"
 					type="button"
 					content="CANCEL"

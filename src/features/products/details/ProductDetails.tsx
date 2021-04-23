@@ -1,23 +1,31 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 import { Card, Image, Button } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 import { useStore } from "../../../app/stores/store";
 
-export default function ProductDetails() {
+export default observer(function ProductDetails() {
 	const { productStore } = useStore();
 	const {
 		selectedProduct: product,
-		openForm,
-		cancelSelectedProduct,
+		loadProduct,
+		loadingInitial,
 	} = productStore;
+	const { productid } = useParams<{ productid: string }>();
 
-	if (!product) return <LoadingComponent />;
+	useEffect(() => {
+		if (productid) loadProduct(productid);
+	}, [productid, loadProduct]);
+
+	if (loadingInitial || !product) return <LoadingComponent />;
 
 	return (
 		<Card fluid>
-			<Image src={`https://localhost:44341/${product.productImageName}`} />
+			<Image centered size="medium" src={`https://localhost:44341/${product.productImageName}`} />
 			<Card.Content>
 				<Card.Header>{product.productName}</Card.Header>
 				<Card.Meta>
@@ -28,14 +36,16 @@ export default function ProductDetails() {
 			<Card.Content extra>
 				<Button.Group widths="2">
 					<Button
-						onClick={() => openForm(product.productId)}
+						as={Link}
+						to={`/manage/${product.productId}`}
 						basic
 						color="blue"
 						content="EDIT"
 					/>
 
 					<Button
-						onClick={cancelSelectedProduct}
+						as={Link}
+						to="/products"
 						basic
 						color="grey"
 						content="CANCEL"
@@ -44,4 +54,4 @@ export default function ProductDetails() {
 			</Card.Content>
 		</Card>
 	);
-}
+});

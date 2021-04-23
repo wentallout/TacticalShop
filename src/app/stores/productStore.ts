@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
+
 import agent from "../api/agent";
 import { Product } from "../models/product";
 
@@ -22,11 +23,11 @@ export default class ProductStore {
 	}
 
 	loadProducts = async () => {
+		this.loadingInitial = true;
 		try {
 			const products = await agent.Products.list();
 			products.forEach((product) => {
-				product.updatedDate = product.updatedDate.split("T")[0];
-				this.productRegistry.set(product.productId, product);
+				this.setProduct(product);
 			});
 			this.setLoadingInitial(false);
 		} catch (error) {
@@ -35,25 +36,40 @@ export default class ProductStore {
 		}
 	};
 
+	loadProduct = async (productid: string) => {
+		let product = this.getProduct(productid);
+		if (product) {
+			this.selectedProduct = product;
+			return product;
+		} else {
+			this.loadingInitial = true;
+			try {
+				product = await agent.Products.details(productid);
+				this.setProduct(product);
+				runInAction(() => {
+					this.selectedProduct = product;
+				});
+
+				this.setLoadingInitial(false);
+				return product;
+			} catch (error) {
+				console.log(error);
+				this.setLoadingInitial(false);
+			}
+		}
+	};
+
+	private getProduct = (productid: string) => {
+		return this.productRegistry.get(productid);
+	};
+
+	private setProduct = (product: Product) => {
+		product.updatedDate = product.updatedDate.split("T")[0];
+		this.productRegistry.set(product.productId, product);
+	};
+
 	setLoadingInitial = (state: boolean) => {
 		this.loadingInitial = state;
-	};
-
-	selectProduct = (productid: string) => {
-		this.selectedProduct = this.productRegistry.get(productid);
-	};
-
-	cancelSelectedProduct = () => {
-		this.selectedProduct = undefined;
-	};
-
-	openForm = (productid?: string) => {
-		productid ? this.selectProduct(productid) : this.cancelSelectedProduct();
-		this.editMode = true;
-	};
-
-	closeForm = () => {
-		this.editMode = false;
 	};
 
 	createProduct = async (product: Product) => {
@@ -100,8 +116,7 @@ export default class ProductStore {
 			await agent.Products.delete(productid);
 			runInAction(() => {
 				this.productRegistry.delete(productid);
-				if (this.selectedProduct?.productId === productid)
-					this.cancelSelectedProduct();
+
 				this.loading = false;
 			});
 		} catch (error) {
