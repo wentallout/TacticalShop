@@ -1,6 +1,6 @@
-﻿using TacticalShop.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TacticalShop.ViewModels;
 
 namespace TacticalShop.Frontend.Services
 {

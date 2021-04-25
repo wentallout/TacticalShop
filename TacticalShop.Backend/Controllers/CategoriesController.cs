@@ -93,7 +93,7 @@ namespace TacticalShop.Backend.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { CategoryId = category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName = category.CategoryName });
+            return CreatedAtAction("GetCategory", new { category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName = category.CategoryName });
         }
 
         [HttpDelete("{id}")]

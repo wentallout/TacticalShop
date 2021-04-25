@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TacticalShop.ViewModels;
 
-
 namespace TacticalShop.Frontend.Services
 {
     public class ProductApiClient : IProductApiClient
@@ -26,19 +25,14 @@ namespace TacticalShop.Frontend.Services
         {
             var response = await _client.GetAsync($"api/products/filterproducts?categoryid={categoryid}&brandid={brandid}");
 
-
-            response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
 
-
         public async Task<ProductVm> GetProduct(int id)
         {
-            var response = await _client.GetAsync("api/products/" + id.ToString());
-            response.EnsureSuccessStatusCode();
+            var response = await _client.GetAsync("api/products/" + id);
+
             return await response.Content.ReadAsAsync<ProductVm>();
         }
-
     }
-
 }

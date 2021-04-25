@@ -15,36 +15,32 @@ namespace TacticalShop.Frontend.Controllers
             _ratingApiClient = ratingApiClient;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-        public async Task<IActionResult> CreateRating(int productid, int star)
+        public async Task<IActionResult> CreateRating(int id, int star)
         {
             var claimIdentity = User.Identity as ClaimsIdentity;
             string userid = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             var ratingCreateRequest = new RatingCreateRequest
             {
                 UserId = userid,
-                ProductId = productid,
+                ProductId = id,
                 Star = star,
             };
             await _ratingApiClient.CreateRating(ratingCreateRequest);
-            return RedirectToAction("Detail", "Product", new { productid });
+            return RedirectToAction("Detail", "Product", new { id });
         }
 
-        public async Task<IActionResult> UpdateRating(int productid, int star)
+        public async Task<IActionResult> UpdateRating(int id, int star)
         {
             var claimIdentity = User.Identity as ClaimsIdentity;
             string userid = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             var ratingUpdateRequest = new RatingUpdateRequest
             {
                 UserId = userid,
-                ProductId = productid,
+                ProductId = id,
                 Star = star,
             };
             await _ratingApiClient.UpdateRating(ratingUpdateRequest);
-            return RedirectToAction("Detail", "Product", new { productid });
+            return RedirectToAction("Detail", "Product", new { id });
         }
     }
 }

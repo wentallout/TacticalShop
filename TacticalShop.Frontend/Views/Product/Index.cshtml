@@ -88,7 +88,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-6 product" data-aos="fade-up" data-aos-delay="200">
                                 <div class="product-inner">
                                     <div class="thumb">
-                                        <a style="height: 270px; object-fit: contain; width: 270px;" asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId" class="image">
+                                        <a style="height: 270px; object-fit: contain; width: 270px;" asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId" class="image">
                                             <img style="height: 270px; object-fit: cover; width: 270px;" class="first-image" src="@backendurl/images/@product.ProductImageName" alt="Product" />
                                             <img style="height: 270px; width: 270px;" class="second-image" src="@backendurl/images/@product.ProductImageName" alt="Product" />
                                         </a>
@@ -109,13 +109,11 @@
                                             <a href="single-product.html">@product.BrandName</a>
                                         </h4>
                                         <h5 class="title">
-                                            <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId">@product.ProductName</a>
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">@product.ProductName</a>
                                         </h5>
                                         <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
+
+                                            <span class="rating-num">RATING:@product.StarRating/5</span>
                                         </span>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere metus vitae arcu imperdiet, id aliquet ante scelerisque. Sed sit amet sem vitae urna fringilla tempus.</p>
                                         <span class="price">
@@ -223,7 +221,7 @@
                             <!-- Widget Menu End -->
                         </div>
                         <div class="widget-list mb-10">
-                            <h3 class="widget-title mb-5">Price Filter</h3>
+                            <h3 class="widget-title mb-5">Price</h3>
                             <!-- Widget Menu Start -->
                             <form action="#">
                                 <div id="slider-range"></div>

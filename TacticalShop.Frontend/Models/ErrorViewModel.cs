@@ -1,5 +1,3 @@
-using System;
-
 namespace TacticalShop.Frontend.Models
 {
     public class ErrorViewModel
