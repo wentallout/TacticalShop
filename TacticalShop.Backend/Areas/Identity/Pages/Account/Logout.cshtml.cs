@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.Services;
+﻿using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 using TacticalShop.Backend.Models;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account
@@ -19,7 +16,7 @@ namespace TacticalShop.Backend.Areas.Identity.Pages.Account
         private readonly ILogger<LogoutModel> _logger;
         private readonly IIdentityServerInteractionService _interaction;
 
-        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger,IIdentityServerInteractionService interaction)
+        public LogoutModel(SignInManager<User> signInManager, ILogger<LogoutModel> logger, IIdentityServerInteractionService interaction)
         {
             _signInManager = signInManager;
             _logger = logger;
