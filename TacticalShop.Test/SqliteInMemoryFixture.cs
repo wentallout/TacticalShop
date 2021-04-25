@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TacticalShop.Backend.Data;
 
 namespace TacticalShop.Test

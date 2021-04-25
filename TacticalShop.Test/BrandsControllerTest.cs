@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Xunit;
-using TacticalShop.Backend.Controllers;
-using TacticalShop.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using TacticalShop.Backend.Controllers;
 using TacticalShop.Backend.Models;
-using TacticalShop.Test;
+using TacticalShop.ViewModels;
+using Xunit;
 
 namespace TacticalShop.Test
 {
