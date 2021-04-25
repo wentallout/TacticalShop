@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace TacticalShop.ViewModels
 {
@@ -13,6 +12,8 @@ namespace TacticalShop.ViewModels
         public string ProductDescription { get; set; }
 
         public IFormFile ProductImage { get; set; }
+
+        public string ProductImageName { get; set; }
 
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
