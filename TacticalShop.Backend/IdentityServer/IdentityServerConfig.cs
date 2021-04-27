@@ -77,24 +77,39 @@ namespace TacticalShop.Backend.IdentityServer
                 },
                 new Client
                 {
+                    ClientName = "react",
                     ClientId = "react",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AccessTokenType = AccessTokenType.Reference,
                     AllowedGrantTypes = GrantTypes.Code,
+                    AllowAccessTokensViaBrowser = true,
 
+                    RequireClientSecret = false,
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris =           { $"{clientUrls["React"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientUrls["React"]}/swagger/oauth2-redirect.html" },
-                    AllowedCorsOrigins =     { $"{clientUrls["React"]}" },
-
+                    RedirectUris = new List<string>
+                    {
+                        $"{clientUrls["React"]}/authentication/login-callback",
+                        $"{clientUrls["React"]}/silent-renew.html",
+                        $"{clientUrls["React"]}"
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        $"{clientUrls["React"]}/unauthorized",
+                        $"{clientUrls["React"]}/authentication/logout-callback",
+                        $"{clientUrls["React"]}"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        $"{clientUrls["React"]}"
+                    },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "tacticalshop.api"
                     }
-                },
+                }
             };
     }
 }

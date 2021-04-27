@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using TacticalShop.Backend.IdentityServer;
-using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 
 namespace TacticalShop.Backend.Extensions.ServiceCollection

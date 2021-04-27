@@ -1,11 +1,10 @@
-using System.Threading.Tasks;
-using Xunit;
-using TacticalShop.Backend.Controllers;
-using TacticalShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using TacticalShop.Backend.Controllers;
 using TacticalShop.Backend.Models;
-using TacticalShop.Test;
+using TacticalShop.ViewModels;
+using Xunit;
 
 namespace TacticalShop.Test
 {
@@ -45,6 +44,18 @@ namespace TacticalShop.Test
 
             var actionResult = Assert.IsType<ActionResult<IEnumerable<CategoryVm>>>(result);
             Assert.NotEmpty(actionResult.Value);
+        }
+
+        [Fact]
+        public async Task DeleteCategory_Success()
+        {
+            var dbContext = _fixture.Context;
+            var category = new Category { CategoryId = 1, CategoryName = "TestDeleteCategory" };
+            await dbContext.SaveChangesAsync();
+            var controller = new CategoriesController(dbContext);
+            var result = await controller.DeleteCategory(1);
+
+            Assert.IsType<NoContentResult>(result);
         }
     }
 }

@@ -88,9 +88,9 @@
                             <div class="col-lg-4 col-md-4 col-sm-6 product" data-aos="fade-up" data-aos-delay="200">
                                 <div class="product-inner">
                                     <div class="thumb">
-                                        <a style="height: 270px; object-fit: contain; width: 270px;" asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId" class="image">
-                                            <img style="height: 270px; object-fit: cover; width: 270px;" class="first-image" src="@backendurl/images/@product.ProductImageName" alt="Product" />
-                                            <img style="height: 270px; width: 270px;" class="second-image" src="@backendurl/images/@product.ProductImageName" alt="Product" />
+                                        <a style="height: 270px; object-fit: contain; width: 270px;" asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId" class="image">
+                                            <img style="height: 270px; object-fit: cover; width: 270px;" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+                                            <img style="height: 270px; width: 270px;" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
                                         </a>
                                         <div class="actions">
                                             <a href="wishlist.html" title="Wishlist" class="action wishlist">
@@ -109,13 +109,11 @@
                                             <a href="single-product.html">@product.BrandName</a>
                                         </h4>
                                         <h5 class="title">
-                                            <a asp-controller="Product" asp-action="Detail" asp-route-productid="@product.ProductId">@product.ProductName</a>
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId">@product.ProductName</a>
                                         </h5>
                                         <span class="ratings">
-                                            <span class="rating-wrap">
-                                                <span class="star" style="width: 100%"></span>
-                                            </span>
-                                            <span class="rating-num">(4)</span>
+
+                                            <span class="rating-num">RATING:@product.StarRating/5</span>
                                         </span>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere metus vitae arcu imperdiet, id aliquet ante scelerisque. Sed sit amet sem vitae urna fringilla tempus.</p>
                                         <span class="price">
@@ -146,11 +144,11 @@
                     <div class="shop-top-bar-left">
                         <div class="shop-short-by mr-4">
                             <select class="nice-select rounded-0" aria-label=".form-select-sm example">
-                                <option selected>Show 12 Per Page</option>
-                                <option value="1">Show 12 Per Page</option>
-                                <option value="2">Show 24 Per Page</option>
-                                <option value="3">Show 15 Per Page</option>
-                                <option value="3">Show 30 Per Page</option>
+                                <option selected>Show 6 Per Page</option>
+                                @* <option value="1">Show 12 Per Page</option> *@
+                                @* <option value="2">Show 24 Per Page</option> *@
+                                @* <option value="3">Show 15 Per Page</option> *@
+                                @* <option value="3">Show 30 Per Page</option> *@
                             </select>
                         </div>
                     </div>
@@ -159,25 +157,29 @@
                     <div class="shop-top-bar-right">
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
+                                @* <li class="page-item disabled"> *@
+                                @*     <a class="page-link" href="#" aria-label="Previous"> *@
+                                @*         <span aria-hidden="true">&laquo;</span> *@
+                                @*     </a> *@
+                                @* </li> *@
+                                <li class="page-item">
+                                    <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pagenumber="1" asp-route-pagesize="6">1</a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link active" href="#">1</a>
+                                    <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pagenumber="2" asp-route-pagesize="6">2</a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
+                                    <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pagenumber="3" asp-route-pagesize="6">3</a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
+                                    <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pagenumber="4" asp-route-pagesize="6">4</a>
                                 </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+
+                                @* <li class="page-item"> *@
+                                @*     <a class="page-link" href="#" aria-label="Next"> *@
+                                @*         <span aria-hidden="true">&raquo;</span> *@
+                                @*     </a> *@
+                                @* </li> *@
                             </ul>
                         </nav>
                     </div>
@@ -223,7 +225,7 @@
                             <!-- Widget Menu End -->
                         </div>
                         <div class="widget-list mb-10">
-                            <h3 class="widget-title mb-5">Price Filter</h3>
+                            <h3 class="widget-title mb-5">Price</h3>
                             <!-- Widget Menu Start -->
                             <form action="#">
                                 <div id="slider-range"></div>

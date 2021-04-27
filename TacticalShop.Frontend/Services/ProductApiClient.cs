@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TacticalShop.ViewModels;
 
-
 namespace TacticalShop.Frontend.Services
 {
     public class ProductApiClient : IProductApiClient
@@ -15,10 +14,10 @@ namespace TacticalShop.Frontend.Services
             _client = client;
         }
 
-        public async Task<IList<ProductVm>> GetProducts()
+        public async Task<IList<ProductVm>> GetProducts(int? pagenumber, int? pagesize, int? categoryid, int? brandid)
         {
-            var response = await _client.GetAsync("api/products");
-            response.EnsureSuccessStatusCode();
+            var response = await _client.GetAsync($"api/products?pagenumber={pagenumber}&pagesize={pagesize}&categoryid={categoryid}&brandid={brandid}");
+
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
 
@@ -26,19 +25,14 @@ namespace TacticalShop.Frontend.Services
         {
             var response = await _client.GetAsync($"api/products/filterproducts?categoryid={categoryid}&brandid={brandid}");
 
-
-            response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
 
-
         public async Task<ProductVm> GetProduct(int id)
         {
-            var response = await _client.GetAsync("api/products/" + id.ToString());
+            var response = await _client.GetAsync("api/products/" + id);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<ProductVm>();
         }
-
     }
-
 }

@@ -4,13 +4,13 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using TacticalShop.Backend.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Models;
 
 namespace TacticalShop.Backend.IdentityServer
 {

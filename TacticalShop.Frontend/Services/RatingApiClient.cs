@@ -9,16 +9,19 @@ namespace TacticalShop.Frontend.Services
     public class RatingApiClient : IRatingApiClient
     {
         private readonly HttpClient _httpClient;
+
         public RatingApiClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        public async Task<RatingVm> GetRating(string userid, int productid)
+
+        public async Task<RatingVm> GetRating(string userid, int id)
         {
-            var response = await _httpClient.GetAsync("api/Ratings/" + userid.ToString() + "/" + productid.ToString());
+            var response = await _httpClient.GetAsync("api/Ratings/" + userid + "/" + id);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<RatingVm>();
         }
+
         public async Task<RatingCreateRequest> CreateRating(RatingCreateRequest ratingCreateRequest)
         {
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(ratingCreateRequest), Encoding.UTF8, "application/json");
@@ -28,6 +31,7 @@ namespace TacticalShop.Frontend.Services
 
             return await response.Content.ReadAsAsync<RatingCreateRequest>();
         }
+
         public async Task<RatingUpdateRequest> UpdateRating(RatingUpdateRequest ratingUpdateRequest)
         {
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(ratingUpdateRequest), Encoding.UTF8, "application/json");

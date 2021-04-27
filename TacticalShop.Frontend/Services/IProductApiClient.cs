@@ -6,7 +6,7 @@ namespace TacticalShop.Frontend.Services
 {
     public interface IProductApiClient
     {
-        Task<IList<ProductVm>> GetProducts();
+        Task<IList<ProductVm>> GetProducts(int? pagenumber, int? pagesize, int? categoryid, int? brandid);
 
         Task<ProductVm> GetProduct(int id);
 
