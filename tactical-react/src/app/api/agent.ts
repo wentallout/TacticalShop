@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+
 import { Product } from "../models/product";
 
 const sleep = (delay: number) => {
@@ -8,6 +9,10 @@ const sleep = (delay: number) => {
 };
 
 axios.defaults.baseURL = "https://localhost:44341/api";
+// axios.defaults.headers['Authorization'] = 'Bearer access_token';
+
+
+
 
 axios.interceptors.response.use(async (response) => {
 	try {

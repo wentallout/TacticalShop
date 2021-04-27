@@ -7,7 +7,7 @@ const oidcSettings: UserManagerSettings = {
 	post_logout_redirect_uri:
 		"http://localhost:3000/authentication/logout-callback",
 	response_type: "code",
-	scope: "tacticalshop.api",
+	scope: "tacticalshop.api openid profile",
 	automaticSilentRenew: true,
 	includeIdTokenInSilentRenew: true,
 };

@@ -1,16 +1,16 @@
-import React, { Fragment } from "react";
 import { Container, Menu, Button } from "semantic-ui-react";
 
-interface Props {
-	openForm: () => void;
-}
+import { NavLink } from "react-router-dom";
 
-export default function NavBar({ openForm }: Props) {
+export default function NavBar()
+{
+
+
 	return (
 		<>
 			<Menu inverted fixed="top">
 				<Container>
-					<Menu.Item header>
+					<Menu.Item as={NavLink} to="/" exact header>
 						<img
 							style={{ marginRight: "10px" }}
 							src="/assets/logo.png"
@@ -19,11 +19,15 @@ export default function NavBar({ openForm }: Props) {
 						TacticalShopAdmin
 					</Menu.Item>
 
-					<Menu.Item name="TacticalShop" />
+
+
+					<Menu.Item as={NavLink} to="/products" exact name="Products" />
 
 					<Menu.Item>
 						<Button
-							onClick={openForm}
+							as={NavLink}
+							to="/createProduct"
+							exact
 							positive
 							content="Create Product"></Button>
 					</Menu.Item>

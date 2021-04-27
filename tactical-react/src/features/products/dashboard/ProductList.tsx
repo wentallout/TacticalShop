@@ -1,21 +1,13 @@
+import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Item, Segment } from "semantic-ui-react";
-import { Product } from "../../../app/models/product";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-	products: Product[];
-	selectProduct: (productid: string) => void;
-	deleteProduct: (productid: string) => void;
-	submitting: boolean;
-}
-
-export default function ProductList({
-	products,
-	selectProduct,
-	deleteProduct,
-	submitting,
-}: Props) {
-	const [target, setTarget] = useState('');
+export default observer(function ProductList() {
+	const { productStore } = useStore();
+	const { deleteProduct, productsByDate, loading } = productStore;
+	const [target, setTarget] = useState("");
 
 	function handleProductDelete(
 		e: SyntheticEvent<HTMLButtonElement>,
@@ -24,34 +16,36 @@ export default function ProductList({
 		setTarget(e.currentTarget.name);
 		deleteProduct(productid);
 	}
+
 	return (
 		<Segment>
 			<Item.Group divided>
-				{products.map((product) => (
+				{productsByDate.map((product) => (
 					<Item key={product.productId}>
 						<Item.Content>
 							<Item.Header>
-								{product.productName} [{product.categoryName}]
+								{product.productName} ({product.productQuantity} left)
 							</Item.Header>
-							<Item.Meta>Last Updated:{product.updatedDate}</Item.Meta>
-
+							<Item.Meta>Last Updated: {product.updatedDate}</Item.Meta>
+							<Item.Meta>Created Date: {product.createdDate}</Item.Meta>
 							<Item.Description>
-								<div>{product.brandName}</div>
-
-								<div>{product.productPrice}</div>
+								<div>CATEGORY: {product.categoryName}</div>
+								<div>BRAND: {product.brandName}</div>
+								<div>PRICE: ${product.productPrice}</div>
 							</Item.Description>
 						</Item.Content>
 
 						<Item.Extra>
 							<Button
-								onClick={() => selectProduct(product.productId)}
+								as={Link}
+								to={`/products/${product.productId}`}
 								floated="right"
 								content="View"
 								color="blue"
 							/>
 							<Button
 								name={product.productId}
-								loading={submitting && target === product.productId}
+								loading={loading && target === product.productId}
 								onClick={(e) => handleProductDelete(e, product.productId)}
 								floated="right"
 								content="Delete"
@@ -63,4 +57,4 @@ export default function ProductList({
 			</Item.Group>
 		</Segment>
 	);
-}
+});
