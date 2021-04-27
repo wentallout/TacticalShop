@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -25,7 +25,11 @@ export default observer(function ProductDetails() {
 
 	return (
 		<Card fluid>
-			<Image centered size="medium" src={`https://localhost:44341/${product.productImageName}`} />
+			<Image
+				centered
+				size="medium"
+				src={`https://localhost:44341/${product.productImageName}`}
+			/>
 			<Card.Content>
 				<Card.Header>{product.productName}</Card.Header>
 				<Card.Meta>

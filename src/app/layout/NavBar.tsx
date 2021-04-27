@@ -2,7 +2,10 @@ import { Container, Menu, Button } from "semantic-ui-react";
 
 import { NavLink } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar()
+{
+
+
 	return (
 		<>
 			<Menu inverted fixed="top">
@@ -15,6 +18,8 @@ export default function NavBar() {
 						/>
 						TacticalShopAdmin
 					</Menu.Item>
+
+
 
 					<Menu.Item as={NavLink} to="/products" exact name="Products" />
 

@@ -7,6 +7,7 @@ import HomePage from "../../features/home/HomePage";
 import ProductForm from "../../features/products/form/ProductForm";
 import { Route, useLocation } from "react-router-dom";
 import ProductDetails from "../../features/products/details/ProductDetails";
+import Auth from "../../features/oidc/Auth";
 
 function App() {
 	const location = useLocation();
@@ -14,6 +15,7 @@ function App() {
 	return (
 		<>
 			<Route exact path="/" component={HomePage} />
+
 			<Route
 				path={"/(.+)"}
 				render={() => (
@@ -27,6 +29,7 @@ function App() {
 								path={["/createProduct", "/manage/:productid"]}
 								component={ProductForm}
 							/>
+							<Route path="/authentication/:action" component={Auth} />
 						</Container>
 					</>
 				)}
