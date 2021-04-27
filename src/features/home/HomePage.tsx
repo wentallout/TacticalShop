@@ -1,7 +1,12 @@
 import { Container, Menu } from "semantic-ui-react";
 import { Link, NavLink } from "react-router-dom";
+import { selectIsAuthenticated, selectUser } from "../oidc/auth-slice";
+import { useSelector } from "react-redux";
+import LoginMenu from "../oidc/LoginMenu";
 
 export default function HomePage() {
+	const isAuthenticated = useSelector(selectIsAuthenticated);
+	const userName = useSelector(selectUser)?.name;
 	return (
 		<>
 			<Menu inverted fixed="top">
@@ -24,6 +29,10 @@ export default function HomePage() {
 
 				<h3>
 					Go to <Link to="/products">Products</Link>{" "}
+				</h3>
+
+				<h3>
+					<LoginMenu isAuthenticated={isAuthenticated} userName={userName} />
 				</h3>
 			</Container>
 		</>
