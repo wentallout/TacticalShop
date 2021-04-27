@@ -1,10 +1,12 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Application.Core;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
@@ -14,12 +16,20 @@ namespace TacticalShop.Backend.Application.Products
 {
     public class Create
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public ProductCreateRequest productCreateRequest { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleFor(x => x.productCreateRequest).SetValidator(new ProductValidator());
+            }
+        }
+
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DatabaseContext _context;
             private readonly IStorageService _storageService;
@@ -30,9 +40,9 @@ namespace TacticalShop.Backend.Application.Products
                 _storageService = storageService;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var product = new Product()
+                var product = new Product
                 {
                     ProductName = request.productCreateRequest.ProductName,
                     ProductDescription = request.productCreateRequest.ProductDescription,
@@ -48,11 +58,17 @@ namespace TacticalShop.Backend.Application.Products
                 {
                     product.ProductImageName = await SaveFile(request.productCreateRequest.ProductImage);
                 }
+                else
+                {
+                    product.ProductImageName = "";
+                }
 
                 _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
 
-                return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failed to create product");
+
+                return Result<Unit>.Success(Unit.Value);
             }
 
             private async Task<string> SaveFile(IFormFile file)

@@ -12,42 +12,33 @@ namespace TacticalShop.Frontend.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IProductApiClient _productApiClient;
+
         public HomeController(ILogger<HomeController> logger, IProductApiClient productApiClient)
         {
             _logger = logger;
             _productApiClient = productApiClient;
-
         }
-
-
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productApiClient.GetProducts();
+            var products = await _productApiClient.GetProducts(1, 20, null, null);
             return View(products);
         }
 
         public IActionResult About()
         {
-
             return View();
         }
 
         public IActionResult Faq()
         {
-
             return View();
         }
 
         public IActionResult Contact()
         {
-
             return View();
         }
-
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

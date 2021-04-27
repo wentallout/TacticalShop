@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Application.Core;
 using TacticalShop.Backend.Application.Products;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Services;
@@ -30,38 +31,35 @@ namespace TacticalShop.Backend.Controllers
         // GET: api/Products
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductVm>>> GetProducts([FromQuery] PagingParams param, int? categoryid = null, int? brandid = null)
         {
-            return await Mediator.Send(new List.Query());
+            return HandleResult(await Mediator.Send(new List.Query { Params = param, categoryid = categoryid, brandid = brandid }));
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ProductVm>> GetProduct(int id)
+        public async Task<IActionResult> GetProduct(int id)
         {
-            return await Mediator.Send(new Details.Query { id = id });
+            return HandleResult(await Mediator.Send(new Details.Query { id = id }));
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> PostProduct(  /*[FromForm]*/ ProductCreateRequest productCreateRequest)
         {
-            return Ok(await Mediator.Send(new Create.Command { productCreateRequest = productCreateRequest }));
+            return HandleResult(await Mediator.Send(new Create.Command { productCreateRequest = productCreateRequest }));
         }
 
         [HttpPut("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
-            return Ok(await Mediator.Send(new Edit.Command { id = id, productCreateRequest = productCreateRequest }));
+            return HandleResult(await Mediator.Send(new Edit.Command { id = id, productCreateRequest = productCreateRequest }));
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            return Ok(await Mediator.Send(new Delete.Command { id = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { id = id }));
         }
 
         private bool ProductExists(int id)

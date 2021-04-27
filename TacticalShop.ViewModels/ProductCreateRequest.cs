@@ -13,8 +13,6 @@ namespace TacticalShop.ViewModels
 
         public IFormFile ProductImage { get; set; }
 
-        public string ProductImageName { get; set; }
-
         public int BrandId { get; set; }
         public int CategoryId { get; set; }
         public int ProductQuantity { get; set; }

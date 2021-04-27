@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using TacticalShop.Backend.Application.Products;
 using TacticalShop.Backend.Configs;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Extensions.ServiceCollection;
+using TacticalShop.Backend.Middleware;
 using TacticalShop.Backend.Models;
 using TacticalShop.Backend.Services;
 
@@ -38,26 +40,28 @@ namespace TacticalShop.Backend
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );
+                ).AddFluentValidation(config => { config.RegisterValidatorsFromAssemblyContaining<Create>(); });
             services.AddRazorPages();
             services.AddSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseXContentTypeOptions();
-            app.UseReferrerPolicy(opt => opt.NoReferrer());
-            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
-            app.UseXfo(opt => opt.Deny());
-            app.UseCspReportOnly(opt => opt
-                .BlockAllMixedContent()
-                .StyleSources(s => s.Self())
-                .FontSources(s => s.Self())
-                .FormActions(s => s.Self())
-                .FrameAncestors(s => s.Self())
-                .ImageSources(s => s.Self())
-                .ScriptSources(s => s.Self())
-            );
+            // app.UseXContentTypeOptions();
+            // app.UseReferrerPolicy(opt => opt.NoReferrer());
+            // app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            // app.UseXfo(opt => opt.Deny());
+            // app.UseCspReportOnly(opt => opt
+            //     .BlockAllMixedContent()
+            //     .StyleSources(s => s.Self())
+            //     .FontSources(s => s.Self())
+            //     .FormActions(s => s.Self())
+            //     .FrameAncestors(s => s.Self())
+            //     // .ImageSources(s => s.Self())
+            //     .ScriptSources(s => s.Self())
+            // );
+            app.UseMiddleware<ExceptionMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

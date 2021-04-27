@@ -83,10 +83,8 @@ namespace TacticalShop.Backend.IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowAccessTokensViaBrowser = true,
 
-                    RequireConsent = false,
-
                     RequireClientSecret = false,
-
+                    RequireConsent = false,
                     RequirePkce = true,
 
                     RedirectUris = new List<string>

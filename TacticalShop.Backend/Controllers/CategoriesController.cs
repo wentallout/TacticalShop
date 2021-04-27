@@ -28,7 +28,7 @@ namespace TacticalShop.Backend.Controllers
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
             return await _context.Categories
-                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName }).AsNoTracking()
+                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName, CategoryDescription = x.CategoryDescription }).AsNoTracking()
                 .ToListAsync();
         }
 
@@ -47,7 +47,8 @@ namespace TacticalShop.Backend.Controllers
             var categoryVm = new CategoryVm
             {
                 CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName
+                CategoryName = category.CategoryName,
+                CategoryDescription = category.CategoryDescription
             };
 
             return categoryVm;
@@ -87,7 +88,8 @@ namespace TacticalShop.Backend.Controllers
         {
             var category = new Category
             {
-                CategoryName = categoryCreateRequest.CategoryName
+                CategoryName = categoryCreateRequest.CategoryName,
+                CategoryDescription = categoryCreateRequest.CategoryDescription,
             };
 
             _context.Categories.Add(category);

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Application.Core;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Services;
 using TacticalShop.ViewModels;
@@ -12,9 +12,15 @@ namespace TacticalShop.Backend.Application.Products
 {
     public class List
     {
-        public class Query : IRequest<List<ProductVm>> { }
+        public class Query : IRequest<Result<PagedList<ProductVm>>>
+        {
+            public PagingParams Params { get; set; }
 
-        public class Handler : IRequestHandler<Query, List<ProductVm>>
+            public int? brandid { get; set; }
+            public int? categoryid { get; set; }
+        }
+
+        public class Handler : IRequestHandler<Query, Result<PagedList<ProductVm>>>
         {
             private readonly DatabaseContext _context;
             private readonly IStorageService _storageService;
@@ -25,27 +31,21 @@ namespace TacticalShop.Backend.Application.Products
                 _storageService = storageService;
             }
 
-            public async Task<List<ProductVm>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<ProductVm>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).Select(x => new
-                {
-                    x.ProductId,
-                    x.CategoryId,
-                    x.BrandId,
-                    x.ProductName,
-                    x.ProductPrice,
-                    x.ProductDescription,
-                    x.ProductQuantity,
-                    x.CreatedDate,
-                    x.UpdatedDate,
-                    x.Brand.BrandName,
-                    x.Category.CategoryName,
-                    x.ProductImageName,
-                    x.StarRating
-                }).AsNoTracking()
-                    .ToListAsync();
+                var queryable = _context.Products.Include(x => x.Brand).Include(x => x.Category).AsQueryable().AsNoTracking();
 
-                var productVm = product.Select(x => new ProductVm
+                if (request.categoryid != null)
+                {
+                    queryable = _context.Products.Where(x => x.CategoryId == request.categoryid);
+                }
+
+                if (request.brandid != null)
+                {
+                    queryable = _context.Products.Where(x => x.BrandId == request.brandid);
+                }
+
+                var productVm = queryable.Select(x => new ProductVm
                 {
                     ProductId = x.ProductId,
                     CategoryId = x.CategoryId,
@@ -56,13 +56,13 @@ namespace TacticalShop.Backend.Application.Products
                     ProductQuantity = x.ProductQuantity,
                     CreatedDate = x.CreatedDate,
                     UpdatedDate = x.UpdatedDate,
-                    BrandName = x.BrandName,
-                    CategoryName = x.CategoryName,
+                    BrandName = x.Brand.BrandName,
+                    CategoryName = x.Category.CategoryName,
                     StarRating = x.StarRating,
                     ProductImageName = _storageService.GetFileUrl(x.ProductImageName)
-                }).ToList();
+                }).AsQueryable();
 
-                return productVm;
+                return Result<PagedList<ProductVm>>.Success(await PagedList<ProductVm>.CreateAsync(productVm, request.Params.PageNumber, request.Params.PageSize));
             }
         }
     }

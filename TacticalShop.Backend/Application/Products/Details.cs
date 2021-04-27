@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Application.Core;
 using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Services;
 using TacticalShop.ViewModels;
@@ -10,12 +11,12 @@ namespace TacticalShop.Backend.Application.Products
 {
     public class Details
     {
-        public class Query : IRequest<ProductVm>
+        public class Query : IRequest<Result<ProductVm>>
         {
             public int id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, ProductVm>
+        public class Handler : IRequestHandler<Query, Result<ProductVm>>
         {
             private readonly DatabaseContext _context;
             private readonly IStorageService _storageService;
@@ -26,7 +27,7 @@ namespace TacticalShop.Backend.Application.Products
                 _storageService = storageService;
             }
 
-            public async Task<ProductVm> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<ProductVm>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(request.id));
 
@@ -49,7 +50,7 @@ namespace TacticalShop.Backend.Application.Products
 
                 productVm.ProductImageName = _storageService.GetFileUrl(product.ProductImageName);
 
-                return productVm;
+                return Result<ProductVm>.Success(productVm);
             }
         }
     }

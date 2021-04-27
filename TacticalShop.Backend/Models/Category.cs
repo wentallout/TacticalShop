@@ -8,6 +8,8 @@ namespace TacticalShop.Backend.Models
         public int CategoryId { get; set; }
 
         [MaxLength(30)] [Required] public string CategoryName { get; set; }
+
+        public string CategoryDescription { get; set; }
         public List<Product> Products { get; set; }
     }
 }

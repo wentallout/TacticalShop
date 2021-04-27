@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TacticalShop.Backend.Application.Core;
 using TacticalShop.Backend.Data;
 using TacticalShop.ViewModels;
 
@@ -9,14 +10,14 @@ namespace TacticalShop.Backend.Application.Products
 {
     public class Edit
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public ProductCreateRequest productCreateRequest { get; set; }
 
             public int id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DatabaseContext _context;
 
@@ -25,9 +26,10 @@ namespace TacticalShop.Backend.Application.Products
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var product = await _context.Products.FindAsync(request.id);
+                if (product == null) return null;
 
                 product.ProductName = request.productCreateRequest.ProductName;
 
@@ -39,8 +41,11 @@ namespace TacticalShop.Backend.Application.Products
                 product.CategoryId = request.productCreateRequest.CategoryId;
                 product.UpdatedDate = DateTime.UtcNow;
 
-                await _context.SaveChangesAsync();
-                return Unit.Value;
+                var result = await _context.SaveChangesAsync() > 0;
+
+                if (!result) return Result<Unit>.Failure("Failed to edit/update product");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }
