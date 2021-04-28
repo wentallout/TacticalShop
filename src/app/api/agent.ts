@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { Product } from "../models/product";
+import { Category } from "../models/category";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -11,8 +12,11 @@ const sleep = (delay: number) => {
 axios.defaults.baseURL = "https://localhost:44341/api";
 // axios.defaults.headers['Authorization'] = 'Bearer access_token';
 
-
-
+axios.interceptors.request.use(function (config) {
+	const token = localStorage.getItem("token");
+	config.headers.Authorization = token ? `Bearer ${token}` : "";
+	return config;
+});
 
 axios.interceptors.response.use(async (response) => {
 	try {
@@ -25,7 +29,6 @@ axios.interceptors.response.use(async (response) => {
 });
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
-
 
 const requests = {
 	get: <T>(url: string) => axios.get<T>(url).then(responseBody),
@@ -46,8 +49,20 @@ const Products = {
 		requests.delete<void>(`/products/${productid}`),
 };
 
+const Categories = {
+	list: () => requests.get<Category[]>("./categories"),
+	details: (categoryid: string) =>
+		requests.get<Category>(`/categories/${categoryid}`),
+	create: (category: Category) => requests.post<void>("/categories", category),
+	update: (category: Category) =>
+		requests.put<void>(`/categories/${category.categoryId}`, category),
+	delete: (categoryid: string) =>
+		requests.delete<void>(`/categories/${categoryid}`),
+};
+
 const agent = {
 	Products,
+	Categories,
 };
 
 export default agent;

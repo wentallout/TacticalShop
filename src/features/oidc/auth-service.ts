@@ -1,4 +1,9 @@
-import { User, UserManager, UserManagerSettings } from "oidc-client";
+import {
+	User,
+	UserManager,
+	UserManagerSettings,
+	WebStorageStateStore,
+} from "oidc-client";
 
 const oidcSettings: UserManagerSettings = {
 	authority: "https://localhost:44341",
@@ -10,6 +15,7 @@ const oidcSettings: UserManagerSettings = {
 	scope: "tacticalshop.api openid profile",
 	automaticSilentRenew: true,
 	includeIdTokenInSilentRenew: true,
+	userStore: new WebStorageStateStore({ store: window.sessionStorage }),
 };
 
 class AuthService {

@@ -41,7 +41,7 @@ export default observer(function ProductDetails() {
 				<Button.Group widths="2">
 					<Button
 						as={Link}
-						to={`/manage/${product.productId}`}
+						to={`/manage/product/${product.productId}`}
 						basic
 						color="blue"
 						content="EDIT"
