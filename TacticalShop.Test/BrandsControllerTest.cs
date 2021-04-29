@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TacticalShop.Backend.Controllers;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 using TacticalShop.ViewModels;
 using Xunit;
 

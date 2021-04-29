@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TacticalShop.Backend.Application.Products;
+using TacticalShop.Application.Products;
+using TacticalShop.Application.Services;
 using TacticalShop.Backend.Configs;
-using TacticalShop.Backend.Data;
 using TacticalShop.Backend.Extensions.ServiceCollection;
 using TacticalShop.Backend.Middleware;
-using TacticalShop.Backend.Models;
-using TacticalShop.Backend.Services;
+using TacticalShop.Domain;
+using TacticalShop.Infrastructure.Photos;
+using TacticalShop.Persistence;
 
 namespace TacticalShop.Backend
 {
@@ -37,6 +38,8 @@ namespace TacticalShop.Backend
             services.AddAuthenAuthor();
             services.AddCorsOrigins(Configuration);
             services.AddMediatR(typeof(List.Handler).Assembly);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -47,19 +50,19 @@ namespace TacticalShop.Backend
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // app.UseXContentTypeOptions();
-            // app.UseReferrerPolicy(opt => opt.NoReferrer());
-            // app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
-            // app.UseXfo(opt => opt.Deny());
-            // app.UseCspReportOnly(opt => opt
-            //     .BlockAllMixedContent()
-            //     .StyleSources(s => s.Self())
-            //     .FontSources(s => s.Self())
-            //     .FormActions(s => s.Self())
-            //     .FrameAncestors(s => s.Self())
-            //     // .ImageSources(s => s.Self())
-            //     .ScriptSources(s => s.Self())
-            // );
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            app.UseCspReportOnly(opt => opt
+                .BlockAllMixedContent()
+                .StyleSources(s => s.Self())
+                .FontSources(s => s.Self())
+                .FormActions(s => s.Self())
+                .FrameAncestors(s => s.Self())
+                // .ImageSources(s => s.Self())
+                .ScriptSources(s => s.Self())
+            );
             app.UseMiddleware<ExceptionMiddleware>();
 
             if (env.IsDevelopment())

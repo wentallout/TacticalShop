@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account.Manage
 {

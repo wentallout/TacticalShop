@@ -1,0 +1,3 @@
+﻿namespace TacticalShop.Infrastructure.Photos
+{
+}

@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account
 {

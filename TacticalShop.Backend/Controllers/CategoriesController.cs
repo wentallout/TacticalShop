@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
+using TacticalShop.Persistence;
 using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
@@ -55,14 +55,19 @@ namespace TacticalShop.Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, CategoryVm categoryVm)
+        [AllowAnonymous]
+        public async Task<ActionResult<CategoryVm>> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {
-            if (id != categoryVm.CategoryId)
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            category.CategoryName = categoryCreateRequest.CategoryName;
+            category.CategoryDescription = categoryCreateRequest.CategoryDescription;
+
+            if (id != category.CategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(categoryVm).State = EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -84,6 +89,7 @@ namespace TacticalShop.Backend.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
         {
             var category = new Category
@@ -99,6 +105,7 @@ namespace TacticalShop.Backend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var categoryVm = await _context.Categories.FindAsync(id);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TacticalShop.Backend.Data;
+using TacticalShop.Persistence;
 
 namespace TacticalShop.Backend.Extensions.ServiceCollection
 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account
 {

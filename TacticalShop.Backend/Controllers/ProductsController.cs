@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Application.Core;
-using TacticalShop.Backend.Application.Products;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Services;
+using TacticalShop.Application.Core;
+using TacticalShop.Application.Products;
+using TacticalShop.Application.Services;
+using TacticalShop.Persistence;
 using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
@@ -44,12 +44,14 @@ namespace TacticalShop.Backend.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> PostProduct(  /*[FromForm]*/ ProductCreateRequest productCreateRequest)
         {
             return HandleResult(await Mediator.Send(new Create.Command { productCreateRequest = productCreateRequest }));
         }
 
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
         {
             return HandleResult(await Mediator.Send(new Edit.Command { id = id, productCreateRequest = productCreateRequest }));
@@ -57,6 +59,7 @@ namespace TacticalShop.Backend.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             return HandleResult(await Mediator.Send(new Delete.Command { id = id }));

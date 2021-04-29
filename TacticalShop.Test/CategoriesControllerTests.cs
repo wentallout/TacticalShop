@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TacticalShop.Backend.Controllers;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 using TacticalShop.ViewModels;
 using Xunit;
 
@@ -55,7 +55,7 @@ namespace TacticalShop.Test
             var controller = new CategoriesController(dbContext);
             var result = await controller.DeleteCategory(1);
 
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }
