@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account.Manage
 {

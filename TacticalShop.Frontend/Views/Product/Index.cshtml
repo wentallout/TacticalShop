@@ -89,8 +89,9 @@
                                 <div class="product-inner">
                                     <div class="thumb">
                                         <a style="height: 270px; object-fit: contain; width: 270px;" asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId" class="image">
-                                            <img style="height: 270px; object-fit: cover; width: 270px;" class="first-image" src="@backendurl/@product.ProductImageName" alt="Product" />
-                                            <img style="height: 270px; width: 270px;" class="second-image" src="@backendurl/@product.ProductImageName" alt="Product" />
+
+                                            <img style="height: 270px; object-fit: cover; width: 270px;" class="first-image" src="@product.PhotoUrl" alt="ProductImage" />
+                                            <img style="height: 270px; width: 270px;" class="second-image" src="@product.PhotoUrl" alt="ProductImage" />
                                         </a>
                                         <div class="actions">
                                             <a href="wishlist.html" title="Wishlist" class="action wishlist">
@@ -99,9 +100,9 @@
                                             <a href="#" title="Quickview" class="action quickview" data-bs-toggle="modal" data-bs-target="#exampleModalCenter@(product.ProductId)">
                                                 <i class="pe-7s-search"></i>
                                             </a>
-                                            <a href="compare.html" title="Compare" class="action compare">
-                                                <i class="pe-7s-shuffle"></i>
-                                            </a>
+                                            @*<a href="compare.html" title="Compare" class="action compare">
+                                                    <i class="pe-7s-shuffle"></i>
+                                                </a>*@
                                         </div>
                                     </div>
                                     <div class="content">

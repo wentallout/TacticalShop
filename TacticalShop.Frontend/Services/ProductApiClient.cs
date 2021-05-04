@@ -21,13 +21,6 @@ namespace TacticalShop.Frontend.Services
             return await response.Content.ReadAsAsync<IList<ProductVm>>();
         }
 
-        public async Task<IList<ProductVm>> GetFilteredProducts(int? categoryid, int? brandid)
-        {
-            var response = await _client.GetAsync($"api/products/filterproducts?categoryid={categoryid}&brandid={brandid}");
-
-            return await response.Content.ReadAsAsync<IList<ProductVm>>();
-        }
-
         public async Task<ProductVm> GetProduct(int id)
         {
             var response = await _client.GetAsync("api/products/" + id);

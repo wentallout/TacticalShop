@@ -79,13 +79,16 @@ namespace TacticalShop.Backend.IdentityServer
                 {
                     ClientName = "react",
                     ClientId = "react",
-                    AccessTokenType = AccessTokenType.Reference,
+
+                     AccessTokenType = AccessTokenType.Reference,
+
                     AllowedGrantTypes = GrantTypes.Code,
+
                     AllowAccessTokensViaBrowser = true,
 
                     RequireClientSecret = false,
                     RequireConsent = false,
-                    RequirePkce = true,
+                    RequirePkce = false,
 
                     RedirectUris = new List<string>
                     {

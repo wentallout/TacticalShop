@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using TacticalShop.Backend.IdentityServer;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Extensions.ServiceCollection
 {

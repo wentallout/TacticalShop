@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
+using TacticalShop.Persistence;
 using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers

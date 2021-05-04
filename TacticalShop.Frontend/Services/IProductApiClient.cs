@@ -9,7 +9,5 @@ namespace TacticalShop.Frontend.Services
         Task<IList<ProductVm>> GetProducts(int? pagenumber, int? pagesize, int? categoryid, int? brandid);
 
         Task<ProductVm> GetProduct(int id);
-
-        Task<IList<ProductVm>> GetFilteredProducts(int? categoryid, int? brandid);
     }
 }

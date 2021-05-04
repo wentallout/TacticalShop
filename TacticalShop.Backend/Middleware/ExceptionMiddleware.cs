@@ -5,7 +5,7 @@ using System;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Application.Core;
+using TacticalShop.Application.Core;
 
 namespace TacticalShop.Backend.Middleware
 {
