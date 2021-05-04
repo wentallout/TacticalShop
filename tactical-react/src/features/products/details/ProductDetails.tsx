@@ -25,11 +25,7 @@ export default observer(function ProductDetails() {
 
 	return (
 		<Card fluid>
-			<Image
-				centered
-				size="medium"
-				src={`https://localhost:44341/${product.productImageName}`}
-			/>
+			<Image centered size="medium" src={`${product.photoUrl}`} />
 			<Card.Content>
 				<Card.Header>{product.productName}</Card.Header>
 				<Card.Meta>
@@ -41,7 +37,7 @@ export default observer(function ProductDetails() {
 				<Button.Group widths="2">
 					<Button
 						as={Link}
-						to={`/manage/${product.productId}`}
+						to={`/manage/product/${product.productId}`}
 						basic
 						color="blue"
 						content="EDIT"

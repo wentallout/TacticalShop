@@ -23,6 +23,7 @@ export default observer(function ProductList() {
 				{productsByDate.map((product) => (
 					<Item key={product.productId}>
 						<Item.Content>
+							<Item.Header>[{product.productId}]</Item.Header>
 							<Item.Header>
 								{product.productName} ({product.productQuantity} left)
 							</Item.Header>
