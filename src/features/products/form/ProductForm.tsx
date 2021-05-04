@@ -1,24 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent, useState } from "react";
-
+import { observer } from "mobx-react-lite";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Segment, Form } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
+import { useHistory, useParams } from "react-router";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { Link } from "react-router-dom";
 
-import { Product } from "../../../app/models/product";
+export default observer(function ProductForm() {
+	const history = useHistory();
+	const { productStore } = useStore();
 
-interface Props {
-	product: Product | undefined;
-	closeForm: () => void;
-	createOrEdit: (product: Product) => void;
-	submitting: boolean;
-}
-
-export default function ProductForm({
-	product: selectedProduct,
-	closeForm,
-	createOrEdit,
-	submitting,
-}: Props) {
-	const initialState = selectedProduct ?? {
+	const {
+		createProduct,
+		updateProduct,
+		loadProduct,
+		loading,
+		loadingInitial,
+	} = productStore;
+	const { productid } = useParams<{ productid: string }>();
+	const [product, setProduct] = useState({
 		productId: "",
 		productName: "",
 		productPrice: "",
@@ -32,12 +32,24 @@ export default function ProductForm({
 		createdDate: "",
 		updatedDate: "",
 		starRating: "",
-	};
+		photoUrl: "",
+	});
 
-	const [product, setProduct] = useState(initialState);
+	useEffect(() => {
+		if (productid)
+			loadProduct(productid).then((product) => setProduct(product!));
+	}, [productid, loadProduct]);
 
 	function handleSubmit() {
-		createOrEdit(product);
+		if (product.productId.length === 0) {
+			createProduct(product).then(() =>
+				history.push(`/products/${product.productId}`),
+			);
+		} else {
+			updateProduct(product).then(() =>
+				history.push(`/products/${product.productId}`),
+			);
+		}
 	}
 
 	function handleInputChange(
@@ -47,6 +59,7 @@ export default function ProductForm({
 		setProduct({ ...product, [name]: value });
 	}
 
+	if (loadingInitial) return <LoadingComponent content="Loading product..." />;
 	return (
 		<Segment clearing>
 			<Form onSubmit={handleSubmit} autoComplete="off">
@@ -87,14 +100,15 @@ export default function ProductForm({
 					onChange={handleInputChange}></Form.Input>
 
 				<Button
-					loading={submitting}
+					loading={loading}
 					floated="right"
 					positive
 					type="submit"
 					content="SUBMIT"
 				/>
 				<Button
-					onClick={closeForm}
+					as={Link}
+					to="/products"
 					floated="right"
 					type="button"
 					content="CANCEL"
@@ -102,4 +116,4 @@ export default function ProductForm({
 			</Form>
 		</Segment>
 	);
-}
+});

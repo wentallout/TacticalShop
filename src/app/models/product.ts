@@ -7,9 +7,10 @@ export interface Product {
 	productQuantity: string;
 	categoryId: string;
 	brandId: string;
-	categoryName?: string;
-	brandName?: string;
-	createdDate?: string;
-	updatedDate?: string;
-	starRating?: string;
+	categoryName: string;
+	brandName: string;
+	createdDate: string;
+	updatedDate: string;
+	starRating: string;
+	photoUrl: string;
 }

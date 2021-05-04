@@ -1,15 +1,22 @@
-import { User, UserManager, UserManagerSettings } from "oidc-client";
+import {
+	User,
+	UserManager,
+	UserManagerSettings,
+	WebStorageStateStore,
+} from "oidc-client";
+
+import * as Config from "../../config.js";
 
 const oidcSettings: UserManagerSettings = {
-	authority: "https://localhost:44341",
+	authority: `${Config.API_URL}`,
 	client_id: "react",
-	redirect_uri: "http://localhost:3000/authentication/login-callback",
-	post_logout_redirect_uri:
-		"http://localhost:3000/authentication/logout-callback",
+	redirect_uri: `${Config.REACT_URL}/authentication/login-callback`,
+	post_logout_redirect_uri: `${Config.REACT_URL}/authentication/logout-callback`,
 	response_type: "code",
-	scope: "tacticalshop.api",
+	scope: "tacticalshop.api openid profile",
 	automaticSilentRenew: true,
 	includeIdTokenInSilentRenew: true,
+	userStore: new WebStorageStateStore({ store: window.sessionStorage }),
 };
 
 class AuthService {
