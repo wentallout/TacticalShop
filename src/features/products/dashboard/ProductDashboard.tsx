@@ -25,6 +25,13 @@ export default observer(function ProductDashboard() {
 				exact
 				positive
 				content="Create Product"></Button>
+			<Button
+				as={NavLink}
+				to="/addphoto"
+				exact
+				positive
+				content="Add product photos"></Button>
+
 			<Grid>
 				<Grid.Column width="10">
 					<ProductList />

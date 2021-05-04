@@ -1,4 +1,3 @@
-import "./styles.css";
 import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
 import ProductDashboard from "../../features/products/dashboard/ProductDashboard";
@@ -11,6 +10,9 @@ import Auth from "../../features/oidc/Auth";
 import CategoryDetails from "../../features/categories/details/CategoryDetails";
 import CategoryDashboard from "../../features/categories/dashboard/CategoryDashboard";
 import CategoryForm from "../../features/categories/form/CategoryForm";
+
+import "./styles.css";
+import PhotoForm from "../../features/photos/PhotoForm";
 function App() {
 	const location = useLocation();
 
@@ -43,6 +45,12 @@ function App() {
 								exact
 								path={["/createProduct", "/manage/product/:productid"]}
 								component={ProductForm}
+							/>
+
+							<Route
+								exact
+								path={["/addPhoto", "/addphoto"]}
+								component={PhotoForm}
 							/>
 
 							<Route

@@ -1,8 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { ChangeEvent, useEffect, useState } from "react";
-
 import { Button, Segment, Form } from "semantic-ui-react";
-
 import { useStore } from "../../../app/stores/store";
 import { useHistory, useParams } from "react-router";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -34,6 +32,7 @@ export default observer(function ProductForm() {
 		createdDate: "",
 		updatedDate: "",
 		starRating: "",
+		photoUrl: "",
 	});
 
 	useEffect(() => {

@@ -1,6 +1,8 @@
 body {
 	background-color: #eaeaea !important;
+	font-family: "Inter", sans-serif !important ;
 }
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
 
 .ui.inverted.top.fixed.menu {
 	background-image: linear-gradient(135deg, #eb4f49 10%, #ffc600 100%);
