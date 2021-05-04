@@ -12,4 +12,5 @@ export interface Product {
 	createdDate: string;
 	updatedDate: string;
 	starRating: string;
+	photoUrl: string;
 }
