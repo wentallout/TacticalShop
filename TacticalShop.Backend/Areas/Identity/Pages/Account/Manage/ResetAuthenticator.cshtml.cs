@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
 
 namespace TacticalShop.Backend.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<User> _userManager;
+        private UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        ILogger<ResetAuthenticatorModel> _logger;
+        private ILogger<ResetAuthenticatorModel> _logger;
 
         public ResetAuthenticatorModel(
             UserManager<User> userManager,

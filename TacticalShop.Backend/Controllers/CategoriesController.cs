@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
+using TacticalShop.Application.Categories;
+using TacticalShop.Persistence;
 using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
@@ -13,7 +13,7 @@ namespace TacticalShop.Backend.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize("Bearer")]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : BaseApiController
     {
         private readonly DatabaseContext _context;
 
@@ -22,100 +22,39 @@ namespace TacticalShop.Backend.Controllers
             _context = context;
         }
 
-        // GET: api/Categories
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CategoryVm>>> GetCategory()
         {
-            return await _context.Categories
-                .Select(x => new CategoryVm { CategoryId = x.CategoryId, CategoryName = x.CategoryName, CategoryDescription = x.CategoryDescription }).AsNoTracking()
-                .ToListAsync();
+            return await Mediator.Send(new List.Query());
         }
 
-        // GET: api/Categories/5
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> GetCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var categoryVm = new CategoryVm
-            {
-                CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName,
-                CategoryDescription = category.CategoryDescription
-            };
-
-            return categoryVm;
+            return HandleResult(await Mediator.Send(new Details.Query { id = id }));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, CategoryVm categoryVm)
+        [AllowAnonymous]
+        public async Task<ActionResult<CategoryVm>> PutCategory(int id, CategoryCreateRequest categoryCreateRequest)
         {
-            if (id != categoryVm.CategoryId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(categoryVm).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return HandleResult(await Mediator.Send(new Edit.Command { id = id, categoryCreateRequest = categoryCreateRequest }));
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<CategoryVm>> PostCategory(CategoryCreateRequest categoryCreateRequest)
         {
-            var category = new Category
-            {
-                CategoryName = categoryCreateRequest.CategoryName,
-                CategoryDescription = categoryCreateRequest.CategoryDescription,
-            };
-
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { category.CategoryId }, new CategoryVm { CategoryId = category.CategoryId, CategoryName = category.CategoryName });
+            return HandleResult(await Mediator.Send(new Create.Command { categoryCreateRequest = categoryCreateRequest }));
         }
 
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var categoryVm = await _context.Categories.FindAsync(id);
-            if (categoryVm == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categories.Remove(categoryVm);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return HandleResult(await Mediator.Send(new Delete.Command { id = id }));
         }
     }
 }

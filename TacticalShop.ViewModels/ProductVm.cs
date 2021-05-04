@@ -4,7 +4,6 @@ namespace TacticalShop.ViewModels
 {
     public class ProductVm
     {
-
         public int ProductId { get; set; }
         public string ProductName { get; set; }
 
@@ -12,14 +11,11 @@ namespace TacticalShop.ViewModels
 
         public string ProductDescription { get; set; }
 
-
-
         public string ProductImageName { get; set; }
         public int ProductQuantity { get; set; }
 
         public int CategoryId { get; set; }
         public int BrandId { get; set; }
-
 
         public string CategoryName { get; set; }
 
@@ -31,6 +27,6 @@ namespace TacticalShop.ViewModels
 
         public int StarRating { get; set; }
 
-
+        public string PhotoUrl { get; set; }
     }
 }

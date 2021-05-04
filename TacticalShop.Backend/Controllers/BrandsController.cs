@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TacticalShop.Backend.Data;
-using TacticalShop.Backend.Models;
+using TacticalShop.Domain;
+using TacticalShop.Persistence;
 using TacticalShop.ViewModels;
 
 namespace TacticalShop.Backend.Controllers
@@ -56,14 +56,18 @@ namespace TacticalShop.Backend.Controllers
         // PUT: api/Brands/5
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, BrandVm brandVm)
+        [AllowAnonymous]
+        public async Task<ActionResult<BrandVm>> PutBrand(int id, BrandCreateRequest brandCreateRequest)
         {
-            if (id != brandVm.BrandId)
+            var brand = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
+            brand.CategoryName = brandCreateRequest.BrandName;
+
+            if (id != brand.CategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(brandVm).State = EntityState.Modified;
+            _context.Entry(brand).State = EntityState.Modified;
 
             try
             {
@@ -84,8 +88,6 @@ namespace TacticalShop.Backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Brands
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<BrandVm>> PostBrand(BrandCreateRequest brandCreateRequest)
         {

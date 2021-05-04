@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TacticalShop.Backend.Data;
+using TacticalShop.Persistence;
 
 namespace TacticalShop.Test
 {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using TacticalShop.Backend.Application.Core;
+using TacticalShop.Application.Core;
 
 namespace TacticalShop.Backend.Controllers
 {
