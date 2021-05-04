@@ -2,6 +2,10 @@ import axios, { AxiosResponse } from "axios";
 import { Product } from "../models/product";
 import { Category } from "../models/category";
 import * as Config from "../../config.js";
+<<<<<<< HEAD
+=======
+import { User } from "../models/user";
+>>>>>>> eea345c8ebc613772181eaab7d4d7aaa55fa8d55
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -71,10 +75,25 @@ const Photos = {
 	},
 };
 
+<<<<<<< HEAD
+=======
+const Users = {
+	list: () => requests.get<User[]>("./users"),
+	details: (id: string) => requests.get<User>(`/users/${id}`),
+	create: (user: User) => requests.post<void>("/users", user),
+	update: (user: User) => requests.put<void>(`/users/${user.id}`, user),
+	delete: (id: string) => requests.delete<void>(`/users/${id}`),
+};
+
+>>>>>>> eea345c8ebc613772181eaab7d4d7aaa55fa8d55
 const agent = {
 	Products,
 	Categories,
 	Photos,
+<<<<<<< HEAD
+=======
+	Users,
+>>>>>>> eea345c8ebc613772181eaab7d4d7aaa55fa8d55
 };
 
 export default agent;

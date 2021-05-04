@@ -21,7 +21,11 @@ export default observer(function ProductList() {
 		<Segment>
 			<Item.Group divided>
 				{productsByDate.map((product) => (
+<<<<<<< HEAD
 					<Item key={product.productId}>
+=======
+					<Item>
+>>>>>>> eea345c8ebc613772181eaab7d4d7aaa55fa8d55
 						<Item.Content>
 							<Item.Header>[{product.productId}]</Item.Header>
 							<Item.Header>
