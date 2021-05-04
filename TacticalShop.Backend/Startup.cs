@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TacticalShop.Application.Interfaces;
 using TacticalShop.Application.Products;
 using TacticalShop.Application.Services;
 using TacticalShop.Backend.Configs;
@@ -29,6 +30,7 @@ namespace TacticalShop.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabaseContext(Configuration);
+
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
@@ -38,6 +40,7 @@ namespace TacticalShop.Backend
             services.AddAuthenAuthor();
             services.AddCorsOrigins(Configuration);
             services.AddMediatR(typeof(List.Handler).Assembly);
+            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
             services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
 
             services.AddControllersWithViews()

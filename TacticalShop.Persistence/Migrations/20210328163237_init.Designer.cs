@@ -19,7 +19,7 @@ namespace TacticalShop.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Brand", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Brand", b =>
                 {
                     b.Property<int>("BrandId")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Category", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Product", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -83,15 +83,15 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Product", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Product", b =>
                 {
-                    b.HasOne("TacticalShop.Backend.Models.Brand", "Brand")
+                    b.HasOne("TacticalShop.Domain.Brand", "Brand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TacticalShop.Backend.Models.Category", "Category")
+                    b.HasOne("TacticalShop.Domain.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -102,12 +102,12 @@ namespace TacticalShop.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Brand", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Brand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Category", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Category", b =>
                 {
                     b.Navigation("Products");
                 });

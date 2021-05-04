@@ -33,7 +33,7 @@ namespace TacticalShop.Application.Products
 
             public async Task<Result<PagedList<ProductVm>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var queryable = _context.Products.Include(x => x.Brand).Include(x => x.Category).AsQueryable().AsNoTracking();
+                var queryable = _context.Products.Include(x => x.Photos).Include(x => x.Brand).Include(x => x.Category).AsQueryable().AsNoTracking();
 
                 if (request.categoryid != null)
                 {
@@ -59,6 +59,8 @@ namespace TacticalShop.Application.Products
                     BrandName = x.Brand.BrandName,
                     CategoryName = x.Category.CategoryName,
                     StarRating = x.StarRating,
+                    PhotoUrl = x.Photos.Select(x => x.Url).FirstOrDefault(),
+
                     ProductImageName = _storageService.GetFileUrl(x.ProductImageName)
                 }).AsQueryable();
 

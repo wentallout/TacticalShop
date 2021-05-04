@@ -47,5 +47,7 @@ namespace TacticalShop.Domain
         public Category Category { get; set; }
 
         public ICollection<Rating> Ratings { get; set; }
+
+        public ICollection<Photo> Photos { get; set; }
     }
 }

@@ -6,6 +6,10 @@ namespace TacticalShop.Persistence
 {
     public class DatabaseContext : IdentityDbContext<User>
     {
+        public DatabaseContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Brand> Brands { get; set; }
@@ -13,9 +17,7 @@ namespace TacticalShop.Persistence
         public DbSet<Category> Categories { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        {
-        }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

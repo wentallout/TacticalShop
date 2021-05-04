@@ -31,8 +31,6 @@
   <ItemGroup>
 	<ProjectReference Include="..\TacticalShop.Application\TacticalShop.Application.csproj" />
 	<ProjectReference Include="..\TacticalShop.Infrastructure\TacticalShop.Infrastructure.csproj" />
-	<ProjectReference Include="..\TacticalShop.Persistence\TacticalShop.Persistence.csproj" />
-	<ProjectReference Include="..\TacticalShop.ViewModels\TacticalShop.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

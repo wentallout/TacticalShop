@@ -155,7 +155,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Brand", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Brand", b =>
                 {
                     b.Property<int>("BrandId")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Category", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -187,7 +187,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Product", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -229,7 +229,7 @@ namespace TacticalShop.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.User", b =>
+            modelBuilder.Entity("TacticalShop.Domain.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -311,7 +311,7 @@ namespace TacticalShop.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TacticalShop.Backend.Models.User", null)
+                    b.HasOne("TacticalShop.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -320,7 +320,7 @@ namespace TacticalShop.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TacticalShop.Backend.Models.User", null)
+                    b.HasOne("TacticalShop.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -335,7 +335,7 @@ namespace TacticalShop.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TacticalShop.Backend.Models.User", null)
+                    b.HasOne("TacticalShop.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -344,22 +344,22 @@ namespace TacticalShop.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TacticalShop.Backend.Models.User", null)
+                    b.HasOne("TacticalShop.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Product", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Product", b =>
                 {
-                    b.HasOne("TacticalShop.Backend.Models.Brand", "Brand")
+                    b.HasOne("TacticalShop.Domain.Brand", "Brand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TacticalShop.Backend.Models.Category", "Category")
+                    b.HasOne("TacticalShop.Domain.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -370,12 +370,12 @@ namespace TacticalShop.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Brand", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Brand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TacticalShop.Backend.Models.Category", b =>
+            modelBuilder.Entity("TacticalShop.Domain.Category", b =>
                 {
                     b.Navigation("Products");
                 });

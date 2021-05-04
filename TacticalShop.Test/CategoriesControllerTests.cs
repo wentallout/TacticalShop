@@ -50,12 +50,13 @@ namespace TacticalShop.Test
         public async Task DeleteCategory_Success()
         {
             var dbContext = _fixture.Context;
-            var category = new Category { CategoryId = 1, CategoryName = "TestDeleteCategory" };
+            var category = new Category { CategoryName = "TestDeleteCategory", CategoryDescription = "CategoryDescDelete" };
+            dbContext.Categories.Add(category);
             await dbContext.SaveChangesAsync();
             var controller = new CategoriesController(dbContext);
-            var result = await controller.DeleteCategory(1);
+            var result = await controller.DeleteCategory(category.CategoryId);
 
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<OkResult>(result);
         }
     }
 }

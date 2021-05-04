@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TacticalShop.Application.Core;
@@ -29,7 +30,7 @@ namespace TacticalShop.Application.Products
 
             public async Task<Result<ProductVm>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var product = await _context.Products.Include(x => x.Brand).Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(request.id));
+                var product = await _context.Products.Include(x => x.Photos).Include(x => x.Brand).Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.ProductId.Equals(request.id));
 
                 var productVm = new ProductVm
                 {
@@ -45,7 +46,8 @@ namespace TacticalShop.Application.Products
                     ProductQuantity = product.ProductQuantity,
                     CreatedDate = product.CreatedDate,
                     UpdatedDate = product.UpdatedDate,
-                    StarRating = product.StarRating
+                    StarRating = product.StarRating,
+                    PhotoUrl = product.Photos.Select(x => x.Url).FirstOrDefault(),
                 };
 
                 productVm.ProductImageName = _storageService.GetFileUrl(product.ProductImageName);
