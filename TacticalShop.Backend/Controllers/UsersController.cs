@@ -11,6 +11,7 @@ namespace TacticalShop.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("Bearer")]
     public class UsersController : ControllerBase
     {
         private readonly DatabaseContext _context;
@@ -34,6 +35,7 @@ namespace TacticalShop.Backend.Controllers
             }).ToListAsync();
             var uservm = users.Select(x => new UserVm
             {
+                Id = x.Id,
                 FullName = x.FullName,
                 UserName = x.UserName,
                 Email = x.Email,
