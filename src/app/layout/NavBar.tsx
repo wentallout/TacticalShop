@@ -1,11 +1,8 @@
-import { Container, Menu, Button } from "semantic-ui-react";
+import { Container, Menu } from "semantic-ui-react";
 
 import { NavLink } from "react-router-dom";
 
-export default function NavBar()
-{
-
-
+export default function NavBar() {
 	return (
 		<>
 			<Menu inverted fixed="top">
@@ -19,18 +16,8 @@ export default function NavBar()
 						TacticalShopAdmin
 					</Menu.Item>
 
-
-
 					<Menu.Item as={NavLink} to="/products" exact name="Products" />
-
-					<Menu.Item>
-						<Button
-							as={NavLink}
-							to="/createProduct"
-							exact
-							positive
-							content="Create Product"></Button>
-					</Menu.Item>
+					<Menu.Item as={NavLink} to="/categories" exact name="Categories" />
 				</Container>
 			</Menu>
 		</>

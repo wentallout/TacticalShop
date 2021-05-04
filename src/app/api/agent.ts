@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-
 import { Product } from "../models/product";
+import { Category } from "../models/category";
+import * as Config from "../../config.js";
 
 const sleep = (delay: number) => {
 	return new Promise((resolve) => {
@@ -8,15 +9,18 @@ const sleep = (delay: number) => {
 	});
 };
 
-axios.defaults.baseURL = "https://localhost:44341/api";
+axios.defaults.baseURL = `${Config.API_URL}/api`;
 // axios.defaults.headers['Authorization'] = 'Bearer access_token';
 
-
-
+axios.interceptors.request.use(function (config) {
+	const token = localStorage.getItem("token");
+	config.headers.Authorization = token ? `Bearer ${token}` : "";
+	return config;
+});
 
 axios.interceptors.response.use(async (response) => {
 	try {
-		await sleep(500);
+		await sleep(100);
 		return response;
 	} catch (error) {
 		console.log(error);
@@ -25,7 +29,6 @@ axios.interceptors.response.use(async (response) => {
 });
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
-
 
 const requests = {
 	get: <T>(url: string) => axios.get<T>(url).then(responseBody),
@@ -46,8 +49,32 @@ const Products = {
 		requests.delete<void>(`/products/${productid}`),
 };
 
+const Categories = {
+	list: () => requests.get<Category[]>("./categories"),
+	details: (categoryid: string) =>
+		requests.get<Category>(`/categories/${categoryid}`),
+	create: (category: Category) => requests.post<void>("/categories", category),
+	update: (category: Category) =>
+		requests.put<void>(`/categories/${category.categoryId}`, category),
+	delete: (categoryid: string) =>
+		requests.delete<void>(`/categories/${categoryid}`),
+};
+
+const Photos = {
+	uploadPhoto: (file: Blob, productid) => {
+		let formData = new FormData();
+		formData.append("File", file);
+		formData.append("productid", productid);
+		return axios.post("/photos", formData, {
+			headers: { "Content-type": "multipart/form-data" },
+		});
+	},
+};
+
 const agent = {
 	Products,
+	Categories,
+	Photos,
 };
 
 export default agent;
