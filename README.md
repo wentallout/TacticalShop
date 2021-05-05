@@ -28,6 +28,11 @@ Reference: <https://letienthanh0212.medium.com/cqrs-and-mediator-in-net-core-pro
 
 9/ **React**: contains a basic admin page using React, Mobx (Manage Products, Categories, view Users info, Cloudinary image uploader)
 
+
+## Authorization Code Grant flow (with PKCE)
+![odkf14kzlb5gcbvrmuvx](https://user-images.githubusercontent.com/76118931/117102110-cfa57880-ada1-11eb-8368-172ea32f2cfb.gif)
+
+
 ## STEP 1: Install SDK
 
 You need to install .NET 5.0 here: https://dotnet.microsoft.com/download/dotnet/5.0
