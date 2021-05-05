@@ -32,6 +32,30 @@ Reference: <https://letienthanh0212.medium.com/cqrs-and-mediator-in-net-core-pro
 ## Authorization Code Grant flow (with PKCE)
 ![odkf14kzlb5gcbvrmuvx](https://user-images.githubusercontent.com/76118931/117102110-cfa57880-ada1-11eb-8368-172ea32f2cfb.gif)
 
+The client application prepares an /authorize endpoint request with mandatory parameters such as client_id, grant_type, response_type and redirect_uri and makes a GET request to the IdentityServer (via a browser).
+
+The server when received the request examines the client_id, grant_type and the redirect_uri, and validates for matching client records in its data store.
+
+If a matching client is available, which means that this request is being made by a genuine client which is already registered to use the Token server with this grant and then redirects to its own Login page, where it requests the user to enter his account credentials if already exist or create a new account.
+
+Once user credentials are validated, the Token Server redirects to the redirect_uri registered with the client and attaches a temporary code with a "code" query parameter.
+
+The client extracts this code received from the Token Server and then prepares a POST request to the /token endpoint to exchange this token for an access (or identity) token that enables it to impersonate the user identity. It passes the client_id, code and the redirect_uri to the server along with a security header passing its clientSecret.
+
+The Token Server receives this POST request, examines the header to validate the client and then validates the code sent in the request body to check if there was any code against this client which was generated previously. If validated, the Token Server returns the access (and or id) tokens to the client.
+
+The client application prepares an /authorize endpoint request with mandatory parameters such as client_id, grant_type, response_type and redirect_uri and makes a GET request to the IdentityServer (via a browser).
+
+The server when received the request examines the client_id, grant_type and the redirect_uri, and validates for matching client records in its data store.
+
+If a matching client is available, which means that this request is being made by a genuine client which is already registered to use the Token server with this grant and then redirects to its own Login page, where it requests the user to enter his account credentials if already exist or create a new account.
+
+Once user credentials are validated, the Token Server redirects to the redirect_uri registered with the client and attaches a temporary code with a "code" query parameter.
+
+The client extracts this code received from the Token Server and then prepares a POST request to the /token endpoint to exchange this token for an access (or identity) token that enables it to impersonate the user identity. It passes the client_id, code and the redirect_uri to the server along with a security header passing its clientSecret.
+
+The Token Server receives this POST request, examines the header to validate the client and then validates the code sent in the request body to check if there was any code against this client which was generated previously. If validated, the Token Server returns the access (and or id) tokens to the client.
+
 
 ## STEP 1: Install SDK
 
