@@ -4,6 +4,20 @@
 
 An E-commerce project to help me learn ASP.NET 5, EF Core, best practices, etc.
 
+## Project Structure:
+
+Experiment with CQRS + Mediator in .NET Core.
+Reference: <https://letienthanh0212.medium.com/cqrs-and-mediator-in-net-core-project-c0b477eab6e9>
+1/ Backend: API Controllers + IdentityServer + NWebsec.AspNetCore.Middleware + use MediatR to send requests to a handler (which is in Application project).
+2/ Application: contains logic for API Controllers to use, work in progress but categories and products are functional.
+3/ Persistence: contains DatabaseContext and Migrations for EntityFrameworkCore.
+4/ Domain: contains Models for DatabaseContext in Persistence.
+5/ ViewModels: contains ViewModels. (might not be optimal in this pattern?)
+6/ Test: UnitTest using XUnit.
+7/ Infrastructure: contains services (ex: EmailSender, Cloudinary) but right now I only have Cloudinary.
+8/ Frontend: Customer website (ViewComponent, HttpClient, Controllers, Views)
+9/ React: contains a basic admin page (Manage Products, Categories, view Users info, Cloudinary image uploader)
+
 ## STEP 1: Install SDK
 
 You need to install .NET 5.0 here: https://dotnet.microsoft.com/download/dotnet/5.0
